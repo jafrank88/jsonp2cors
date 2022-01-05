@@ -9,18 +9,16 @@ const axios = require('axios');
 const cors = require('cors');
 const morgan = require("morgan");
 const helmet = require("helmet");
-
 const rateLimit = require("express-rate-limit");
-
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100 // limit each IP to 100 requests per windowMs
   });
 
 const favicon = require('serve-favicon')
+
 // Serve Favicon
 app.use(favicon('favicon.ico'))
-
 
 // Middleware
 app.use(helmet())
