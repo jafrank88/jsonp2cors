@@ -25,35 +25,34 @@ app.use(helmet())
 app.use(morgan("common"))
 app.use(cors())
 
-app.get('/api/:query', (req, res) => {
-    const UserRequest = req.params.query
-    console.log('UserRequest ' + UserRequest)
-    const resp = axios.get('https://courtlistener.com/api/rest/v3/clusters/?q=' + UserRequest)
-    .then (resp => res.json(resp.data))
-    
+app.get('/api/CL/:query', (req, res) => {
+    let CLUserRequest = req.params.query
+    console.log('UserRequest ' + CLUserRequest)
+    const resp = axios.get('https://courtlistener.com/api/rest/v3/clusters/?q=' + CLUserRequest)
+    .then (resp => res.jsonp(resp.data))
 });
 
-//axios.get(('https://courtlistener.com/api/rest/v3/clusters/?q=' + UserRequest), function(error, response, body) => { 
-  //  console.log('https://courtlistener.com/api/rest/v3/clusters/?q=' + UserRequest)
-  //  console.log('Error :' + error)
-  //  console.log('Response :' + response)
-  //  console.log('Body :' + body)
-// });
+app.get('/api/CAP/:query', (req, res) => {
+  let CAPUserRequest = req.params.query
+  console.log('UserRequest ' + CAPUserRequest)
+  const resp = axios.get('https://api.case.law/v1/cases/?q=' + CAPUserRequest)
+  .then (resp => res.jsonp(resp.data))
+});
 
+app.get('/api/WAC/:query', (req, res) => {
+  let WACUserRequest = req.params.query
+  console.log('UserRequest ' + WACUserRequest)
+  const resp = axios.get('https://lawdoccitelookup.leg.wa.gov/v1/Help/Api/WAC/?q=' + WACUserRequest)
+  .then (resp => res.jsonp(resp.data))
+});
 
+app.get('/api/RCW/:query', (req, res) => {
+  let RCWUserRequest = req.params.query
+  console.log('UserRequest ' + RCWUserRequest)
+  const resp = axios.get('https://search.leg.wa.gov/v1/Help/Api//RCW/?q=' + RCWUserRequest)
+  .then (resp => res.jsonp(resp.data))
+});
 
-
-    //res.status(200).send(req('https://courtlistener.com/api/rest/v3/clusters/?q=' + $UserRequest) , (function(error, response, body)
-            //const data = JSON.parse(body);
-        
-
-
-// catchall if it gets here
-//app.all('*',(req,res)=>{
-//    console.log('resource not found')
-//})
-
-// Creating a server with the PORT variable declared above
 app.listen(PORT, (err) => {
     if (err) {
         console.error(err)
