@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express(); 
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 80;
 
 //Replacement for request (Axios/got/node-fetch)
 const axios = require('axios');
