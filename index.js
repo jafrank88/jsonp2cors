@@ -34,10 +34,10 @@ app.get('/api/CL/', (req, res) => {
     .then (resp => res.jsonp(resp.data))
 });
 
-app.get('/api/CAP/:query', (req, res) => {
-  let CAPUserRequest = req.params.query
-  console.log('UserRequest ' + CAPUserRequest)
-  const resp = axios.get('https://api.case.law/v1/cases/?q=' + CAPUserRequest)
+app.get('/api/CAP/', (req, res) => {
+  let capuserrequest = req.query
+  console.log('UserRequest ' + capuserrequest)
+  const resp = axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest + '&jurisdiction=wash')
   .then (resp => res.jsonp(resp.data))
 });
 
