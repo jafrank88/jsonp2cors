@@ -25,7 +25,7 @@ app.use(helmet())
 app.use(morgan("common"))
 app.use(cors())
 
-app.get('/api/CL/:query', (req, res) => {
+app.get('/api/CL/:query/:page/:sort/:callback', (req, res) => {
     let CLUserRequest = req.params.query
     console.log('UserRequest ' + CLUserRequest)
     const resp = axios.get('https://courtlistener.com/api/rest/v3/clusters/?q=' + CLUserRequest)
