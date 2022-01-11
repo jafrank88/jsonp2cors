@@ -25,8 +25,7 @@ app.use(helmet())
 app.use(morgan("common"))
 app.use(cors())
 
-//Defining JSONP callback 
-app.set('jsonp callback name', 'callback');
+
 
 
 app.get('/api/CL/', (req, res) => {
@@ -34,6 +33,7 @@ app.get('/api/CL/', (req, res) => {
     //let callback= req.query.callback
     console.log('UserRequest ' + cluserrequest)
     //console.log('Callback : ' + callback)
+    app.set('jsonp callback name', req.query.callback)
     const resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest )
     .then (resp => res.jsonp(resp.data))
 });
@@ -41,6 +41,7 @@ app.get('/api/CL/', (req, res) => {
 app.get('/api/CAP/', (req, res) => {
   let capuserrequest = req.query
   console.log('UserRequest ' + capuserrequest)
+  app.set('jsonp callback name', req.query.callback)
   const resp = axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest + '&jurisdiction=wash')
   .then (resp => res.jsonp(resp.data))
 });
