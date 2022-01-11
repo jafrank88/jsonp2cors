@@ -25,6 +25,10 @@ app.use(helmet())
 app.use(morgan("common"))
 app.use(cors())
 
+//Defining JSONP callback 
+app.set('jsonp callback name', 'callback');
+
+
 app.get('/api/CL/', (req, res) => {
     let cluserrequest = req.query
     //let callback= req.query.callback
