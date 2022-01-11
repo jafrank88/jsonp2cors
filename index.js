@@ -25,10 +25,12 @@ app.use(helmet())
 app.use(morgan("common"))
 app.use(cors())
 
-app.get('/api/CL/:callback/:query/:page/:sort/', (req, res) => {
-    let CLUserRequest = req.params.query
-    console.log('UserRequest ' + CLUserRequest)
-    const resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + CLUserRequest )
+app.get('/api/CL/', (req, res) => {
+    let cluserrequest = req.query
+    //let callback= req.query.callback
+    console.log('UserRequest ' + cluserrequest)
+    //console.log('Callback : ' + callback)
+    const resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest )
     .then (resp => res.jsonp(resp.data))
 });
 
