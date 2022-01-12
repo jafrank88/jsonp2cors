@@ -30,8 +30,8 @@ app.use(cors())
 app.get('/api/CL/', (req, res) => {
     let cluserrequest = req.query.q
     //let callback= req.query.callback
-    console.log('UserRequest ' + cluserrequest)
-    //console.log('Callback : ' + callback)
+    console.log('CL UserRequest ' + cluserrequest)
+    console.log('Callback : ' + req.query.callback)
     app.set('jsonp callback name', req.query.callback)
     const resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest )
     .then (resp => res.jsonp(resp.data))
@@ -39,29 +39,33 @@ app.get('/api/CL/', (req, res) => {
 
 app.get('/api/CAP/', (req, res) => {
   let capuserrequest = req.query.q
-  console.log('UserRequest ' + capuserrequest)
-  app.set('jsonp callback name', req.query.callback)
+  console.log('CAP UserRequest ' + capuserrequest)
+  console.log('Callback : ' + req.query.callback)
+  //app.set('jsonp callback name', req.query.callback)
   const resp = axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest + '&jurisdiction=wash')
   .then (resp => res.jsonp(resp.data))
 });
 
 app.get('/api/WAC/', (req, res) => {
   let wacuserRequest = req.query.q
-  console.log('UserRequest ' + wacuserRequest)
+  console.log('WAC UserRequest ' + wacuserRequest)
+  console.log('Callback : ' + req.query.callback)
   const resp = axios.get('https://lawdoccitelookup.leg.wa.gov/v1/Help/Api/WAC/?q=' + wacuserRequest)
   .then (resp => res.jsonp(resp.data))
 });
 
 app.get('/api/RCW/', (req, res) => {
   let rcwuserRequest = req.query.q
-  console.log('UserRequest ' + rcwuserRequest)
+  console.log('RCW UserRequest ' + rcwuserRequest)
+  console.log('Callback : ' + req.query.callback)
   const resp = axios.get('https://search.leg.wa.gov/v1/Help/Api/RCW/?q=' + rcwuserRequest)
   .then (resp => res.jsonp(resp.data))
 });
 
 app.get('/api/WLH/', (req, res) => {
   let wlhuserRequest = req.query.q
-  console.log('UserRequest ' + wlhuserRequest)
+  console.log('WLH UserRequest ' + wlhuserRequest)
+  console.log('Callback : ' + req.query.callback)
   const resp = axios.get('https://www.washingtonlawhelp.org/search?q=' + wlhuserRequest)
   .then (resp => res.jsonp(resp.data))
 });
