@@ -15,6 +15,9 @@ const limiter = rateLimit({
     max: 100 // limit each IP to 100 requests per windowMs
   });
 
+
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+
 const favicon = require('serve-favicon')
 
 // Serve Favicon
