@@ -16,7 +16,6 @@ const limiter = rateLimit({
   });
 
 
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 const favicon = require('serve-favicon')
 
@@ -27,6 +26,8 @@ app.use(favicon('favicon.ico'))
 app.use(helmet())
 app.use(morgan("common"))
 app.use(cors())
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+
 
 // Main functions for four endpoints
 
