@@ -22,7 +22,7 @@ const favicon = require('serve-favicon')
 app.use(favicon('favicon.ico'))
 
 // Middleware//
-app.use(helmet())
+// app.use(helmet())
 app.use(morgan("common"))
 app.use(cors())
 
