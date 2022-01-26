@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express(); 
 const PORT = process.env.PORT || 80;
+res.set('content-type', 'application/javascript')
 
 //Replacement for request (Axios/got/node-fetch)
 const axios = require('axios');
@@ -15,7 +16,7 @@ const limiter = rateLimit({
     max: 100 // limit each IP to 100 requests per windowMs
   });
 
-const favicon = require('serve-favicon');
+const favicon = require('serve-favicon')
 
 // Serve Favicon
 app.use(favicon('favicon.ico'))
@@ -25,7 +26,7 @@ app.use(helmet())
 app.use(morgan("common"))
 app.use(cors())
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-res.set('content-type', 'application/javascript')
+
 
 // Main functions for five endpoints
 
@@ -79,7 +80,3 @@ app.listen(PORT, (err) => {
 
     console.log('Listening on port ' + PORT)
 })
-
-function newFunction() {
-  return 'helmet/dist/middlewares/x-content-type-options';
-}
