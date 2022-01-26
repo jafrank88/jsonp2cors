@@ -8,7 +8,7 @@ const axios = require('axios');
 // Loading middleware
 const cors = require('cors');
 const morgan = require("morgan");
-const helmet = require("helmet");
+// const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -26,10 +26,10 @@ app.use(favicon('favicon.ico'))
 // app.use(helmet())
 app.use(morgan("common"))
 app.use(cors())
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+// app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 
-// Main functions for four endpoints
+// Main functions for five endpoints
 
 app.get('/api/CL/', (req, res) => {
     let cluserrequest = req.query.q
