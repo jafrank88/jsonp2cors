@@ -28,7 +28,7 @@ app.use(cors())
 
 //security
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-
+app.set('Content-Type', 'text/javascript');
 // Main functions for five endpoints
 
 app.get('/api/CL/', (req, res) => {
