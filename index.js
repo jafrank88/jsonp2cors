@@ -15,9 +15,11 @@ const limiter = rateLimit({
     max: 100 // limit each IP to 100 requests per windowMs
   });
 
+//to prevent CORB
+req.accepts(application/javascript);
 
-
-const favicon = require('serve-favicon')
+const favicon = require('serve-favicon');
+//const { default: xContentTypeOptions } = require('helmet/dist/middlewares/x-content-type-options');
 
 // Serve Favicon
 app.use(favicon('favicon.ico'))
