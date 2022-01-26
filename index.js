@@ -27,12 +27,7 @@ app.use(morgan("common"))
 app.use(cors())
 
 //security
-app.use(
-  helmet({
-    crossOriginResourcePolicy: false,
-    noSniff: false,
-  })
-);
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 // Main functions for five endpoints
 
