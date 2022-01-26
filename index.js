@@ -27,12 +27,9 @@ app.use(morgan("common"))
 app.use(cors())
 
 //security
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-//app.set("Content-Security-Policy", "default-src 'self'");  
-//app.disable('x-powered-by')
-//app.set('content-type', 'application/javascript; charset=utf-8');
 app.use(
   helmet({
+    crossOriginResourcePolicy: false,
     noSniff: false,
   })
 );
