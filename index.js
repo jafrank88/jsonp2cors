@@ -8,28 +8,24 @@ const axios = require('axios');
 // Loading middleware
 const cors = require('cors');
 const morgan = require("morgan");
-// const helmet = require("helmet");
+const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100 // limit each IP to 100 requests per windowMs
   });
 
-//to prevent CORB
-req.accepts(application/javascript);
-
 const favicon = require('serve-favicon');
-//const { default: xContentTypeOptions } = require('helmet/dist/middlewares/x-content-type-options');
 
 // Serve Favicon
 app.use(favicon('favicon.ico'))
 
 // Middleware//
-// app.use(helmet())
+app.use(helmet())
 app.use(morgan("common"))
 app.use(cors())
-// app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+res.set('content-type', 'application/javascript')
 
 // Main functions for five endpoints
 
@@ -83,3 +79,7 @@ app.listen(PORT, (err) => {
 
     console.log('Listening on port ' + PORT)
 })
+
+function newFunction() {
+  return 'helmet/dist/middlewares/x-content-type-options';
+}
