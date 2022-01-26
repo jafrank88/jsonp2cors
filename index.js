@@ -26,7 +26,7 @@ app.use(favicon('favicon.ico'))
 app.use(morgan("common"))
 app.use(cors())
 // app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.setHeader('content-type', 'application/javascript');
+app.set('content-type', 'application/javascript');
 
 // Main functions for five endpoints
 
