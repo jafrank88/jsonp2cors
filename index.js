@@ -9,7 +9,7 @@ const axios = require('axios');
 // Loading middleware
 const cors = require('cors');
 const morgan = require("morgan");
-// const helmet = require("helmet");
+const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -22,15 +22,20 @@ const favicon = require('serve-favicon')
 app.use(favicon('favicon.ico'))
 
 // Middleware//
-// app.use(helmet())
+app.use(helmet())
 app.use(morgan("common"))
 app.use(cors())
-// app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 //security
-app.set("Content-Security-Policy", "default-src 'self'");  
-app.disable('x-powered-by')
-app.set('content-type', 'application/javascript; charset=utf-8');
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+//app.set("Content-Security-Policy", "default-src 'self'");  
+//app.disable('x-powered-by')
+//app.set('content-type', 'application/javascript; charset=utf-8');
+app.use(
+  helmet({
+    noSniff: false,
+  })
+);
 
 // Main functions for five endpoints
 
