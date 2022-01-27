@@ -27,6 +27,7 @@ app.use(morgan("common"))
 app.use(cors())
 
 //security
+app.options('*', cors()) // include before other routes
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.set('Content-Type', 'text/javascript');
 // Main functions for five endpoints
