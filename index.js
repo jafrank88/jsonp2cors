@@ -21,7 +21,7 @@ app.use(favicon('favicon.ico'))
 
 // Middleware//
 app.use(morgan("common"))
-app.use(cors())
+//app.use(cors())
 
 //security
 app.use(
