@@ -14,22 +14,21 @@ const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100 // limit each IP to 100 requests per windowMs
   });
-
 const favicon = require('serve-favicon')
 
 // Serve Favicon
 app.use(favicon('favicon.ico'))
 
 // Middleware//
-// app.use(helmet())
 app.use(morgan("common"))
 app.use(cors())
 
 //security
-//app.options('*', cors()) // include before other routes
-//app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-//app.set('Content-Type', 'text/javascript');
-
+app.use(
+  helmet({
+    crossOriginResourcePolicy: "cross-origin"
+  })
+);
 
 // Main functions for five endpoints
 
