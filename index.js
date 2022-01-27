@@ -26,7 +26,7 @@ app.use(cors())
 //security
 app.use(
   helmet({
-    crossOriginResourcePolicy: "cross-origin"
+    crossOriginResourcePolicy: { policy: "cross-origin" }
   })
 );
 
