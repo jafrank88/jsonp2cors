@@ -39,7 +39,9 @@ app.get('/api/CL/', (req, res) => {
     console.log('Callback : ' + req.query.callback)
     app.set('jsonp callback name', req.query.callback)
     const resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest )
-    res.jsonp(resp.data)
+    //console.log(resp)
+    //console.log(resp.data)
+    res.jsonp(resp)
 });
 
 app.get('/api/CAP/', (req, res) => {
