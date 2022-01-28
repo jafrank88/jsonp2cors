@@ -38,15 +38,15 @@ app.get('/', function (req, res){
 
 app.get('/api/CL/', (req, res) => {
     let cluserrequest = req.query.q
+    let clusercallback = req.query.callback
     //let callback= req.query.callback
-    //console.log('CL UserRequest ' + cluserrequest)
-    //console.log('Callback : ' + req.query.callback)
+    console.log('CL UserRequest ' + cluserrequest)
+    console.log('rqc Callback : ' + req.query.callback)
+    console.log('processed Callback : ' + clusercallback)
     app.set('jsonp callback name', req.query.callback)
     let resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest )
-    //console.log(resp)
-    //console.log(resp.data)
+    console.log(resp)
     res.jsonp(resp)
-    //res.jsonp({ title: 'Please work in JSONP' })
 });
 
 app.get('/api/CAP/', (req, res) => {
@@ -54,7 +54,8 @@ app.get('/api/CAP/', (req, res) => {
   console.log('CAP UserRequest ' + capuserrequest)
   console.log('Callback : ' + req.query.callback)
   app.set('jsonp callback name', req.query.callback)
-  const resp = axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest + '&jurisdiction=wash')
+  let resp = axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest + '&jurisdiction=wash')
+  console.log (resp.data)
   res.jsonp(resp.data)
 });
 
