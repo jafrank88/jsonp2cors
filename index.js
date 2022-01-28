@@ -44,9 +44,9 @@ app.get('/api/CL/', (req, res) => {
     console.log('rqc Callback : ' + req.query.callback)
     console.log('processed Callback : ' + clusercallback)
     app.set('jsonp callback name', req.query.callback)
-    let resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest )
-    console.log(resp)
-    res.jsonp(resp)
+    //let resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest )
+    //console.log(axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest ))
+    res.jsonp(axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest ))
 });
 
 app.get('/api/CAP/', (req, res) => {
@@ -55,8 +55,8 @@ app.get('/api/CAP/', (req, res) => {
   console.log('Callback : ' + req.query.callback)
   app.set('jsonp callback name', req.query.callback)
   let resp = axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest + '&jurisdiction=wash')
-  console.log (resp.data)
-  res.jsonp(resp.data)
+  console.log (resp)
+  res.jsonp(resp)
 });
 
 app.get('/api/WAC/', (req, res) => {
