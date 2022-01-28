@@ -32,7 +32,7 @@ app.use(
 
 // Main functions for five endpoints
 
-app.get('/', function(req, res){
+app.get('/', function (req, res){
   res.jsonp({ title: 'This should be JSONP' });
 });
 
@@ -45,17 +45,17 @@ app.get('/api/CL/', (req, res) => {
     let resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest )
     //console.log(resp)
     //console.log(resp.data)
-    //res.jsonp(resp)
-    res.jsonp({ title: 'Please work in JSONP' })
+    res.jsonp(resp)
+    //res.jsonp({ title: 'Please work in JSONP' })
 });
 
 app.get('/api/CAP/', (req, res) => {
   let capuserrequest = req.query.q
   console.log('CAP UserRequest ' + capuserrequest)
   console.log('Callback : ' + req.query.callback)
-  //app.set('jsonp callback name', req.query.callback)
+  app.set('jsonp callback name', req.query.callback)
   const resp = axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest + '&jurisdiction=wash')
-  .then (resp => res.jsonp(resp.data))
+  res.jsonp(resp.data)
 });
 
 app.get('/api/WAC/', (req, res) => {
