@@ -40,8 +40,8 @@ app.get('/api/CL/', (req, res) => {
     let cluserrequest = req.query.q
     console.log('CL UserRequest ' + cluserrequest)
     console.log('rqc Callback : ' + req.query.callback)
-    axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest')
-  .then(function (response) {
+    axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
+    .then(function (response) {
     console.log(response.data);
     console.log(response.status);
     console.log(response.statusText);
@@ -55,12 +55,14 @@ app.get('/api/CL/', (req, res) => {
 });
 
 app.get('/api/CAP/', (req, res) => {
-  let capuserrequest = req.query.q
+  //let capuserrequest = req.query.q
   //console.log('CAP UserRequest ' + capuserrequest)
   //console.log('Callback : ' + req.query.callback)
-  let resp = axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest + '&jurisdiction=wash')
-  //console.log (resp)
-  .then res.jsonp(resp)
+  axios.get('https://api.case.law/v1/cases/?search=' + req.query.q + '&jurisdiction=wash')
+    .then(function (response) {
+       res.jsonp(response.data);
+    } 
+  );
 });
 
 app.get('/api/WAC/', (req, res) => {
