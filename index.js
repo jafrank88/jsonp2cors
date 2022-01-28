@@ -38,23 +38,29 @@ app.get('/', function (req, res){
 
 app.get('/api/CL/', (req, res) => {
     let cluserrequest = req.query.q
-    let clusercallback = req.query.callback
-    //let callback= req.query.callback
     console.log('CL UserRequest ' + cluserrequest)
     console.log('rqc Callback : ' + req.query.callback)
-    console.log('processed Callback : ' + clusercallback)
+    axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest')
+  .then(function (response) {
+    console.log(response.data);
+    console.log(response.status);
+    console.log(response.statusText);
+    console.log(response.headers);
+    console.log(response.config);
+    res.jsonp(response.data);
+  });
     //let resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest )
     //console.log(axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest ))
-    res.jsonp(axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest ))
+    //res.jsonp(axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest ))
 });
 
 app.get('/api/CAP/', (req, res) => {
   let capuserrequest = req.query.q
-  console.log('CAP UserRequest ' + capuserrequest)
-  console.log('Callback : ' + req.query.callback)
+  //console.log('CAP UserRequest ' + capuserrequest)
+  //console.log('Callback : ' + req.query.callback)
   let resp = axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest + '&jurisdiction=wash')
-  console.log (resp)
-  res.jsonp(resp)
+  //console.log (resp)
+  .then res.jsonp(resp)
 });
 
 app.get('/api/WAC/', (req, res) => {
