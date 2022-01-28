@@ -32,6 +32,10 @@ app.use(
 
 // Main functions for five endpoints
 
+app.get('/', function(req, res){
+  res.jsonp({ title: 'This should be JSONP' });
+});
+
 app.get('/api/CL/', (req, res) => {
     let cluserrequest = req.query.q
     //let callback= req.query.callback
