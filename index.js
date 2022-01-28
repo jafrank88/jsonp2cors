@@ -35,13 +35,14 @@ app.use(
 app.get('/api/CL/', (req, res) => {
     let cluserrequest = req.query.q
     //let callback= req.query.callback
-    console.log('CL UserRequest ' + cluserrequest)
-    console.log('Callback : ' + req.query.callback)
+    //console.log('CL UserRequest ' + cluserrequest)
+    //console.log('Callback : ' + req.query.callback)
     app.set('jsonp callback name', req.query.callback)
-    const resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest )
+    let resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest )
     //console.log(resp)
     //console.log(resp.data)
-    res.jsonp(resp)
+    //res.jsonp(resp)
+    res.jsonp({ title: 'Please work in JSONP' })
 });
 
 app.get('/api/CAP/', (req, res) => {
