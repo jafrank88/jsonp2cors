@@ -45,16 +45,17 @@ app.get('/api/CL/', (req, res) => {
     axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
     .then(function (response) {
     
-      // regex if needed to modify JSON field names 
-    var str = '{"count"}';
-    var output = str.replace( new RegExp("total_results"));
+      // regex needed to modify JSON field names so total_results is passed to liblawuw
+
+    let output = response.replace("count", "total_results");
+
     console.log(output);
-    console.log(response.data);
-    console.log(response.status);
-    console.log(response.statusText);
-    console.log(response.headers);
-    console.log(response.config);
-    res.jsonp(response.data);
+    //console.log(response.data);
+    //console.log(response.status);
+    //console.log(response.statusText);
+    //console.log(response.headers);
+    //console.log(response.config);
+    res.jsonp(output.data);
   });
     //let resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest )
     //console.log(axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest ))
