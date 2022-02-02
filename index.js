@@ -15,7 +15,8 @@ const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100 // limit each IP to 100 requests per windowMs
   });
-const favicon = require('serve-favicon')
+const favicon = require('serve-favicon');
+const { json } = require('express');
 
 // Serve Favicon
 app.use(favicon('favicon.ico'))
@@ -44,7 +45,9 @@ app.get('/api/CL/', (req, res) => {
     axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
     .then(function (response) {
     const clresp = response
-    const cloutput = clresp.replace('"count"', '"total_results"');
+    json.stringify(clresp)
+    const cloutput = clresp.replace('"count"', '"total_results"')
+    json.parse(cloutput)
     res.jsonp(cloutput.data);
   });
 });
