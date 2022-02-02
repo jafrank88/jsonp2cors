@@ -4,6 +4,8 @@ const PORT = process.env.PORT || 80;
 
 //Replacement for request (Axios, but could use got/node-fetch)
 const axios = require('axios');
+const got = require ('got');
+
 
 // Loading middleware
 const cors = require('cors');
@@ -42,6 +44,11 @@ app.get('/api/CL/', (req, res) => {
     console.log('rqc Callback : ' + req.query.callback)
     axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
     .then(function (response) {
+    
+      // regex if needed to modify JSON field names 
+    var str = '{"count"}';
+    var output = str.replace( new RegExp("total_results"));
+    console.log(output);
     console.log(response.data);
     console.log(response.status);
     console.log(response.statusText);
