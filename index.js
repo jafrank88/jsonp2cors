@@ -45,9 +45,9 @@ app.get('/api/CL/', (req, res) => {
     axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
     .then(function (response) {
     const clresp = response
-    json.stringify(clresp)
+    JSON.stringify(clresp)
     const cloutput = clresp.replace('"count"', '"total_results"')
-    json.parse(cloutput)
+    JSON.parse(cloutput)
     res.jsonp(cloutput.data);
   });
 });
