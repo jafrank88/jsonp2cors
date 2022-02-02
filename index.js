@@ -44,8 +44,6 @@ app.get('/api/CL/', (req, res) => {
     axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
     .then(function (response) {
     const clresp = response
-      // regex needed to modify JSON field names so total_results is passed to liblawuw
-
     const cloutput = clresp.replace('"count"', '"total_results"');
     res.jsonp(cloutput.data);
   });
