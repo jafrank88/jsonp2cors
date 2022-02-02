@@ -38,27 +38,17 @@ app.get('/', function (req, res){
 });
 
 app.get('/api/CL/', (req, res) => {
-    let cluserrequest = req.query.q
+    const cluserrequest = req.query.q
     console.log('CL UserRequest ' + cluserrequest)
     console.log('rqc Callback : ' + req.query.callback)
     axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
     .then(function (response) {
-    
+    const clresp = response
       // regex needed to modify JSON field names so total_results is passed to liblawuw
 
-    let output = response.replace("count", "total_results");
-
-    console.log(output);
-    //console.log(response.data);
-    //console.log(response.status);
-    //console.log(response.statusText);
-    //console.log(response.headers);
-    //console.log(response.config);
-    res.jsonp(output.data);
+    const cloutput = clresp.replace('"count"', '"total_results"');
+    res.jsonp(cloutput.data);
   });
-    //let resp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest )
-    //console.log(axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest ))
-    //res.jsonp(axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest ))
 });
 
 app.get('/api/CAP/', (req, res) => {
