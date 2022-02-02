@@ -4,7 +4,6 @@ const PORT = process.env.PORT || 80;
 
 //Replacement for request (Axios, but could use got/node-fetch)
 const axios = require('axios');
-const got = require ('got');
 
 
 // Loading middleware
