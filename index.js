@@ -48,6 +48,7 @@ app.get('/api/CL/', (req, res) => {
     const cloutput = clresp.replace('"count"', '"sort":"asc","perpage":20,"total_results"')
     const output = JSON.parse(cloutput)
     console.log(cloutput)
+    res.setHeader('content-type', 'application/json');
     res.jsonp(cloutput);
   });
 });
