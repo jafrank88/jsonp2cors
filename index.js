@@ -47,7 +47,8 @@ app.get('/api/CL/', (req, res) => {
     const clresp = JSON.stringify(response.data)
     const cloutput = clresp.replace('"count"', '"total_results"')
     const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
-    const output = JSON.parse(cloutput2)
+    const cloutput3 = cloutput2.replace("absolute_url: '", "absolute_url: 'https://www.courtlistener.com/")
+    const output = JSON.parse(cloutput3)
     console.log(output)
     res.setHeader('content-type', 'application/json');
     res.jsonp(output);
