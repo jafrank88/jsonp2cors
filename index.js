@@ -45,11 +45,12 @@ app.get('/api/CL/', (req, res) => {
     axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
     .then(function (response) {
     const clresp = JSON.stringify(response.data)
-    const cloutput = clresp.replace('"count"', '"sort":"asc","perpage":20,"total_results"')
-    const output = JSON.parse(cloutput)
-    console.log(cloutput)
+    const cloutput = clresp.replace('"count"', '"total_results"')
+    const cloutput2 = clresp.replace('"next"', '"perpage":5, "next"')
+    const output = JSON.parse(cloutput2)
+    console.log(output)
     res.setHeader('content-type', 'application/json');
-    res.jsonp(cloutput);
+    res.jsonp(output);
   });
 });
 
