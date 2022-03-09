@@ -38,7 +38,7 @@ app.get('/', function (req, res){
   res.jsonp({ title: 'This should be JSONP' });
 });
 
-app.get('/api/CL/', (req, res) => {
+app.get('/api/CL/', (req, res, next) => {
     const cluserrequest = req.query.q
     console.log('CL UserRequest ' + cluserrequest)
     console.log('rqc Callback : ' + req.query.callback)
@@ -49,8 +49,7 @@ app.get('/api/CL/', (req, res) => {
     const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
     const cloutput3 = cloutput2.replaceAll('/opinion/', 'https://www.courtlistener.com/opinion/')
     const output = JSON.parse(cloutput3)
-    res.set('content-type', 'application/json')
-    app.set('jsonp callback name', cluserrequest)
+    res.type('json')
     console.log(output)
     res.jsonp(output);
   });
