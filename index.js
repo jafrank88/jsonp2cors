@@ -50,9 +50,8 @@ app.get('/api/CL/', (req, res) => {
     const cloutput3 = cloutput2.replaceAll('/opinion/', 'https://www.courtlistener.com/opinion/')
     const output = JSON.parse(cloutput3)
     console.log(output)
-    res.set('content-type', 'application/json',
-    'jsonp callback name', cluserrequest
-    );
+    res.set('content-type', 'application/json')
+    app.set('jsonp callback name', cluserrequest)
     res.jsonp(output);
   });
 });
