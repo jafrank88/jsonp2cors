@@ -42,12 +42,10 @@ app.get('/api/CL/', (req, res, next) => {
     const cluserrequest = req.query.q
     console.log('CL UserRequest ' + cluserrequest)
     console.log('rqc Callback : ' + req.query.callback)
-    
-    axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
-    .then(function (response) {
-    console.log ('postAxios :'+ response.header)
-    const clresp = JSON.stringify(response.data)
-    console.log ('postStringify :'+ response.header)
+    const clresp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
+    console.log ('postAxios :'+ clresp.header)
+    //const clresp = JSON.stringify(response.data)
+    //console.log ('postStringify :'+ response.header)
     //const clresp = response.data
     const cloutput = clresp.replace('"count"', '"total_results"')
     const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
@@ -59,7 +57,7 @@ app.get('/api/CL/', (req, res, next) => {
     console.log(output)
     res.jsonp(output);
   });
-});
+
 
 app.get('/api/CAP/', (req, res) => {
   //let capuserrequest = req.query.q
