@@ -48,9 +48,10 @@ app.get('/api/CL/', (req, res, next) => {
     const cloutput = clresp.replace('"count"', '"total_results"')
     const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
     const cloutput3 = cloutput2.replaceAll('/opinion/', 'https://www.courtlistener.com/opinion/')
-    //const output = JSON.parse(cloutput3)
-    console.log(cloutput3)
-    res.jsonp(res.setHeader('content-type', 'application/json'), cloutput3);
+    const output = JSON.parse(cloutput3)
+    res.setHeader('content-type', 'application/json')
+    console.log(output)
+    res.jsonp(output);
   });
 });
 
