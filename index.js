@@ -42,14 +42,19 @@ app.get('/api/CL/', (req, res, next) => {
     const cluserrequest = req.query.q
     console.log('CL UserRequest ' + cluserrequest)
     console.log('rqc Callback : ' + req.query.callback)
+    
     axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
     .then(function (response) {
+    console.log ('postAxios :'+ response.header)
     const clresp = JSON.stringify(response.data)
+    console.log ('postStringify :'+ response.header)
     //const clresp = response.data
     const cloutput = clresp.replace('"count"', '"total_results"')
     const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
     const cloutput3 = cloutput2.replaceAll('/opinion/', 'https://www.courtlistener.com/opinion/')
     const output = cloutput3
+    set.type('application/JSON')
+    console.log ('postSetType :'+ response.header)
     //const output = JSON.parse(cloutput3)
     console.log(output)
     res.jsonp(output);
