@@ -50,8 +50,7 @@ app.get('/api/CL/', (req, res, next) => {
     const cloutput3 = cloutput2.replaceAll('/opinion/', 'https://www.courtlistener.com/opinion/')
     const output = JSON.parse(cloutput3)
     console.log(output)
-    res.type('application/json')
-    res.jsonp(output);
+    res.jsonp(res.type('application/json'), output);
   });
 });
 
