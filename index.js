@@ -51,7 +51,7 @@ app.get('/api/CL/', (req, res, next) => {
     const output = JSON.parse(cloutput3)
     res.writeHeader(200, { 'Content-Type': 'application/json' })
     console.log(output)
-    res.json(output);
+    res.jsonp(output);
   });
 });
 
