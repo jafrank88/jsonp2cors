@@ -42,12 +42,15 @@ app.get('/api/CL/', (req, res, next) => {
     const cluserrequest = req.query.q
     console.log('CL UserRequest ' + cluserrequest)
     console.log('rqc Callback : ' + req.query.callback)
-    const clresp = await axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
-    //console.log ('postAxios :'+ res.get('Content-Type'));
-    const clresp1 = JSON.stringify(clresp)
+    axios
+      .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
+      .then (function (response) {
+          const clresp = JSON.stringify(response.data)
+        //console.log ('postAxios :'+ res.get('Content-Type'));
+    //const clresp1 = clresp)
     //console.log ('postStringify :'+ res.get('Content-Type'))
     //const clresp = response.data
-    const cloutput = clresp1.replace('"count"', '"total_results"')
+    const cloutput = clresp.replace('"count"', '"total_results"')
     const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
     const cloutput3 = cloutput2.replaceAll('/opinion/', 'https://www.courtlistener.com/opinion/')
     //const output = cloutput3
@@ -56,8 +59,9 @@ app.get('/api/CL/', (req, res, next) => {
     //console.log ('postParse :'+ res.get('Content-Type'))
     res.type('application/JSON')
     console.log(output)
-    res.jsonp(output);
-  });
+    res.jsonp(output)
+      });
+    });
 
 
 app.get('/api/CAP/', (req, res) => {
