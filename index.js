@@ -54,11 +54,9 @@ app.get('/api/CL/', (req, res, next) => {
     //console.log ('postResType :'+ res.get('Content-Type'))
     const output = JSON.parse(cloutput3)
     //console.log ('postParse :'+ res.get('Content-Type'))
+    res.type('application/JSON')
     console.log(output)
-    res.jsonp(
-      JSON.stringify(output),
-      res.type('application/JSON')
-      );
+    res.jsonp(output);
   });
 
 
