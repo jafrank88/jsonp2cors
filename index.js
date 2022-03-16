@@ -42,7 +42,7 @@ app.get('/api/CL/', (req, res, next) => {
     const cluserrequest = req.query.q
     console.log('CL UserRequest ' + cluserrequest)
     console.log('rqc Callback : ' + req.query.callback)
-    const clresp = axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
+    const clresp = await axios.get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
     //console.log ('postAxios :'+ res.get('Content-Type'));
     const clresp1 = JSON.stringify(clresp)
     //console.log ('postStringify :'+ res.get('Content-Type'))
