@@ -40,6 +40,7 @@ app.get('/', function (req, res){
 
 app.get('/api/CL/', (req, res, next) => {
     const cluserrequest = req.query.q
+    const clcallback = req.query.callback
     console.log('CL UserRequest ' + cluserrequest)
     console.log('rqc Callback : ' + req.query.callback)
     axios
@@ -60,7 +61,8 @@ app.get('/api/CL/', (req, res, next) => {
     res.type('application/JSON')
     console.log (output.headers)
     console.log(output)
-    res.jsonp(output)
+    let str =  clcallback + '(' + JSON.stringify(output) + ')';//jsonp
+    res.end(str);
       });
     });
 
