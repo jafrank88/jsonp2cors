@@ -61,8 +61,9 @@ app.get('/api/CL/', (req, res, next) => {
     //console.log ('postParse :'+ res.get('Content-Type'))
     res.type('application/JSON')
     console.log ('Final Content-Type :'+ res.get('Content-Type'))
-    console.log(output.headers)
-    let str =  clcallback + '(' + JSON.stringify(output) + ')';//jsonp
+    //console.log(output.headers)
+    const str =  clcallback + '(' + JSON.stringify(output) + ')';//jsonp
+    console.log(str)
     res.end(str);
       });
     });
