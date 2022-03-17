@@ -43,6 +43,7 @@ app.get('/api/CL/', (req, res, next) => {
     const clcallback = req.query.callback
     console.log('CL UserRequest ' + cluserrequest)
     console.log('rqc Callback : ' + req.query.callback)
+    console.log('recorded Callback :' + clcallback)
     axios
       .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
       .then (function (response) {
@@ -59,8 +60,8 @@ app.get('/api/CL/', (req, res, next) => {
     const output = JSON.parse(cloutput3)
     //console.log ('postParse :'+ res.get('Content-Type'))
     res.type('application/JSON')
-    console.log (output.headers)
-    console.log(output)
+    console.log ('Final Content-Type :'+ res.get('Content-Type'))
+    console.log(output.headers)
     let str =  clcallback + '(' + JSON.stringify(output) + ')';//jsonp
     res.end(str);
       });
