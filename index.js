@@ -66,9 +66,9 @@ app.get('/api/CL/', (req, res, next) => {
     //res.send(clcallback + '( \' ' + JSON.stringify(output) + ' \' ) ;';//jsonp)
     console.log(cloutput5)
     res
-      .writeHead('Content-Type', 'application/json')
-      .write(req.query.callback + '(' + cloutput5 + ');'
-      );
+      .writeHead(200,{'Content-Type': 'application/json'})
+      .end(req.query.callback + '(' + cloutput5 + ');'
+    );
       });
     });
 
