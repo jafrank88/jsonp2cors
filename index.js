@@ -54,7 +54,7 @@ app.get('/api/CL/', (req, res, next) => {
     //const clresp = response.data
     const cloutput = clresp.replace('"count"', '"total_results"')
     const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
-    const cloutput3 = cloutput2.replaceAll('"absolute_url": "/opinion/', '"url": https://www.courtlistener.com/opinion/')
+    const cloutput3 = cloutput2.replaceAll('"absolute_url": ', '"url": https://www.courtlistener.com')
     const cloutput4 = cloutput3.replaceAll('"caseName":', '"title":')
     //const output = cloutput3
     //console.log ('postResType :'+ res.get('Content-Type'))
