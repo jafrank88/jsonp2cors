@@ -64,10 +64,10 @@ app.get('/api/CL/', (req, res, next) => {
     //console.log ('Final Content-Type :'+ res.get('Content-Type'))
     //console.log(output.headers) 
     //res.send(clcallback + '( \' ' + JSON.stringify(output) + ' \' ) ;';//jsonp)
-    console.log(cloutput5)
+    console.log(req.query.callback + '( \'' + cloutput5 + '\' );');
     res
       .writeHead(200,{'Content-Type': 'application/json'})
-      .end(req.query.callback + '( \'' + cloutput5 + '\' );'
+      .send(req.query.callback + '( \'' + cloutput5 + '\' );'
     );
       });
     });
