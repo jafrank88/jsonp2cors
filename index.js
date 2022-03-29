@@ -59,13 +59,16 @@ app.get('/api/CL/', (req, res, next) => {
     const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
     //const output = cloutput3
     //console.log ('postResType :'+ res.get('Content-Type'))
-    const output = JSON.parse(cloutput5)
+    //const output = JSON.parse(cloutput5)
     //console.log ('postParse :'+ res.get('Content-Type'))
-    res.writeHead(200, { "Content-Type": "application/json"});
+    //res.writeHead(200, { "Content-Type": "application/json"});
     //console.log ('Final Content-Type :'+ res.get('Content-Type'))
     //console.log(output.headers) 
     //res.send(clcallback + '( \' ' + JSON.stringify(output) + ' \' ) ;';//jsonp)
-    res.send(req.query.callback + '('+ JSON.stringify(output) + ');');
+    res.send(
+      writeHead(200, { "Content-Type": "application/json"}),
+      req.query.callback + '(' + cloutput5 + ');'
+      );
       });
     });
 
