@@ -64,33 +64,33 @@ app.get('/api/CL/', (req, res, next) => {
     //console.log ('Final Content-Type :'+ res.get('Content-Type'))
     //console.log(output.headers) 
     //res.send(clcallback + '( \' ' + JSON.stringify(output) + ' \' ) ;';//jsonp)
-    console.log(req.query.callback + '( \'' + cloutput5 + '\' );');
+    console.log(clcallback + '( \'' + cloutput5 + '\' );');
     res
       .writeHead(200,{'Content-Type': 'application/json'})
-      .end(req.query.callback + '( \'' + cloutput5 + '\' );'
+      .end(clcallback + '( \'' + cloutput5 + '\' );'
     );
       });
     });
 
 
-app.get('/api/CAP/', (req, res) => {
+//app.get('/api/CAP/', (req, res) => {
   //let capuserrequest = req.query.q
   //console.log('CAP UserRequest ' + capuserrequest)
   //console.log('Callback : ' + req.query.callback)
-  axios.get('https://api.case.law/v1/cases/?search=' + req.query.q + '&jurisdiction=wash')
-    .then(function (response) {
-       res.jsonp(response.data);
-    } 
-  );
-});
+  //axios.get('https://api.case.law/v1/cases/?search=' + req.query.q + '&jurisdiction=wash')
+    //.then(function (response) {
+       //res.jsonp(response.data);
+    //} 
+  //);
+//});
 
-app.get('/api/WAC/', (req, res) => {
-  let wacuserRequest = req.query.q
-  console.log('WAC UserRequest ' + wacuserRequest)
-  console.log('Callback : ' + req.query.callback)
-  const resp = axios.get('https://lawdoccitelookup.leg.wa.gov/v1/Help/Api/WAC/?q=' + wacuserRequest)
-  .then (resp => res.jsonp(resp.data))
-});
+//app.get('/api/WAC/', (req, res) => {
+  //let wacuserRequest = req.query.q
+  //console.log('WAC UserRequest ' + wacuserRequest)
+  //console.log('Callback : ' + req.query.callback)
+  //const resp = axios.get('https://lawdoccitelookup.leg.wa.gov/v1/Help/Api/WAC/?q=' + wacuserRequest)
+  //.then (resp => res.jsonp(resp.data))
+//});
 
 app.get('/api/RCW/', (req, res) => {
   let rcwuserRequest = req.query.q
