@@ -52,12 +52,17 @@ app.get('/api/CL/', (req, res, next) => {
     //const clresp1 = clresp)
     //console.log ('postStringify :'+ res.get('Content-Type'))
     //const clresp = response.data
-    const cloutput = clresp.replace('"count"', '"total_results"')
-    const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
-    const cloutput3 = cloutput2.replaceAll('/opinion/', 'https://www.courtlistener.com/opinion/')
+    const cloutput = clresp.replace
+        ('"count"', '"total_results"')
+        ('"next"', '"perpage":5, "next"')
+    
+    
+    const cloutput2 = cloutput.replaceAll
+        ('"absolute_url" : "/opinion/', '"url" : https://www.courtlistener.com/opinion/')
+        ('"caseName":', '"title" :')
     //const output = cloutput3
     //console.log ('postResType :'+ res.get('Content-Type'))
-    const output = JSON.parse(cloutput3)
+    const output = JSON.parse(cloutput2)
     //console.log ('postParse :'+ res.get('Content-Type'))
     res.writeHead(200, { "Content-Type": "application/json"});
     console.log ('Final Content-Type :'+ res.get('Content-Type'))
