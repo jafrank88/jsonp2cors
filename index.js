@@ -68,33 +68,62 @@ app.get('/api/CL/', (req, res, next) => {
       });
     });
 
-    app.get('/api/R1/', (req, res) => {
+    app.get('/api/Rplain/', (req, res) => {
       const clcallback = req.query.callback
-      console.log('R1 Page Callback : ' + clcallback)
+      console.log('Rplain Page Callback : ' + clcallback)
       axios
         .get('https://everydaysystems.com/sps/tix/corb/v2.php')
         .then (function (response) {     
-            console.log('R1 Pagetext' + response)
+            console.log('Rplain Pagetext' + response)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
              .end(clcallback + response)
       })
     });
 
-    app.get('/api/JF1/', (req, res) => {
+    app.get('/api/Rstring/', (req, res) => {
       const clcallback = req.query.callback
-      console.log('JF1 Page Callback : ' + clcallback)
+      console.log('Rstring Page Callback : ' + clcallback)
       axios
-        .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
+        .get(json.stringify('https://everydaysystems.com/sps/tix/corb/v2.php'))
         .then (function (response) {     
-            console.log('JF1 Pagetext' + response)
+            console.log('Rstring Pagetext' + response)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
              .end(clcallback + response)
       })
     });
 
-    app.get('/api/JF2/', (req, res, next) => {
+
+    app.get('/api/Rparse/', (req, res) => {
+      const clcallback = req.query.callback
+      console.log('Rparse Page Callback : ' + clcallback)
+      axios
+        .get(json.parse('https://everydaysystems.com/sps/tix/corb/v2.php'))
+        .then (function (response) {     
+            console.log('Rparse Pagetext' + response)
+            res
+             .writeHead(200,{'Content-Type': 'application/json'})
+             .end(clcallback + response)
+      })
+    });
+
+
+    app.get('/api/Rparsestring/', (req, res) => {
+      const clcallback = req.query.callback
+      console.log('Rparsestring Page Callback : ' + clcallback)
+      axios
+        .get(json.parse('https://everydaysystems.com/sps/tix/corb/v2.php'))
+        .then (function (response) {     
+          let response = json.stringify(response)  
+          console.log('Rparsestring Pagetext' + response)
+            res
+             .writeHead(200,{'Content-Type': 'application/json'})
+             .end(clcallback + response)
+      })
+    });
+
+    app.get('/api/JFplain/', (req, res, next) => {
       const cluserrequest = req.query.q
       const clcallback = req.query.callback
       //console.log('CL UserRequest : ' + cluserrequest)
@@ -110,7 +139,7 @@ app.get('/api/CL/', (req, res, next) => {
       })
     });
 
-    app.get('/api/JF3/', (req, res, next) => {
+    app.get('/api/JFstring/', (req, res, next) => {
       //const cluserrequest = req.query.q
       const clcallback = req.query.callback
       //console.log('CL UserRequest : ' + cluserrequest)
