@@ -79,7 +79,7 @@ app.get('/api/CL/', (req, res, next) => {
       //console.log('CL UserRequest : ' + cluserrequest)
       console.log('Callback : ' + clcallback)
       axios
-        .get('https://faculty.washington.edu/jafrank/Reinhardtestnocallback.html')
+        .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
         .then (function (response) {
             const jfresp = JSON.stringify(response.data)
             console.log(jfresp)
