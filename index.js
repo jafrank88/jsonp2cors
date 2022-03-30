@@ -113,9 +113,8 @@ app.get('/api/CL/', (req, res, next) => {
       const clcallback = req.query.callback
       console.log('Rparsestring Page Callback : ' + clcallback)
       axios
-        .get(JSON.parse('https://everydaysystems.com/sps/tix/corb/v2.php'))
+        .get(JSON.stringify(JSON.parse('https://everydaysystems.com/sps/tix/corb/v2.php')))
         .then (function (response) {     
-          let response = JSON.stringify(response)  
           console.log('Rparsestring Pagetext : ' + response)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
