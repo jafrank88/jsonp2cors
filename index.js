@@ -68,6 +68,19 @@ app.get('/api/CL/', (req, res, next) => {
       });
     });
 
+    app.get('/api/R1/', (req, res) => {
+      const clcallback = req.query.callback
+      console.log('R1 Page Callback : ' + clcallback)
+      axios
+        .get('https://everydaysystems.com/sps/tix/corb/v2.php')
+        .then (function (response) {     
+            console.log('R1 Pagetext' + response)
+            res
+             .writeHead(200,{'Content-Type': 'application/json'})
+             .end(clcallback + response)
+      })
+    });
+
     app.get('/api/JF1/', (req, res) => {
       const clcallback = req.query.callback
       console.log('JF1 Page Callback : ' + clcallback)
