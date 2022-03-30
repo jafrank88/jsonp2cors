@@ -64,7 +64,7 @@ app.get('/api/CL/', (req, res, next) => {
     //console.log ('Final Content-Type :'+ res.get('Content-Type'))
     //console.log(output.headers) 
     //res.send(clcallback + '( \' ' + JSON.stringify(output) + ' \' ) ;';//jsonp)
-    console.log(clcallback + '( \'' + cloutput5 + '\' );');
+    //console.log(clcallback + '( \'' + cloutput5 + '\' );');
     res
       .writeHead(200,{'Content-Type': 'application/json'})
       .end(clcallback + ' ( \'' + cloutput5 + '\' );'
@@ -77,15 +77,15 @@ app.get('/api/CL/', (req, res, next) => {
       const cluserrequest = req.query.q
       const clcallback = req.query.callback
       //console.log('CL UserRequest : ' + cluserrequest)
-      console.log('Callback : ' + clcallback)
+      console.log('Fac Page Callback : ' + clcallback)
       axios
         .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
         .then (function (response) {
-            const jfresp = JSON.stringify(response.data)
-            console.log(jfresp)
+         //   const jfresp = JSON.stringify(response.data)
+         //   console.log(jfresp)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + ' ( \'' + jfresp + '\' );'
+             .end(clcallback + JSON.stringify(jfresp)
          );
       })
     });
