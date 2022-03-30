@@ -88,12 +88,12 @@ app.get('/api/CL/', (req, res, next) => {
       const cluserrequest = req.query.q
       const clcallback = req.query.callback
       //console.log('CL UserRequest : ' + cluserrequest)
-      console.log('Fac Page Callback : ' + clcallback)
+      console.log('JF2 Page Callback : ' + clcallback)
       axios
         .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
         .then (function (response) {
           const jfresp = JSON.parse(response)         
-          console.log('JF1 Page' + jfresp)
+          console.log('JF2 Page' + jfresp)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
              .end(clcallback + JSON.parse(response))
@@ -104,19 +104,32 @@ app.get('/api/CL/', (req, res, next) => {
       const cluserrequest = req.query.q
       const clcallback = req.query.callback
       //console.log('CL UserRequest : ' + cluserrequest)
-      console.log('Fac Page Callback : ' + clcallback)
+      console.log('JF3 Page Callback : ' + clcallback)
       axios
         .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
         .then (function (response) {
           const jfresp = response        
-          console.log('JF1 Page' + jfresp)
+          console.log('JF3 Page' + jfresp)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
              .end(clcallback + response)
       })
     });
 
-
+    app.get('/api/JF4/', (req, res, next) => {
+      const cluserrequest = req.query.q
+      const clcallback = req.query.callback
+      //console.log('CL UserRequest : ' + cluserrequest)
+      console.log('JF4 Page Callback : ' + clcallback)
+      const response = ('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
+      
+          const jfresp = response        
+          console.log('JF4 Page' + jfresp)
+            res
+             .writeHead(200,{'Content-Type': 'application/json'})
+             .end(clcallback + response)
+      
+    });
 //app.get('/api/CAP/', (req, res) => {
   //let capuserrequest = req.query.q
   //console.log('CAP UserRequest ' + capuserrequest)
