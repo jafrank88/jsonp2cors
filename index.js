@@ -85,8 +85,8 @@ app.get('/api/CL/', (req, res, next) => {
          //   console.log(jfresp)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + JSON.stringify(response.data)
-         );
+             .end(clcallback + response.data)
+         
       })
     });
 
