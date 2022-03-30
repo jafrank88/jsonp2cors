@@ -80,7 +80,7 @@ app.get('/api/CL/', (req, res, next) => {
             console.log('JF1 Page' + jfresp)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + JSON.stringify(response))
+             .end(clcallback + JSON.parse(jfresp))
       })
     });
 
@@ -92,11 +92,11 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
         .then (function (response) {
-          const jfresp = JSON.parse(response)         
+          const jfresp = response        
           console.log('JF2 Page' + jfresp)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + JSON.parse(response))
+             .end(clcallback + jfresp)
       })
     });
 
@@ -109,7 +109,7 @@ app.get('/api/CL/', (req, res, next) => {
       console.log('JF3 Page' + jfresp)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + jfresp)
+             .end(clcallback + JSON.stringify(jfresp))
     });
 
     app.get('/api/JF4/', (req, res, next) => {
@@ -123,7 +123,7 @@ app.get('/api/CL/', (req, res, next) => {
           console.log('JF4 Page' + jfresp)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response)
+             .end(clcallback + jfresp)
       
     });
 //app.get('/api/CAP/', (req, res) => {
