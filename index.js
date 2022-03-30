@@ -34,9 +34,9 @@ app.use(
 
 // Main functions for five endpoints
 
-app.get('/', function (req, res){
-  res.jsonp({ title: 'This should be JSONP' });
-});
+//app.get('/', function (req, res){
+//  res.jsonp({ title: 'This should be JSONP' });
+//});
 
 app.get('/api/CL/', (req, res, next) => {
     const cluserrequest = req.query.q
@@ -48,10 +48,6 @@ app.get('/api/CL/', (req, res, next) => {
       .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
       .then (function (response) {
           const clresp = JSON.stringify(response.data)
-        //console.log ('postAxios :'+ res.get('Content-Type'));
-    //const clresp1 = clresp)
-    //console.log ('postStringify :'+ res.get('Content-Type'))
-    //const clresp = response.data
     const cloutput = clresp.replace('"count"', '"total_results"')
     const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
     const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
@@ -72,8 +68,23 @@ app.get('/api/CL/', (req, res, next) => {
       });
     });
 
+    app.get('/api/JF1/', (req, res, next) => {
+      const cluserrequest = req.query.q
+      const clcallback = req.query.callback
+      //console.log('CL UserRequest : ' + cluserrequest)
+      //console.log('JF1 Page Callback : ' + clcallback)
+      axios
+        .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
+        .then (function (response) {
+         //   const jfresp = JSON.stringify(response.data)
+            console.log('JF1 Page' + response)
+            res
+             .writeHead(200,{'Content-Type': 'application/json'})
+             .end(clcallback + JSON.stringify(response))
+      })
+    });
 
-    app.get('/api/JF/', (req, res, next) => {
+    app.get('/api/JF2/', (req, res, next) => {
       const cluserrequest = req.query.q
       const clcallback = req.query.callback
       //console.log('CL UserRequest : ' + cluserrequest)
@@ -82,12 +93,29 @@ app.get('/api/CL/', (req, res, next) => {
         .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
         .then (function (response) {
          //   const jfresp = JSON.stringify(response.data)
-         //   console.log(jfresp)
+            console.log('JF2 Page' + response)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + JSON.stringify(response.data))
+             .end(clcallback + JSON.parse(response))
       })
     });
+
+    app.get('/api/JF3/', (req, res, next) => {
+      const cluserrequest = req.query.q
+      const clcallback = req.query.callback
+      //console.log('CL UserRequest : ' + cluserrequest)
+      console.log('Fac Page Callback : ' + clcallback)
+      axios
+        .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
+        .then (function (response) {
+         //   const jfresp = JSON.stringify(response.data)
+            console.log('JF1 Page' + response)
+            res
+             .writeHead(200,{'Content-Type': 'application/json'})
+             .end(clcallback + response)
+      })
+    });
+
 
 //app.get('/api/CAP/', (req, res) => {
   //let capuserrequest = req.query.q
@@ -108,21 +136,21 @@ app.get('/api/CL/', (req, res, next) => {
   //.then (resp => res.jsonp(resp.data))
 //});
 
-app.get('/api/RCW/', (req, res) => {
-  let rcwuserRequest = req.query.q
-  console.log('RCW UserRequest ' + rcwuserRequest)
-  console.log('Callback : ' + req.query.callback)
-  const resp = axios.get('https://search.leg.wa.gov/v1/Help/Api/RCW/?q=' + rcwuserRequest)
-  .then (resp => res.jsonp(resp.data))
-});
+//app.get('/api/RCW/', (req, res) => {
+ // let rcwuserRequest = req.query.q
+  //console.log('RCW UserRequest ' + rcwuserRequest)
+  //console.log('Callback : ' + req.query.callback)
+  //const resp = axios.get('https://search.leg.wa.gov/v1/Help/Api/RCW/?q=' + rcwuserRequest)
+  //.then (resp => res.jsonp(resp.data))
+//});
 
-app.get('/api/WLH/', (req, res) => {
-  let wlhuserRequest = req.query.q
-  console.log('WLH UserRequest ' + wlhuserRequest)
-  console.log('Callback : ' + req.query.callback)
-  const resp = axios.get('https://www.washingtonlawhelp.org/search?q=' + wlhuserRequest)
-  .then (resp => res.jsonp(resp.data))
-});
+//app.get('/api/WLH/', (req, res) => {
+  //let wlhuserRequest = req.query.q
+  //console.log('WLH UserRequest ' + wlhuserRequest)
+  //console.log('Callback : ' + req.query.callback)
+  //const resp = axios.get('https://www.washingtonlawhelp.org/search?q=' + wlhuserRequest)
+  //.then (resp => res.jsonp(resp.data))
+//});
 
 app.listen(PORT, (err) => {
     if (err) {
