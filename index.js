@@ -73,6 +73,62 @@ app.get('/api/CL/', (req, res, next) => {
     });
 
 
+    app.get('/api/R/', (req, res, next) => {
+      const cluserrequest = req.query.q
+      const clcallback = req.query.callback
+      console.log('CL UserRequest ' + cluserrequest)
+      console.log('rqc Callback : ' + req.query.callback)
+      console.log('recorded Callback :' + clcallback)
+      axios
+        .get('https://everydaysystems.com/sps/tix/corb/v2.php')
+        .then (function (response) {
+            const rresp = JSON.stringify(response.data)
+          //console.log ('postAxios :'+ res.get('Content-Type'));
+      //const clresp1 = clresp)
+      //console.log ('postStringify :'+ res.get('Content-Type'))
+      //const clresp = response.data
+      //const cloutput = clresp.replace('"count"', '"total_results"')
+      //const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
+      //const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
+      //const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
+      //const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
+      //const output = cloutput3
+      //console.log ('postResType :'+ res.get('Content-Type'))
+      //const output = JSON.parse(cloutput5)
+      //console.log ('postParse :'+ res.get('Content-Type'))
+      //console.log ('Final Content-Type :'+ res.get('Content-Type'))
+      //console.log(output.headers) 
+      //res.send(clcallback + '( \' ' + JSON.stringify(output) + ' \' ) ;';//jsonp)
+      //console.log(clcallback + '( \'' + cloutput5 + '\' );');
+      console.log(rresp)
+      res
+        .writeHead(200,{'Content-Type': 'application/json'})
+        .end(clcallback + ' ( \'' + rresp + '\' );'
+      );
+        })
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //app.get('/api/CAP/', (req, res) => {
   //let capuserrequest = req.query.q
   //console.log('CAP UserRequest ' + capuserrequest)
