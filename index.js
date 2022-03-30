@@ -101,19 +101,15 @@ app.get('/api/CL/', (req, res, next) => {
     });
 
     app.get('/api/JF3/', (req, res, next) => {
-      const cluserrequest = req.query.q
+      //const cluserrequest = req.query.q
       const clcallback = req.query.callback
       //console.log('CL UserRequest : ' + cluserrequest)
       console.log('JF3 Page Callback : ' + clcallback)
-      axios
-        .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
-        .then (function (response) {
-          const jfresp = response        
-          console.log('JF3 Page' + jfresp)
+      const jfresp = axios.get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
+      console.log('JF3 Page' + jfresp)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response)
-      })
+             .end(clcallback + jfresp)
     });
 
     app.get('/api/JF4/', (req, res, next) => {
