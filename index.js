@@ -76,8 +76,8 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
         .then (function (response) {
-         //   const jfresp = JSON.stringify(response.data)
-            console.log('JF1 Page' + response)
+            const jfresp = JSON.stringify(response)         
+            console.log('JF1 Page' + jfresp)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
              .end(clcallback + JSON.stringify(response))
@@ -92,8 +92,8 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
         .then (function (response) {
-         //   const jfresp = JSON.stringify(response.data)
-            console.log('JF2 Page' + response)
+          const jfresp = JSON.parse(response)         
+          console.log('JF1 Page' + jfresp)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
              .end(clcallback + JSON.parse(response))
@@ -108,8 +108,8 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
         .then (function (response) {
-         //   const jfresp = JSON.stringify(response.data)
-            console.log('JF1 Page' + response)
+          const jfresp = response        
+          console.log('JF1 Page' + jfresp)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
              .end(clcallback + response)
