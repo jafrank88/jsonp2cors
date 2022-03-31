@@ -74,10 +74,10 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get('https://everydaysystems.com/sps/tix/corb/v2.php')
         .then (function (response) {     
-            console.log('Rplain Pagetext : ' + response)
+            console.log('Rplain Pagetext : ' + response.data)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response)
+             .end(clcallback + response.data)
       })
     });
 
@@ -87,10 +87,10 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get(JSON.stringify('https://everydaysystems.com/sps/tix/corb/v2.php'))
         .then (function (response) {     
-            console.log('Rstring Pagetext : ' + response)
+            console.log('Rstring Pagetext : ' + response.data)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response)
+             .end(clcallback + response.data)
       })
     });
 
@@ -102,10 +102,10 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get('https://faculty.washington.edu/jafrank/Reinhardtest6.html')
         .then (function (response) {     
-          console.log('JFplain Pagetext : ' + response)
+          console.log('JFplain Pagetext : ' + response.data)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response)
+             .end(clcallback + response.data)
       })
     });
 
@@ -115,12 +115,12 @@ app.get('/api/CL/', (req, res, next) => {
       //console.log('CL UserRequest : ' + cluserrequest)
       console.log('JFstring Page Callback : ' + clcallback)
       axios
-        .get('https://faculty.washington.edu/jafrank/Reinhardtest6.html')
+        .get(JSON.stringify('https://faculty.washington.edu/jafrank/Reinhardtest6.html'))
         .then (function (response) {     
-        console.log('JFsting Pagetext : ' + response)
+        console.log('JFstring Pagetext : ' + response.data)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + JSON.stringify(response))
+             .end(clcallback + response.data)
         })
             });
 
