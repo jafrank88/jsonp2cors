@@ -94,34 +94,6 @@ app.get('/api/CL/', (req, res, next) => {
       })
     });
 
-
-    app.get('/api/Rparse/', (req, res) => {
-      const clcallback = req.query.callback
-      console.log('Rparse Page Callback : ' + clcallback)
-      axios
-        .get(JSON.parse('https://everydaysystems.com/sps/tix/corb/v2.php'))
-        .then (function (response) {     
-            console.log('Rparse Pagetext : ' + response)
-            res
-             .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response)
-      })
-    });
-
-
-    app.get('/api/Rparsestring/', (req, res) => {
-      const clcallback = req.query.callback
-      console.log('Rparsestring Page Callback : ' + clcallback)
-      axios
-        .get(JSON.stringify(JSON.parse('https://everydaysystems.com/sps/tix/corb/v2.php')))
-        .then (function (response) {     
-          console.log('Rparsestring Pagetext : ' + response)
-            res
-             .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response)
-      })
-    });
-
     app.get('/api/JFplain/', (req, res, next) => {
       const cluserrequest = req.query.q
       const clcallback = req.query.callback
@@ -129,12 +101,11 @@ app.get('/api/CL/', (req, res, next) => {
       console.log('JFplain Page Callback : ' + clcallback)
       axios
         .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
-        .then (function (response) {
-          const jfresp = response        
-          console.log('JFplain Pagetext : ' + jfresp)
+        .then (function (response) {     
+          console.log('JFplain Pagetext : ' + response)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + jfresp)
+             .end(clcallback + response)
       })
     });
 
@@ -143,12 +114,15 @@ app.get('/api/CL/', (req, res, next) => {
       const clcallback = req.query.callback
       //console.log('CL UserRequest : ' + cluserrequest)
       console.log('JFstring Page Callback : ' + clcallback)
-      const jfresp = axios.get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
-      console.log('JFsting Pagetext : ' + jfresp)
+      axios
+        .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
+        .then (function (response) {     
+        console.log('JFsting Pagetext : ' + response)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + JSON.stringify(jfresp))
-    });
+             .end(clcallback + JSON.stringify(response))
+        })
+            });
 
 //app.get('/api/CAP/', (req, res) => {
   //let capuserrequest = req.query.q
