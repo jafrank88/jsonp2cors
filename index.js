@@ -100,7 +100,7 @@ app.get('/api/CL/', (req, res, next) => {
       //console.log('CL UserRequest : ' + cluserrequest)
       console.log('JFplain Page Callback : ' + clcallback)
       axios
-        .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
+        .get('https://faculty.washington.edu/jafrank/Reinhardtest6.html')
         .then (function (response) {     
           console.log('JFplain Pagetext : ' + response)
             res
@@ -115,7 +115,7 @@ app.get('/api/CL/', (req, res, next) => {
       //console.log('CL UserRequest : ' + cluserrequest)
       console.log('JFstring Page Callback : ' + clcallback)
       axios
-        .get('https://faculty.washington.edu/jafrank/Reinhardtest4.html')
+        .get('https://faculty.washington.edu/jafrank/Reinhardtest6.html')
         .then (function (response) {     
         console.log('JFsting Pagetext : ' + response)
             res
