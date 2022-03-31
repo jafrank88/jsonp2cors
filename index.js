@@ -74,10 +74,10 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get('https://everydaysystems.com/sps/tix/corb/v2.php')
         .then (function (response) {     
-            console.log('Rplain Pagetext : ' + response.data)
+            console.log('Rplain Pagetext : ' + response.body)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response.data)
+             .end(clcallback + response.body)
       })
     });
 
@@ -87,10 +87,10 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get(JSON.stringify('https://everydaysystems.com/sps/tix/corb/v2.php'))
         .then (function (response) {     
-            console.log('Rstring Pagetext : ' + response.data)
+            console.log('Rstring Pagetext : ' + response.body)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response.data)
+             .end(clcallback + response.body)
       })
     });
 
@@ -102,10 +102,10 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get('https://faculty.washington.edu/jafrank/Reinhardtest6.html')
         .then (function (response) {     
-          console.log('JFplain Pagetext : ' + response.data)
+          console.log('JFplain Pagetext : ' + response.body)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response.data)
+             .end(clcallback + response.body)
       })
     });
 
@@ -117,10 +117,10 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get(JSON.stringify('https://faculty.washington.edu/jafrank/Reinhardtest6.html'))
         .then (function (response) {     
-        console.log('JFstring Pagetext : ' + response.data)
+        console.log('JFstring Pagetext : ' + response.body)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response.data)
+             .end(clcallback + response.body)
         })
             });
 
