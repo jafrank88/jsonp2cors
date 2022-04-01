@@ -77,10 +77,10 @@ app.get('/api/CL/', (req, res, next) => {
             //console.log('Rplain Body : ' + response.body)
             //console.log('Rplain Header : ' + response.header)
             //console.log('Rplain Query : ' + response.query)
-            console.log('Rplain Data : ' + response.data)
+            console.log('Rplain JSON : ' + response.json)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response)
+             .end(clcallback + response.json)
       })
     });
 
