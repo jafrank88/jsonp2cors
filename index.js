@@ -71,13 +71,13 @@ app.get('/api/CL/', (req, res, next) => {
     app.get('/api/Rplain/', (req, res) => {
       const clcallback = req.query.callback
       console.log('Rplain Page Callback : ' + clcallback)
-      axios
+      await axios
         .get('https://everydaysystems.com/sps/tix/corb/v2.php')
         .then (function (response) {     
-            console.log('Rplain Body : ' + response.body)
-            console.log('Rplain Header : ' + response.header)
-            console.log('Rplain Query : ' + response.query)
-            console.log('Rplain Data :' + response.data)
+            //console.log('Rplain Body : ' + response.body)
+            //console.log('Rplain Header : ' + response.header)
+            //console.log('Rplain Query : ' + response.query)
+            console.log('Rplain Data : ' + response.data)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
              .end(clcallback + response)
