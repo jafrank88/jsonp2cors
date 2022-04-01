@@ -71,7 +71,7 @@ app.get('/api/CL/', (req, res, next) => {
     app.get('/api/Rplain/', (req, res) => {
       const clcallback = req.query.callback
       console.log('Rplain Page Callback : ' + clcallback)
-      await axios
+      axios
         .get('https://everydaysystems.com/sps/tix/corb/v2.php')
         .then (function (response) {     
             //console.log('Rplain Body : ' + response.body)
