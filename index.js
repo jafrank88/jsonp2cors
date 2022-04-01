@@ -74,13 +74,13 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get('https://everydaysystems.com/sps/tix/corb/v2.php')
         .then (function (response) {     
-            //console.log('Rplain Body : ' + response.body)
+            console.log('Rplain Data : ' + response.data)
             //console.log('Rplain Header : ' + response.header)
             //console.log('Rplain Query : ' + response.query)
-            console.log('Rplain JSON : ' + response.json)
+            //console.log('Rplain JSON : ' + response.json)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response.json)
+             .end(clcallback + response.data)
       })
     });
 
@@ -105,7 +105,7 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get('https://faculty.washington.edu/jafrank/Reinhardtest6.html')
         .then (function (response) {     
-          console.log('JFplain Pagetext : ' + response.body)
+          console.log('JFplain Pagetext : ' + response.data)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
              .end(clcallback + response.body)
