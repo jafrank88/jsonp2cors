@@ -78,7 +78,7 @@ app.get('/api/CL/', (req, res, next) => {
             //console.log('Rplain Header : ' + response.header)
             //console.log('Rplain Query : ' + response.query)
             //console.log('Rplain JSON : ' + response.json)
-            res.end(clcallback + response)
+            res.end(clcallback + JSON.stringify(response))
              //.writeHead(200,{'Content-Type': 'application/json'})
              //.end(clcallback + response)
       })
