@@ -82,7 +82,7 @@ app.get('/api/CL/', (req, res, next) => {
             //console.log('Rplain body : ' + response.body)
             //res.end(clcallback + JSON.stringify(response))
              //.writeHead(200,{'Content-Type': 'application/json'})
-          res.writeHead(200,{'Content-Type': 'test/html; charset=UTF-8'}) 
+          res.writeHead(200,{'Content-Type': 'text/html; charset=UTF-8'}) 
           res.write(rscallback + '(pass_a_callback_please(' + response.data + ');')
           res.end()
       })
