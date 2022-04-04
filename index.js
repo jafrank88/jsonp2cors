@@ -33,10 +33,9 @@ app.use(
 );
 
 // Main functions for five endpoints
-
-//app.get('/', function (req, res){
-//  res.jsonp({ title: 'This should be JSONP' });
-//});
+app.get('/', function (req, res){
+  res.send(req.query.callback + '(' + 'https://everydaysystems.com/sps/tix/corb/jon_sub.json' + ');')
+});
 
 app.get('/api/CL/', (req, res, next) => {
     const cluserrequest = req.query.q
