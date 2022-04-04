@@ -62,7 +62,7 @@ app.get('/api/CL/', (req, res, next) => {
     //res.send(clcallback + '( \' ' + JSON.stringify(output) + ' \' ) ;';//jsonp)
     //console.log(clcallback + '( \'' + cloutput5 + '\' );');
     res.writeHead(200,{'Content-Type': 'application/json'})
-    res.write(clcallback + ' ( \'' + cloutput5 + '\' );');
+    res.write(clcallback + ' ( ' + cloutput5 + ' ); ');
     res.end()
       });
     });
@@ -82,7 +82,7 @@ app.get('/api/CL/', (req, res, next) => {
             //res.end(clcallback + JSON.stringify(response))
              //.writeHead(200,{'Content-Type': 'application/json'})
           res.writeHead(200,{'Content-Type': 'text/html; charset=UTF-8'}) 
-          res.write(rscallback + '(pass_a_callback_please(' + response.data + ');')
+          res.write(rscallback + '(pass_a_callback_please(' + response.data + '));')
           res.end()
       })
     });
@@ -94,10 +94,10 @@ app.get('/api/CL/', (req, res, next) => {
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
-            res
+            res.send(rscallback + "(" + response.data + ");");
              //.writeHead(200,{'Content-Type': 'application/json'})
-             .write(rscallback + "(" + response.data + ");")
-             .end()
+             
+             
       })
     });
 
@@ -109,7 +109,7 @@ app.get('/api/CL/', (req, res, next) => {
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
           res.writeHead(200,{'Content-Type': 'application/json'})
-          res.json(rscallback + "(" + response.data + ");")
+          res.json(rscallback + "(" + response.data + ");");
       })
     }); 
 
@@ -121,7 +121,7 @@ app.get('/api/CL/', (req, res, next) => {
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
             //res.writeHead(200,{'Content-Type': 'application/json'})
-            res.jsonp(rscallback + "(" + response.data + ");")
+            res.jsonp(rscallback + "(" + response.data + ");");
       })
     }); 
 
