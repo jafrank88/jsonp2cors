@@ -69,8 +69,8 @@ app.get('/api/CL/', (req, res, next) => {
 
     app.get('/api/Rplain/', (req, res) => {
       let rs1callback = req.query.callback
-
-      console.log('Rplain req : ' + req)
+      let rs1req = req
+      console.log('Rplain req : ' + rs1req)
       console.log('Rplain Page Callback : ' + rs1callback)
       axios
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
