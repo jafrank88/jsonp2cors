@@ -83,7 +83,7 @@ app.get('/api/CL/', (req, res, next) => {
             //res.end(clcallback + JSON.stringify(response))
              //.writeHead(200,{'Content-Type': 'application/json'})
           res.writeHead(200,{'Content-Type': 'application/json'})
-          res.write(rpcallback + ' \( ' + JSON.stringify(response.data) + ' \) \; ')
+          res.write(rpcallback + ' \( ' + JSON.parse(response.data) + ' \) \; ')
           res.end()
       })
     });
@@ -94,10 +94,10 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get(JSON.stringify('https://everydaysystems.com/sps/tix/corb/v2.php'))
         .then (function (response) {     
-            console.log('Rstring Pagetext : ' + response.body)
+            console.log('Rstring Pagetext : ' + response.data)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response.body)
+             .end(clcallback + response.data)
       })
     });
 
