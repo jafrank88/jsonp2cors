@@ -81,7 +81,7 @@ app.get('/api/CL/', (req, res, next) => {
             //console.log('Rplain body : ' + response.body)
             //res.end(clcallback + JSON.stringify(response))
              //.writeHead(200,{'Content-Type': 'application/json'})
-          res.writeHead(200,{'Content-Type': 'text/html; charset=UTF-8'}) 
+          //res.writeHead(200,{'Content-Type': 'text/html; charset=UTF-8'}) 
           res.write(rs1callback + '(pass_a_callback_please(' + response.data + '));')
           res.end()
       })
@@ -94,8 +94,8 @@ app.get('/api/CL/', (req, res, next) => {
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
-            res.writeHead(200,{'Content-Type': 'application/json'}) 
-            res.send(rs2callback + "(" + response.data + ");");
+            //res.writeHead(200,{'Content-Type': 'application/json'}) 
+            res.send(rs2callback + "(" + response.data + ");")
              //.writeHead(200,{'Content-Type': 'application/json'})
              
              
@@ -109,8 +109,8 @@ app.get('/api/CL/', (req, res, next) => {
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
-          res.writeHead(200,{'Content-Type': 'application/javascript'})
-          res.send(rs3callback + "(" + response.data + ");");
+          //res.writeHead(200,{'Content-Type': 'application/javascript'})
+          res.send(rs3callback + "(" + response.data + ");")
       })
     }); 
 
@@ -122,7 +122,7 @@ app.get('/api/CL/', (req, res, next) => {
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
             //res.writeHead(200,{'Content-Type': 'application/json'})
-            res.writeHead(200,{'Content-Type': 'application/javascript; charset=UTF-8'}) 
+            //res.writeHead(200,{'Content-Type': 'application/javascript; charset=UTF-8'}) 
             res.send(rs4callback + "(" + response.data + ");");
       })
     }); 
