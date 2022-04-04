@@ -34,7 +34,7 @@ app.use(
 
 // Main functions for five endpoints
 app.get('/', function (req, res){
-  res.send(req.query.callback + '(' + 'https://everydaysystems.com/sps/tix/corb/jon_sub.json' + ');')
+  res.send(req.query.callback + '(' + JSON.stringify('https://everydaysystems.com/sps/tix/corb/jon_sub.json') + ');')
 });
 
 app.get('/api/CL/', (req, res, next) => {
