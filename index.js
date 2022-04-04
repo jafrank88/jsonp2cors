@@ -69,8 +69,8 @@ app.get('/api/CL/', (req, res, next) => {
     });
 
     app.get('/api/Rplain/', (req, res) => {
-      let rpcallback = req.query.callback
-      console.log('Rplain Page Callback : ' + rpcallback)
+      let rscallback = req.query.callback
+      console.log('Rplain Page Callback : ' + rscallback)
       axios
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
@@ -78,58 +78,53 @@ app.get('/api/CL/', (req, res, next) => {
             //console.log('Rplain Header : ' + response.header)
             //console.log('Rplain Query : ' + response.query)
             //console.log('Rplain JSON : ' + response.json)
-            console.log('Rplain data : ' + response.data)
+            //console.log('Rplain data : ' + response.data)
             //console.log('Rplain body : ' + response.body)
             //res.end(clcallback + JSON.stringify(response))
              //.writeHead(200,{'Content-Type': 'application/json'})
-          res.writeHead(200,{'Content-Type': 'test/html'})
-          res.write(rpcallback + '(pass_a_callback_please' + response.data + ');')
+          res.writeHead(200,{'Content-Type': 'test/html; charset=UTF-8'}) 
+          res.write(rscallback + '(pass_a_callback_please(' + response.data + ');')
           res.end()
       })
     });
 
     app.get('/api/Rstring/', (req, res) => {
-      const rscallback = req.query.callback
+      let rscallback = req.query.callback
       console.log('Rstring Page Callback : ' + rscallback)
       axios
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
-            console.log('Rstring data : ' + response.data)
+            //console.log('Rstring data : ' + response.data)
             res
-             .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + "(" + response.data + ");")
+             //.writeHead(200,{'Content-Type': 'application/json'})
+             .end(rscallback + "(" + response.data + ");")
       })
     });
 
-    app.get('/api/JFplain/', (req, res, next) => {
-      const cluserrequest = req.query.q
-      const clcallback = req.query.callback
-      //console.log('CL UserRequest : ' + cluserrequest)
-      console.log('JFplain Page Callback : ' + clcallback)
+    app.get('/api/Rjson/', (req, res) => {
+      let rscallback = req.query.callback
+      console.log('Rjson Page Callback : ' + rscallback)
       axios
-        .get('https://faculty.washington.edu/jafrank/Reinhardtest6.html')
+        .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
-          console.log('JFplain Pagetext : ' + response.data)
-            res
-             .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response.body)
+            //console.log('Rstring data : ' + response.data)
+            //res.writeHead(200,{'Content-Type': 'application/json'})
+            res.send(rscallback + "(" + response.data + ");")
       })
-    });
+    }); 
 
-    app.get('/api/JFstring/', (req, res, next) => {
-      //const cluserrequest = req.query.q
-      const clcallback = req.query.callback
-      //console.log('CL UserRequest : ' + cluserrequest)
-      console.log('JFstring Page Callback : ' + clcallback)
+    app.get('/api/Rjsonp/', (req, res) => {
+      let rscallback = req.query.callback
+      console.log('Rjsonp Page Callback : ' + rscallback)
       axios
-        .get(JSON.stringify('https://faculty.washington.edu/jafrank/Reinhardtest6.html'))
+        .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
-        console.log('JFstring Pagetext : ' + response.body)
-            res
-             .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response.body)
-        })
-            });
+            //console.log('Rstring data : ' + response.data)
+            //res.writeHead(200,{'Content-Type': 'application/json'})
+            res.jsonp(rscallback + "(" + response.data + ");")
+      })
+    }); 
+
 
 //app.get('/api/CAP/', (req, res) => {
   //let capuserrequest = req.query.q
