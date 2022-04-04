@@ -74,16 +74,17 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
-            console.log('Rplain Response : ' + response)
-            console.log('Rplain Header : ' + response.header)
-            console.log('Rplain Query : ' + response.query)
-            console.log('Rplain JSON : ' + response.json)
+            //console.log('Rplain Response : ' + response)
+            //console.log('Rplain Header : ' + response.header)
+            //console.log('Rplain Query : ' + response.query)
+            //console.log('Rplain JSON : ' + response.json)
             console.log('Rplain data : ' + response.data)
-            console.log('Rplain body : ' + response.body)
+            //console.log('Rplain body : ' + response.body)
             //res.end(clcallback + JSON.stringify(response))
              //.writeHead(200,{'Content-Type': 'application/json'})
-          res.write(clcallback)
-            .end(' \( ' + response.json + ' \) \; ')
+          res
+            .write(clcallback)
+            .end(' \( ' + response.data + ' \) \; ')
       })
     });
 
