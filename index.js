@@ -74,7 +74,7 @@ app.get('/api/CL/', (req, res, next) => {
       axios
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
-            console.log('Rplain Response : ' + JSON.stringify(response))
+            console.log('Rplain Response : ' + response)
             //console.log('Rplain Header : ' + response.header)
             //console.log('Rplain Query : ' + response.query)
             //console.log('Rplain JSON : ' + response.json)
