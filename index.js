@@ -108,7 +108,7 @@ app.get('/api/CL/', (req, res, next) => {
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
-          res.writeHead(200,{'Content-Type': 'application/json'})
+          //res.writeHead(200,{'Content-Type': 'application/json'})
           res.json(rscallback + "(" + response.data + ");");
       })
     }); 
