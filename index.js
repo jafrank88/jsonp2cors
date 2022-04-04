@@ -69,8 +69,8 @@ app.get('/api/CL/', (req, res, next) => {
     });
 
     app.get('/api/Rplain/', (req, res) => {
-      const clcallback = req.query.callback
-      console.log('Rplain Page Callback : ' + clcallback)
+      let rpcallback = req.query.callback
+      console.log('Rplain Page Callback : ' + rpcallback)
       axios
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
@@ -83,7 +83,7 @@ app.get('/api/CL/', (req, res, next) => {
             //res.end(clcallback + JSON.stringify(response))
              //.writeHead(200,{'Content-Type': 'application/json'})
           res.writeHead(200,{'Content-Type': 'application/json'})
-          res.end(clcallback + ' \( ' + response.data + ' \) \; ')
+          res.end(rpcallback + ' \( ' + response.data + ' \) \; ')
       })
     });
 
