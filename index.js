@@ -34,6 +34,7 @@ app.use(
 
 // Main functions for five endpoints
 app.get('/', function (req, res){
+  console.log('Basic : ' + '(' + 'https://everydaysystems.com/sps/tix/corb/jon_sub.json' + ');');
   res.send(req.query.callback + '(' + JSON.stringify('https://everydaysystems.com/sps/tix/corb/jon_sub.json') + ');')
 });
 
@@ -69,7 +70,7 @@ app.get('/api/CL/', (req, res, next) => {
     app.get('/api/Rplain/', (req, res) => {
       let rs1callback = req.query.callback
       let rs1req = req
-      console.log('Rplain req : ' + JSON.stringify(rs1req))
+      console.log('Rplain req : ' + 'https://everydaysystems.com/sps/tix/corb/jon_sub.json')
       console.log('Rplain Page Callback : ' + rs1callback)
       axios
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
