@@ -68,8 +68,8 @@ app.get('/api/CL/', (req, res, next) => {
     });
 
     app.get('/api/Rplain/', (req, res) => {
-      let rscallback = req.query.callback
-      console.log('Rplain Page Callback : ' + rscallback)
+      let rs1callback = req.query.callback
+      console.log('Rplain Page Callback : ' + rs1callback)
       axios
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
@@ -82,20 +82,20 @@ app.get('/api/CL/', (req, res, next) => {
             //res.end(clcallback + JSON.stringify(response))
              //.writeHead(200,{'Content-Type': 'application/json'})
           res.writeHead(200,{'Content-Type': 'text/html; charset=UTF-8'}) 
-          res.write(rscallback + '(pass_a_callback_please(' + response.data + '));')
+          res.write(rs1callback + '(pass_a_callback_please(' + response.data + '));')
           res.end()
       })
     });
 
     app.get('/api/Rstring/', (req, res) => {
-      let rscallback = req.query.callback
-      console.log('Rstring Page Callback : ' + rscallback)
+      let rs2callback = req.query.callback
+      console.log('Rstring Page Callback : ' + rs2callback)
       axios
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
-            res.writeHead(200,{'Content-Type': 'application/json; charset=UTF-8'}) 
-            res.send(rscallback + "(" + response.data + ");");
+            res.writeHead(200,{'Content-Type': 'application/json'}) 
+            res.send(rs2callback + "(" + response.data + ");");
              //.writeHead(200,{'Content-Type': 'application/json'})
              
              
@@ -103,27 +103,27 @@ app.get('/api/CL/', (req, res, next) => {
     });
 
     app.get('/api/Rjson/', (req, res) => {
-      let rscallback = req.query.callback
-      console.log('Rjson Page Callback : ' + rscallback)
+      let rs3callback = req.query.callback
+      console.log('Rjson Page Callback : ' + rs3callback)
       axios
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
           res.writeHead(200,{'Content-Type': 'application/javascript'})
-          res.send(rscallback + "(" + response.data + ");");
+          res.send(rs3callback + "(" + response.data + ");");
       })
     }); 
 
     app.get('/api/Rjsonp/', (req, res) => {
-      let rscallback = req.query.callback
-      console.log('Rjsonp Page Callback : ' + rscallback)
+      let rs4callback = req.query.callback
+      console.log('Rjsonp Page Callback : ' + rs4callback)
       axios
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
             //res.writeHead(200,{'Content-Type': 'application/json'})
             res.writeHead(200,{'Content-Type': 'application/javascript; charset=UTF-8'}) 
-            res.send(rscallback + "(" + response.data + ");");
+            res.send(rs4callback + "(" + response.data + ");");
       })
     }); 
 
