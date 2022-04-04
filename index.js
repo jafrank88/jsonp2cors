@@ -94,6 +94,7 @@ app.get('/api/CL/', (req, res, next) => {
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
+            res.writeHead(200,{'Content-Type': 'application/json; charset=UTF-8'}) 
             res.send(rscallback + "(" + response.data + ");");
              //.writeHead(200,{'Content-Type': 'application/json'})
              
@@ -108,8 +109,8 @@ app.get('/api/CL/', (req, res, next) => {
         .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
-          //res.writeHead(200,{'Content-Type': 'application/json'})
-          res.json(rscallback + "(" + response.data + ");");
+          res.writeHead(200,{'Content-Type': 'application/javascript'})
+          res.send(rscallback + "(" + response.data + ");");
       })
     }); 
 
@@ -121,7 +122,8 @@ app.get('/api/CL/', (req, res, next) => {
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
             //res.writeHead(200,{'Content-Type': 'application/json'})
-            res.jsonp(rscallback + "(" + response.data + ");");
+            res.writeHead(200,{'Content-Type': 'application/javascript; charset=UTF-8'}) 
+            res.send(rscallback + "(" + response.data + ");");
       })
     }); 
 
