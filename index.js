@@ -82,22 +82,22 @@ app.get('/api/CL/', (req, res, next) => {
             //console.log('Rplain body : ' + response.body)
             //res.end(clcallback + JSON.stringify(response))
              //.writeHead(200,{'Content-Type': 'application/json'})
-          res.writeHead(200,{'Content-Type': 'application/json'})
-          res.write(rpcallback + ' \( ' + JSON.parse(response.data) + ' \) \; ')
+          res.writeHead(200,{'Content-Type': 'test/html'})
+          res.write(rpcallback + '(pass_a_callback_please' + response.data + ');')
           res.end()
       })
     });
 
     app.get('/api/Rstring/', (req, res) => {
-      const clcallback = req.query.callback
-      console.log('Rstring Page Callback : ' + clcallback)
+      const rscallback = req.query.callback
+      console.log('Rstring Page Callback : ' + rscallback)
       axios
-        .get(JSON.stringify('https://everydaysystems.com/sps/tix/corb/v2.php'))
+        .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
         .then (function (response) {     
-            console.log('Rstring Pagetext : ' + response.data)
+            console.log('Rstring data : ' + response.data)
             res
              .writeHead(200,{'Content-Type': 'application/json'})
-             .end(clcallback + response.data)
+             .end(clcallback + "(" + response.data + ");")
       })
     });
 
