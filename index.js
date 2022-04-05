@@ -59,7 +59,7 @@ app.get("/test", (req, res, next) => {
 app.get('/', function (req, res){
   axios
     .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
-    .then((result) => res.jsonp(result.data))
+    .then((result) => res.jsonp(result.body))
     .catch((err) => next(err));
  // res.send(req.query.callback + '(' + JSON.stringify('https://everydaysystems.com/sps/tix/corb/jon_sub.json') + ');')
 });
@@ -73,7 +73,7 @@ app.get('/api/CL/', (req, res, next) => {
     axios
       .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
       .then (function (response) {
-          const clresp = JSON.stringify(response)
+          const clresp = response.data
           const cloutput = clresp.replace('"count"', '"total_results"')
           const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
           const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
@@ -87,8 +87,8 @@ app.get('/api/CL/', (req, res, next) => {
     //console.log(output.headers) 
     //res.send(clcallback + '( \' ' + JSON.stringify(output) + ' \' ) ;';//jsonp)
     //console.log(clcallback + '( \'' + cloutput5 + '\' );');
-          const cloutput6 = JSON.parse(cloutput5)
-          ((cloutput6) => res.jsonp(cloutput6))}
+          //const cloutput6 = cloutput5
+          ((cloutput5) => res.jsonp(cloutput5.data))}
         
     //res.writeHead(200,{'Content-Type': 'application/json'})
     //res.write(clcallback + ' ( ' + cloutput5 + ' ); ');
