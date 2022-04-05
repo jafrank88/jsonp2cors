@@ -54,7 +54,7 @@ app.get("/test", (req, res, next) => {
 
 // Main functions for five endpoints
 app.get('/api/', function (req, res){
-  console.log(`${req.method} ${req.url}`);
+  //console.log(`req`);
   axios
     .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
     .then (function (response) {
