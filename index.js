@@ -57,7 +57,13 @@ app.get('/', function (req, res){
   console.log(`${req.method} ${req.url}`);
   axios
     .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
-    .then((result) => res.jsonp(result.body))
+    .then (function (response) {
+    console.log(response.data)
+    console.log(response.status)
+    console.log(response.statusText)
+    console.log(response.headers)
+    console.log(response.config)
+    })
     .catch((err) => next(err));
  // res.send(req.query.callback + '(' + JSON.stringify('https://everydaysystems.com/sps/tix/corb/jon_sub.json') + ');')
 });
@@ -65,12 +71,17 @@ app.get('/', function (req, res){
 app.get('/api/CL/', (req, res, next) => {
     const cluserrequest = req.query.q
     const clcallback = req.query.callback
-    console.log('CL UserRequest ' + cluserrequest)
-    console.log('rqc Callback : ' + req.query.callback)
-    console.log('recorded Callback :' + clcallback)
+    //console.log('CL UserRequest ' + cluserrequest)
+    //console.log('rqc Callback : ' + req.query.callback)
+    //console.log('recorded Callback :' + clcallback)
     axios
       .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
       .then (function (response) {
+        console.log(response.data)
+        console.log(response.status)
+        console.log(response.statusText)
+        console.log(response.headers)
+        console.log(response.config)
           const clresp = JSON.stringify(response.data)
           const cloutput = clresp.replace('"count"', '"total_results"')
           const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
@@ -91,7 +102,7 @@ app.get('/api/CL/', (req, res, next) => {
     //res.writeHead(200,{'Content-Type': 'application/json'})
     //res.write(clcallback + ' ( ' + cloutput5 + ' ); ');
     //res.end()
-    //  .catch((err) => next(err)),
+      .catch((err) => next(err))
     )});
 
     app.get('/api/Rplain/', (req, res) => {
