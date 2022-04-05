@@ -48,10 +48,20 @@ function makeGetRequest(path) {
 }
 //makeGetRequest('http://127.0.0.1:5000/test');
 
+app.get("/test", (req, res, next) => {
+  axios
+    .get("http://localhost:3000/data")
+    .then((result) => res.jsonp(result.data))
+    .catch((err) => next(err));
+});
+
 // Main functions for five endpoints
 app.get('/', function (req, res){
-  console.log('Basic : ' + '(' + 'https://everydaysystems.com/sps/tix/corb/jon_sub.json' + ');');
-  res.send(req.query.callback + '(' + JSON.stringify('https://everydaysystems.com/sps/tix/corb/jon_sub.json') + ');')
+  axios
+    .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
+    .then((result) => res.jsonp(result.data))
+    .catch((err) => next(err));
+ // res.send(req.query.callback + '(' + JSON.stringify('https://everydaysystems.com/sps/tix/corb/jon_sub.json') + ');')
 });
 
 app.get('/api/CL/', (req, res, next) => {
@@ -63,7 +73,7 @@ app.get('/api/CL/', (req, res, next) => {
     axios
       .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
       .then (function (response) {
-          const clresp = JSON.stringify(response.data)
+          const clresp = JSON.stringify(response.body)
           const cloutput = clresp.replace('"count"', '"total_results"')
           const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
           const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
@@ -77,7 +87,7 @@ app.get('/api/CL/', (req, res, next) => {
     //console.log(output.headers) 
     //res.send(clcallback + '( \' ' + JSON.stringify(output) + ' \' ) ;';//jsonp)
     //console.log(clcallback + '( \'' + cloutput5 + '\' );');
-          ((cloutput5) => res.jsonp(cloutput5.data))}
+          ((cloutput5) => res.jsonp(cloutput5.body))}
         
     //res.writeHead(200,{'Content-Type': 'application/json'})
     //res.write(clcallback + ' ( ' + cloutput5 + ' ); ');
