@@ -46,12 +46,7 @@ function makeGetRequest(path) {
       }
   );
 }
-makeGetRequest('http://127.0.0.1:5000/test');
-
-app.get("/api/CLT/", (req, res, next) => {
-
-});
-
+//makeGetRequest('http://127.0.0.1:5000/test');
 
 // Main functions for five endpoints
 app.get('/', function (req, res){
