@@ -87,8 +87,8 @@ app.get('/api/CL/', (req, res, next) => {
     //console.log(output.headers) 
     //res.send(clcallback + '( \' ' + JSON.stringify(output) + ' \' ) ;';//jsonp)
     //console.log(clcallback + '( \'' + cloutput5 + '\' );');
-          const cloutput6 = JSON.parse(cloutput6)
-          ((cloutput6) => res.jsonp(cloutput6.body))}
+          const cloutput6 = JSON.parse(cloutput5)
+          ((cloutput6) => res.jsonp(cloutput6))}
         
     //res.writeHead(200,{'Content-Type': 'application/json'})
     //res.write(clcallback + ' ( ' + cloutput5 + ' ); ');
