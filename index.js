@@ -32,9 +32,6 @@ app.use(
   })
 );
 
-app.use(express.json());
-app.get("/data", (req, res) => res.json({ ok: true }));
-
 function makeGetRequest(path) {
   axios.get(path).then(
       (response) => {
@@ -57,6 +54,7 @@ app.get("/test", (req, res, next) => {
 
 // Main functions for five endpoints
 app.get('/', function (req, res){
+  console.log(`${req.method} ${req.url}`);
   axios
     .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
     .then((result) => res.jsonp(result.body))
