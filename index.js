@@ -102,7 +102,7 @@ app.get('/api/CL/', (req, res, next) => {
     //res.writeHead(200,{'Content-Type': 'application/json'})
     //res.write(clcallback + ' ( ' + cloutput5 + ' ); ');
     //res.end()
-      .catch((err) => next(err))
+    //  .catch((err) => next(err))
     )});
 
     app.get('/api/Rplain/', (req, res) => {
