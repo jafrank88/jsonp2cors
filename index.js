@@ -69,23 +69,10 @@ app.get('/api/CL/', (req, res, next) => {
 
     app.get('/api/Rplain/', (req, res) => {
       let rs1callback = req.query.callback
-      let rs1req = req
-      console.log('Rplain req : ' + 'https://everydaysystems.com/sps/tix/corb/jon_sub.json')
-      console.log('Rplain Page Callback : ' + rs1callback)
       axios
-        .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
+        .get('/test.json')
         .then (function (response) {     
-            //console.log('Rplain Response : ' + response)
-            //console.log('Rplain Header : ' + response.header)
-            //console.log('Rplain Query : ' + response.query)
-            //console.log('Rplain JSON : ' + response.json)
-            //console.log('Rplain data : ' + response.data)
-            //console.log('Rplain body : ' + response.body)
-            //res.end(clcallback + JSON.stringify(response))
-             //.writeHead(200,{'Content-Type': 'application/json'})
-          //res.writeHead(200,{'Content-Type': 'text/html; charset=UTF-8'}) 
-          res.write(rs1callback + '(pass_a_callback_please(' + response.data + '));')
-          res.end()
+          res.sendFile(rs1callback + '(' + response.data + ');')
       })
     });
 
@@ -97,7 +84,7 @@ app.get('/api/CL/', (req, res, next) => {
         .then (function (response) {     
             //console.log('Rstring data : ' + response.data)
             //res.writeHead(200,{'Content-Type': 'application/json'}) 
-            res.send(rs2callback + "(" + response.data + ");")
+            res.sendFile(rs2callback + "(" + response.data + ");")
              //.writeHead(200,{'Content-Type': 'application/json'})
              
              
