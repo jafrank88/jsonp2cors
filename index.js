@@ -32,6 +32,27 @@ app.use(
   })
 );
 
+app.use(express.json());
+app.get("/data", (req, res) => res.json({ ok: true }));
+
+function makeGetRequest(path) {
+  axios.get(path).then(
+      (response) => {
+          let result = response.data;
+          console.log(result);
+      },
+      (error) => {
+          console.log(error);
+      }
+  );
+}
+makeGetRequest('http://127.0.0.1:5000/test');
+
+app.get("/api/CLT/", (req, res, next) => {
+
+});
+
+
 // Main functions for five endpoints
 app.get('/', function (req, res){
   console.log('Basic : ' + '(' + 'https://everydaysystems.com/sps/tix/corb/jon_sub.json' + ');');
@@ -48,11 +69,11 @@ app.get('/api/CL/', (req, res, next) => {
       .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
       .then (function (response) {
           const clresp = JSON.stringify(response.data)
-    const cloutput = clresp.replace('"count"', '"total_results"')
-    const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
-    const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
-    const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
-    const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
+          const cloutput = clresp.replace('"count"', '"total_results"')
+          const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
+          const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
+          const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
+          const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
     //const output = cloutput3
     //console.log ('postResType :'+ res.get('Content-Type'))
     //const output = JSON.parse(cloutput5)
@@ -61,11 +82,13 @@ app.get('/api/CL/', (req, res, next) => {
     //console.log(output.headers) 
     //res.send(clcallback + '( \' ' + JSON.stringify(output) + ' \' ) ;';//jsonp)
     //console.log(clcallback + '( \'' + cloutput5 + '\' );');
-    res.writeHead(200,{'Content-Type': 'application/json'})
-    res.write(clcallback + ' ( ' + cloutput5 + ' ); ');
-    res.end()
-      });
-    });
+          ((cloutput5) => res.jsonp(cloutput5.data))}
+        
+    //res.writeHead(200,{'Content-Type': 'application/json'})
+    //res.write(clcallback + ' ( ' + cloutput5 + ' ); ');
+    //res.end()
+    //  .catch((err) => next(err)),
+    )});
 
     app.get('/api/Rplain/', (req, res) => {
       let rs1callback = req.query.callback
