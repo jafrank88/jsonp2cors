@@ -70,10 +70,13 @@ app.get('/api/CAP/', (req, res) => {
   //console.log('Callback : ' + req.query.callback)
   axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest + '&jurisdiction=wash')
     .then(function (response) {
-      const clresp = JSON.stringify(response.data)
+      const capresp = JSON.stringify(response.data)
+      const capresp1 = capresp.replace('"count"', '"total_results"')
+      const ccapres2 = capresp1.replace('"next"', '"perpage":5, "next"')
+      const capout = capresp2.replaceAll('"case"','"title"')
        res
        .type('application/javascript')
-       .send(capcallback + '(' + clresp + ');');
+       .send(capcallback + '(' + capout + ');');
        } 
   //);
 )})
