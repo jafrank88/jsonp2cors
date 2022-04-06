@@ -55,82 +55,54 @@ app.get("/test", (req, res, next) => {
 app.get('/api/CL/', (req, res, next) => {
     const cluserrequest = req.query.q
     const clcallback = req.query.callback
-    //console.log('CL UserRequest ' + cluserrequest)
-    //console.log('rqc Callback : ' + req.query.callback)
-    //console.log('recorded Callback :' + clcallback)
     axios
       .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
       .then (function (response) {
-          const clresp = JSON.stringify(response.data)
+          const clresp = response.data
           const cloutput = clresp.replace('"count"', '"total_results"')
           const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
           const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
           const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
           const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
-          //const output = JSON.parse(cloutput5)
-    //console.log ('postParse :'+ res.get('Content-Type'))
-    //console.log ('Final Content-Type :'+ res.get('Content-Type'))
-    //console.log(output.headers) 
-    //res.send(clcallback + '( \' ' + JSON.stringify(output) + ' \' ) ;';//jsonp)
-    //console.log(clcallback + '( \'' + cloutput5 + '\' );');
-          //const cloutput6 = cloutput5
+          //console.log(clcallback + '( \'' + cloutput5 + '\' );');
           res.send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
-        
-    //res.writeHead(200,{'Content-Type': 'application/json'})
-    //res.write(clcallback + ' ( ' + cloutput5 + ' ); ');
-    //res.end()
-    //  .catch((err) => next(err))
-    )});
+    )}
+);
 
-    app.get('/api/Rplain/', (req, res) => {
-      let rs1callback = req.query.callback
-      axios
-        .get('/test.json')
-        .then (function (response) {     
-          res.sendFile(rs1callback + '(' + response.data + ');')
-      })
-    });
+app.get('/api/CL1/', (req, res, next) => {
+  const cluserrequest = req.query.q
+  const clcallback = req.query.callback
+  axios
+    .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
+    .then (function (response) {
+        const clresp = response.data
+        const cloutput = clresp.replace('"count"', '"total_results"')
+        const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
+        const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
+        const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
+        const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
+        //console.log(clcallback + '( \'' + cloutput5 + '\' );');
+        res.send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
+  )}
+);
 
-    app.get('/api/Rstring/', (req, res) => {
-      let rs2callback = req.query.callback
-      console.log('Rstring Page Callback : ' + rs2callback)
-      axios
-        .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
-        .then (function (response) {     
-            //console.log('Rstring data : ' + response.data)
-            //res.writeHead(200,{'Content-Type': 'application/json'}) 
-            res.sendFile(rs2callback + "(" + response.data + ");")
-             //.writeHead(200,{'Content-Type': 'application/json'})
-             
-             
-      })
-    });
-
-    app.get('/api/Rjson/', (req, res) => {
-      let rs3callback = req.query.callback
-      console.log('Rjson Page Callback : ' + rs3callback)
-      axios
-        .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
-        .then (function (response) {     
-            //console.log('Rstring data : ' + response.data)
-          //res.writeHead(200,{'Content-Type': 'application/javascript'})
-          res.send(rs3callback + "(" + response.data + ");")
-      })
-    }); 
-
-    app.get('/api/Rjsonp/', (req, res) => {
-      let rs4callback = req.query.callback
-      console.log('Rjsonp Page Callback : ' + rs4callback)
-      axios
-        .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
-        .then (function (response) {     
-            //console.log('Rstring data : ' + response.data)
-            //res.writeHead(200,{'Content-Type': 'application/json'})
-            //res.writeHead(200,{'Content-Type': 'application/javascript; charset=UTF-8'}) 
-            res.send(rs4callback + "(" + response.data + ");");
-      })
-    }); 
-
+   
+app.get('/api/CL2/', (req, res, next) => {
+  const cluserrequest = req.query.q
+  const clcallback = req.query.callback
+  axios
+    .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
+    .then (function (response) {
+        const clresp = response.data
+        const cloutput = clresp.replace('"count"', '"total_results"')
+        const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
+        const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
+        const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
+        const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
+        //console.log(clcallback + '( \'' + cloutput5 + '\' );');
+        res.send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
+  )}
+);
 
 //app.get('/api/CAP/', (req, res) => {
   //let capuserrequest = req.query.q
