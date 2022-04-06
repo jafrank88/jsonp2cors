@@ -48,7 +48,7 @@ app.get('/api/CL/', (req, res) => {
     const cluserrequest = req.query.q
     const clcallback = req.query.callback
     axios
-      .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest + '&court_id=wash,washctapp')
+      .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequests)
       .then (function (response) {
           const clresp = JSON.stringify(response.data)
           const cloutput = clresp.replace('"count"', '"total_results"')
@@ -68,7 +68,7 @@ app.get('/api/CAP/', (req, res) => {
   let capcallback = req.query.callback
   //console.log('CAP UserRequest ' + capuserrequest)
   //console.log('Callback : ' + req.query.callback)
-  axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest + '&jurisdiction=wash')
+  axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest + '&jurisdiction_id=38')
     .then(function (response) {
       const capresp = JSON.stringify(response.data)
       const capresp1 = capresp.replace('"count"', '"total_results"')
@@ -76,6 +76,7 @@ app.get('/api/CAP/', (req, res) => {
       const capresp3 = capresp2.replaceAll('"url"', '"uurl"')
       const capresp4 = capresp3.replaceAll('"frontend_url"', '"url"')
       const capout = capresp4.replaceAll('"case"','"title"')
+      console.log(capout)
        res
        .type('application/javascript')
        .send(capcallback + '(' + capout + ');');
