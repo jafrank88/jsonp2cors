@@ -57,10 +57,9 @@ app.get('/api/CL/', (req, res, next) => {
           const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
           const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
           const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
-          const cloutput6 = JSON.parse(cloutput5)
           res
             .type('application/javascript')
-            .send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
+            .send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the response.data
     )}
 );
 
@@ -82,7 +81,6 @@ app.get('/api/CL1/', (req, res, next) => {
   )}
 );
 
-   
 app.get('/api/CL2/', (req, res, next) => {
   const cluserrequest = req.query.q
   const clcallback = req.query.callback
