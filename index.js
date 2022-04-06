@@ -57,6 +57,7 @@ app.get('/api/CL/', (req, res, next) => {
           const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
           const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
           const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
+          const cloutput6 = JSON.parse(cloutput5)
           res
             .type('application/javascript')
             .send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the response.data
@@ -75,6 +76,7 @@ app.get('/api/CL1/', (req, res, next) => {
         const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
         const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
         const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
+        const cloutput6 = JSON.parse(cloutput5)
         res
           .type('application/json')
           .send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
@@ -93,6 +95,7 @@ app.get('/api/CL2/', (req, res, next) => {
         const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
         const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
         const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
+        const cloutput6 = JSON.parse(cloutput5)
         res
           .type('text/html; charset=UTF-8')
           .send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
