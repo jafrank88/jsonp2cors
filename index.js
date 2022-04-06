@@ -48,7 +48,7 @@ app.get('/api/CL/', (req, res) => {
     const cluserrequest = req.query.q
     const clcallback = req.query.callback
     axios
-      .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest & '&court_id=wash')
+      .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest + '&court_id=wash,washctapp')
       .then (function (response) {
           const clresp = JSON.stringify(response.data)
           const cloutput = clresp.replace('"count"', '"total_results"')
