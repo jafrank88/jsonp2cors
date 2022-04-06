@@ -73,8 +73,9 @@ app.get('/api/CAP/', (req, res) => {
       const capresp = JSON.stringify(response.data)
       const capresp1 = capresp.replace('"count"', '"total_results"')
       const capresp2 = capresp1.replace('"next"', '"perpage":5, "next"')
-      const capresp3 = capresp2.replaceAll('"frontend_url"', '"url"')
-      const capout = capresp3.replaceAll('"case"','"title"')
+      const capresp3 = capresp2.replaceAll('"url"', '"uurl"')
+      const capresp4 = capresp3.replaceAll('"frontend_url"', '"url"')
+      const capout = capresp4.replaceAll('"case"','"title"')
        res
        .type('application/javascript')
        .send(capcallback + '(' + capout + ');');
