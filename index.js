@@ -72,7 +72,7 @@ app.get('/api/CAP/', (req, res) => {
     .then(function (response) {
       const capresp = JSON.stringify(response.data)
       const capresp1 = capresp.replace('"count"', '"total_results"')
-      const ccapres2 = capresp1.replace('"next"', '"perpage":5, "next"')
+      const capresp2 = capresp1.replace('"next"', '"perpage":5, "next"')
       const capout = capresp2.replaceAll('"case"','"title"')
        res
        .type('application/javascript')
