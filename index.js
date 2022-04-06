@@ -45,25 +45,19 @@ function makeGetRequest(path) {
 }
 //makeGetRequest('http://127.0.0.1:5000/test');
 
-app.get("/test", (req, res, next) => {
-  axios
-    .get("http://localhost:3000/data")
-    .then((result) => res.jsonp(result.data))
-    .catch((err) => next(err));
-});
-
 app.get('/api/CL/', (req, res, next) => {
     const cluserrequest = req.query.q
     const clcallback = req.query.callback
     axios
       .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
       .then (function (response) {
-          const clresp = response.data
+          const clresp = JSON.stringify(response.data)
           const cloutput = clresp.replace('"count"', '"total_results"')
           const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
           const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
           const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
           const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
+          const cloutput6 = JSON.parse(cloutput5)
           //console.log(clcallback + '( \'' + cloutput5 + '\' );');
           res.send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
     )}
@@ -75,7 +69,7 @@ app.get('/api/CL1/', (req, res, next) => {
   axios
     .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
     .then (function (response) {
-        const clresp = response.data
+        const clresp = JSON.stringify(response.data)
         const cloutput = clresp.replace('"count"', '"total_results"')
         const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
         const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
@@ -93,14 +87,14 @@ app.get('/api/CL2/', (req, res, next) => {
   axios
     .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
     .then (function (response) {
-        const clresp = response.data
+        const clresp = JSON.stringify(response.data)
         const cloutput = clresp.replace('"count"', '"total_results"')
         const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
         const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
         const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
         const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
         //console.log(clcallback + '( \'' + cloutput5 + '\' );');
-        res.send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
+        res.jsonp(cloutput5)} //cloutput5 already is just the data
   )}
 );
 
