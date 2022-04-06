@@ -58,8 +58,9 @@ app.get('/api/CL/', (req, res, next) => {
           const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
           const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
           const cloutput6 = JSON.parse(cloutput5)
-          //console.log(clcallback + '( \'' + cloutput5 + '\' );');
-          res.send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
+          res
+            .writeHead(200,{'Content-Type': 'text/html; charset=UTF-8'})
+            .send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
     )}
 );
 
@@ -75,8 +76,9 @@ app.get('/api/CL1/', (req, res, next) => {
         const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
         const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
         const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
-        //console.log(clcallback + '( \'' + cloutput5 + '\' );');
-        res.send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
+        res
+          .writeHead(200,{'Content-Type': 'application/json'})
+          .send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
   )}
 );
 
@@ -93,7 +95,7 @@ app.get('/api/CL2/', (req, res, next) => {
         const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
         const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
         const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
-        //console.log(clcallback + '( \'' + cloutput5 + '\' );');
+        res.writeHead(200,{'Content-Type': 'text/html; charset=UTF-8'})
         res.jsonp(cloutput5)} //cloutput5 already is just the data
   )}
 );
