@@ -32,20 +32,19 @@ app.use(
   })
 );
 
-function makeGetRequest(path) {
-  axios.get(path).then(
-      (response) => {
-          let result = response.data;
-          console.log(result);
-      },
-      (error) => {
-          console.log(error);
-      }
-  );
-}
-//makeGetRequest('http://127.0.0.1:5000/test');
+//function makeGetRequest(path) {
+  //axios.get(path).then(
+      //(response) => {
+         // let result = response.data;
+          //console.log(result);
+      //},
+      //(error) => {
+          //console.log(error);
+      //}
+  //);
 
-app.get('/api/CL/', (req, res, next) => {
+
+app.get('/api/CL/', (req, res) => {
     const cluserrequest = req.query.q
     const clcallback = req.query.callback
     axios
@@ -57,60 +56,27 @@ app.get('/api/CL/', (req, res, next) => {
           const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
           const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
           const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
-          const cloutput6 = JSON.parse(cloutput5)
           res
             .type('application/javascript')
             .send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the response.data
-    )}
-);
+    )});
 
-app.get('/api/CL1/', (req, res, next) => {
-  const cluserrequest = req.query.q
-  const clcallback = req.query.callback
-  axios
-    .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
-    .then (function (response) {
-        const clresp = JSON.stringify(response.data)
-        const cloutput = clresp.replace('"count"', '"total_results"')
-        const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
-        const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
-        const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
-        const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
-        const cloutput6 = JSON.parse(cloutput5)
-        res
-          .type('application/javascript')
-          .send(clcallback + '(' + cloutput6 + ');')} //cloutput5 already is just the data
-  )}
-);
 
-app.get('/api/CL2/', (req, res, next) => {
-  const cluserrequest = req.query.q
-  const clcallback = req.query.callback
-  axios
-    .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
-    .then (function (response) {
-        const clresp = JSON.stringify(response.data)
-        const cloutput = clresp.replace('"count"', '"total_results"')
-        const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
-        const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
-        const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
-        const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
-        res
-          .type('application/javascript')
-          .send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
-  )}
-);
 
-//app.get('/api/CAP/', (req, res) => {
-  //let capuserrequest = req.query.q
+app.get('/api/CAP/', (req, res) => {
+  let capuserrequest = req.query.q
+  let capcallback = req.query.callback
   //console.log('CAP UserRequest ' + capuserrequest)
   //console.log('Callback : ' + req.query.callback)
-  //axios.get('https://api.case.law/v1/cases/?search=' + req.query.q + '&jurisdiction=wash')
-    //.then(function (response) {
-       //res.jsonp(response.data);
-    //} 
+  axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest + '&jurisdiction=wash')
+    .then(function (response) {
+      //const clresp = JSON.stringify(response.data)
+       res
+       .type('application/javascript')
+       .send(capcallback + '(' + response.data + ');');
+       } 
   //);
-//});
+)})
 
 //app.get('/api/WAC/', (req, res) => {
   //let wacuserRequest = req.query.q
