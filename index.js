@@ -52,22 +52,6 @@ app.get("/test", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-// Main functions for five endpoints
-app.get('/api/', function (req, res){
-  //console.log(`req`);
-  axios
-    .get('https://everydaysystems.com/sps/tix/corb/jon_sub.json')
-    .then (function (response) {
-    console.log(response.data)
-    console.log(response.status)
-    console.log(response.statusText)
-    console.log(response.headers)
-    console.log(response.config)
-    })
-    .catch((err) => next(err));
- // res.send(req.query.callback + '(' + JSON.stringify('https://everydaysystems.com/sps/tix/corb/jon_sub.json') + ');')
-});
-
 app.get('/api/CL/', (req, res, next) => {
     const cluserrequest = req.query.q
     const clcallback = req.query.callback
@@ -77,27 +61,20 @@ app.get('/api/CL/', (req, res, next) => {
     axios
       .get('https://courtlistener.com/api/rest/v3/search/?q=' + cluserrequest)
       .then (function (response) {
-        console.log(response.data)
-        console.log(response.status)
-        console.log(response.statusText)
-        console.log(response.headers)
-        console.log(response.config)
           const clresp = JSON.stringify(response.data)
           const cloutput = clresp.replace('"count"', '"total_results"')
           const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
           const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
           const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
           const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
-    //const output = cloutput3
-    //console.log ('postResType :'+ res.get('Content-Type'))
-    //const output = JSON.parse(cloutput5)
+          //const output = JSON.parse(cloutput5)
     //console.log ('postParse :'+ res.get('Content-Type'))
     //console.log ('Final Content-Type :'+ res.get('Content-Type'))
     //console.log(output.headers) 
     //res.send(clcallback + '( \' ' + JSON.stringify(output) + ' \' ) ;';//jsonp)
     //console.log(clcallback + '( \'' + cloutput5 + '\' );');
           //const cloutput6 = cloutput5
-          res.send(clcallback + '(' + cloutput5.data + ');')}
+          res.send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the data
         
     //res.writeHead(200,{'Content-Type': 'application/json'})
     //res.write(clcallback + ' ( ' + cloutput5 + ' ); ');
