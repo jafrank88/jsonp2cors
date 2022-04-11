@@ -91,7 +91,7 @@ app.get('/api/GOOG/', (req, res) => {
   let waccallback = req.query.callback
   console.log('GOOG UserRequest ' + wacuserRequest)
   console.log('GOOG Callback : ' + waccallback)
-  const resp = axios.get('https://www.googleapis.com/customsearch/v1?q=' + wacuserRequest + '&sitesearch=wa.gov&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4')
+  const resp = axios.get('https://www.googleapis.com/customsearch/v1?q=' + wacuserRequest + '&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4')
   .then(function (response) {
     const wacresp = JSON.stringify(response.data)
     const wacresp1 = wacresp.replace('"count"', '"total_results"')
