@@ -95,7 +95,7 @@ app.get('/api/GOOG/', (req, res) => {
   .then(function (response) {
     const wacresp = JSON.stringify(response.data)
     const wacresp1 = wacresp.replace('"formattedTotalResults"', '"total_results"')
-    const wacresp2 = wacresp1.replace('"nextPage"', '"perpage":5, "next"')
+    const wacresp2 = wacresp1.replace('"nextPage"', '"perpage":10, "next"')
     const wacresp3 = wacresp2.replace('"url"', '"uurl"')
     const wacresp4 = wacresp3.replaceAll('"title"', '"ttitle"')
     const wacresp5 = wacresp4.replaceAll('"snippet"', '"title"')
