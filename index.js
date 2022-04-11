@@ -76,7 +76,7 @@ app.get('/api/CAP/', (req, res) => {
       const capresp3 = capresp2.replaceAll('"url"', '"uurl"')
       const capresp4 = capresp3.replaceAll('"frontend_url"', '"url"')
       const capout = capresp4.replaceAll('"name_abbreviation"','"title"')
-      console.log(capout)
+      //console.log(capout)
        res
        .type('application/javascript')
        .send(capcallback + '(' + capout + ');');
