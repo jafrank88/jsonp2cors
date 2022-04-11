@@ -94,8 +94,8 @@ app.get('/api/GOOG/', (req, res) => {
   const resp = axios.get('https://www.googleapis.com/customsearch/v1?q=' + wacuserRequest + '&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4')
   .then(function (response) {
     const wacresp = JSON.stringify(response.data)
-    const wacresp1 = wacresp.replace('"count"', '"total_results"')
-    const wacresp2 = wacresp1.replace('"next"', '"perpage":5, "next"')
+    const wacresp1 = wacresp.replace('"totalresults"', '"total_results"')
+    const wacresp2 = wacresp1.replace('"nextPage"', '"perpage":5, "next"')
     const wacresp3 = wacresp2.replaceAll('"link"', '"url"')
     const wacout = wacresp3.replaceAll()
     console.log(wacout)
