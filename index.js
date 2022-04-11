@@ -84,13 +84,28 @@ app.get('/api/CAP/', (req, res) => {
   //);
 )})
 
-//app.get('/api/WAC/', (req, res) => {
-  //let wacuserRequest = req.query.q
-  //console.log('WAC UserRequest ' + wacuserRequest)
-  //console.log('Callback : ' + req.query.callback)
-  //const resp = axios.get('https://lawdoccitelookup.leg.wa.gov/v1/Help/Api/WAC/?q=' + wacuserRequest)
-  //.then (resp => res.jsonp(resp.data))
-//});
+
+
+app.get('/api/GOOG/', (req, res) => {
+  let wacuserRequest = req.query.q
+  let waccallback = req.query.callback
+  console.log('GOOG UserRequest ' + wacuserRequest)
+  console.log('GOOG Callback : ' + waccallback)
+  const resp = axios.get('https://www.googleapis.com/customsearch/v1?q=' + wacuserRequest + '&sitesearch=wa.gov')
+  .then(function (response) {
+    const wacresp = JSON.stringify(response.data)
+    const wacresp1 = wacresp.replace('"count"', '"total_results"')
+    const wacresp2 = wacresp1.replace('"next"', '"perpage":5, "next"')
+    const wacresp3 = wacresp2.replaceAll('"url"', '"uurl"')
+    const wacresp4 = wacresp3.replaceAll('"frontend_url"', '"url"')
+    const wacout = wacresp4.replaceAll('"name_abbreviation"','"title"')
+    console.log(wacout)
+     res
+     .type('application/javascript')
+     .send(waccallback + '(' + wacout + ');');
+     } 
+//);
+)})
 
 //app.get('/api/RCW/', (req, res) => {
  // let rcwuserRequest = req.query.q
