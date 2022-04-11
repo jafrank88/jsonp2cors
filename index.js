@@ -93,7 +93,7 @@ app.get('/api/GOOG/', (req, res) => {
   console.log('GOOG Callback : ' + waccallback)
   const resp = axios.get('https://www.googleapis.com/customsearch/v1?q=' + wacuserRequest + '&alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4')
   .then(function (response) {
-    const wacresp = JSON.stringify(response.items)
+    const wacresp = JSON.stringify(response.data)
     const wacresp1 = wacresp.replace('"formattedTotalResults"', '"total_results"')
     const wacresp2 = wacresp1.replace('"nextPage"', '"perpage":5, "next"')
     const wacresp3 = wacresp2.replace('"url"', '"uurl"')
