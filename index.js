@@ -89,9 +89,9 @@ app.get('/api/CAP/', (req, res) => {
 app.get('/api/GOOG/', (req, res) => {
   let wacUserRequest = req.query.q
   let wacCallback = req.query.callback
-  console.log('GOOG UserRequest ' + wacUserRequest)
-  console.log('GOOG Callback : ' + wacCallback)
-  const resp = axios.get('https://www.googleapis.com/customsearch/v1/?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest )
+  //console.log('GOOG UserRequest ' + wacUserRequest)
+  //console.log('GOOG Callback : ' + wacCallback)
+  const resp = axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest )
   .then(function (response) {
     const wacresp = JSON.stringify(response.data)
     const wacresp1 = wacresp.replaceAll('"totalResults"', '"total_results"')
