@@ -87,24 +87,24 @@ app.get('/api/CAP/', (req, res) => {
 
 
 app.get('/api/GOOG/', (req, res) => {
-  let wacuserRequest = req.query.q
-  let waccallback = req.query.callback
-  console.log('GOOG UserRequest ' + wacuserRequest)
-  console.log('GOOG Callback : ' + waccallback)
-  const resp = axios.get('https://www.googleapis.com/customsearch/v1?q=' + wacuserRequest + '&alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4')
+  let wacUserRequest = req.query.q
+  let wacCallback = req.query.callback
+  console.log('GOOG UserRequest ' + wacUserRequest)
+  console.log('GOOG Callback : ' + wacCallback)
+  const resp = axios.get('https://www.googleapis.com/customsearch/v1?q=' + wacUserRequest + '&alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4')
   .then(function (response) {
     const wacresp = JSON.stringify(response.data)
     const wacresp1 = wacresp.replaceAll('"totalResults"', '"total_results"')
     const wacresp2 = wacresp1.replaceAll('"count"', '"perpage"')
-    const wacresp3 = wacresp2.replaceAll('"url"', '"uurl"')
-    const wacresp4 = wacresp3.replaceAll('"title"', '"ttitle"')
-    const wacresp5 = wacresp4.replaceAll('"snippet"', '"title"')
+    const wacresp3 = wacresp2.replaceAll('"items"', '"results"')
+    //const wacresp4 = wacresp3.replaceAll('"title"', '"ttitle"')
+    //const wacresp5 = wacresp4.replaceAll('"snippet"', '"title"')
     const wacresp6 = wacresp5.replaceAll('"nextPage"', '"next"')
     const wacout = wacresp6.replaceAll('"link"', '"url"')
     console.log(wacout)
      res
      .type('application/javascript')
-     .send(waccallback + '(' + wacout + ');');
+     .send(wacCallback + '(' + wacout + ');');
      } 
 //);
 )})
