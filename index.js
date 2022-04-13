@@ -101,7 +101,7 @@ app.get('/api/GOOG/', (req, res) => {
     //const wacresp5 = wacresp4.replaceAll('"snippet"', '"title"')
     const wacresp4 = wacresp3.replaceAll('"nextPage"', '"next"')
     //const wacresp5 = wacresp4.replace('"type": "application/json"', '"type": "application/javascript"')
-    const wacresp5 = wacresp4.replaceAll("([0-9]+\.{0,1}[0-9]*)", parseInt("([0-9]+\.{0,1}[0-9]*)"))
+    const wacresp5 = wacresp4.replaceAll('"([0-9]+\.{0,1}[0-9]*)"', parseInt("([0-9]+\.{0,1}[0-9]*)"))
     const wacout = wacresp5.replaceAll('"link"', '"url"')
     //console.log(wacout)
      res
