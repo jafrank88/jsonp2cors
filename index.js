@@ -68,7 +68,7 @@ app.get('/api/CAP/', (req, res) => {
   let capcallback = req.query.callback
   //console.log('CAP UserRequest ' + capuserrequest)
   //console.log('Callback : ' + req.query.callback)
-  axios.get('https://api.case.law/v1/cases/?search=' + capuserrequest)
+  axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&search=' + capuserrequest)
     .then(function (response) {
       const capresp = JSON.stringify(response.data)
       const capresp1 = capresp.replace('"count"', '"total_results"')
