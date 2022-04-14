@@ -89,6 +89,7 @@ app.get('/api/CAP/', (req, res) => {
 app.get('/api/GOOG/', (req, res) => {
   let wacUserRequest = req.query.q
   let wacCallback = req.query.callback
+  let regex = /\"(\d+)\"/g
   //console.log('GOOG UserRequest ' + wacUserRequest)
   //console.log('GOOG Callback : ' + wacCallback)
   const resp = axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest )
@@ -101,7 +102,7 @@ app.get('/api/GOOG/', (req, res) => {
     //const wacresp5 = wacresp4.replaceAll('"snippet"', '"title"')
     const wacresp4 = wacresp3.replaceAll('"nextPage"', '"next"')
     //const wacresp5 = wacresp4.replace('"type": "application/json"', '"type": "application/javascript"')
-    const wacresp5 = wacresp4.replaceAll(RegExp('\"(\d+)\"','g'), '$1')
+    const wacresp5 = wacresp4.replaceAll(regex, '$1')
     const wacout = wacresp5.replaceAll('"link"', '"url"')
     //console.log(wacout)
      res
