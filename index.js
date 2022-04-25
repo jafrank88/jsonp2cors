@@ -100,12 +100,12 @@ app.get('/api/GOOG/', (req, res) => {
     const wacresp3 = wacresp2.replace('"items"', '"results"')
     //const wacresp4 = wacresp3.replaceAll('"title"', '"ttitle"')
     //const wacresp5 = wacresp4.replaceAll('"snippet"', '"title"')
-    //const wacresp4 = wacresp3.replaceAll('"nextPage"', '"next"')
-    //const wacresp5 = wacresp4.replace('"type": "application/json"', '"type": "application/javascript"')
-    //const wacresp5 = wacresp4.replaceAll(/\"(\d+)\"/g, '$1')
-    //const wacout = wacresp5.replaceAll('"link"', '"url"')
+    const wacresp4 = wacresp3.replaceAll('"nextPage"', '"next"')
+    const wacresp5 = wacresp4.replace('"type": "application/json"', '"type": "application/javascript"')
+    const wacresp6 = wacresp5.replaceAll(/\"(\d+)\"/g, '$1')
+    const wacout = wacresp6.replaceAll('"link"', '"url"')
     //console.log(wacout)
-    const wacout = wacresp3
+    //const wacout = wacresp3
      res
      .type('application/javascript')
      .send(wacCallback + '(' + wacout + ');');
