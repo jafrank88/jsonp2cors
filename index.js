@@ -47,10 +47,10 @@ let wacresp9 = wacresp8.replace(/"kin[\s\S]*?\"tot/m, '"tot')
 let pptest = wacresp9.indexOf('perpage') 
 if (pptest < 1) {
     let googOut = wacresp9.replace('"formattedT', '"perpage": 10 "formattedT')
+    return(googOut);
   } else {
-    let googOut = wacresp9
+    return(wacresp9);
   }
-return(googOut);
 };
 
 
