@@ -86,34 +86,45 @@ app.get('/api/CAP/', (req, res) => {
 
 
 app.get('/api/GOOGWA/', (req, res) => {
-  let wacUserRequest = req.query.q
-  let wacCallback = req.query.callback
+  let waUserRequest = req.query.q
+  let waCallback = req.query.callback
   //let regex = /\"(\d+)\"/g
-  let resp = axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest )
+  let resp = axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
      .then (function(response) {
       let googResp = JSON.stringify(response.data)
       let googOut = googFix(googResp)
       res
      .type('application/javascript')
-     .send(wacCallback + '(' + googOut + ');');
+     .send(waCallback + '(' + googOut + ');')
      }) 
     });
+    
+app.get('/api/GOOGRCW/', (req, res) => {
+   let rcwUserRequest = req.query.q
+    let rcwCallback = req.query.callback
+let resp = axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e6de7f98f8313475c&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + rcwUserRequest)
+.then (function(response) {
+  let googResp = JSON.stringify(response.data)
+  let googOut = googFix(googResp)
+  res
+ .type('application/javascript')
+ .send(rcwCallback + '(' + googOut + ');')
+ }) 
+});
 
-//app.get('/api/RCW/', (req, res) => {
- // let rcwuserRequest = req.query.q
-  //console.log('RCW UserRequest ' + rcwuserRequest)
-  //console.log('Callback : ' + req.query.callback)
-  //const resp = axios.get('https://search.leg.wa.gov/v1/Help/Api/RCW/?q=' + rcwuserRequest)
-  //.then (resp => res.jsonp(resp.data))
-//});
+app.get('/api/GOOGWAC/', (req, res) => {
+  let wacUserRequest = req.query.q
+   let wacCallback = req.query.callback
+let resp = axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=065d0f2474d164d55&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest)
+.then (function(response) {
+ let googResp = JSON.stringify(response.data)
+ let googOut = googFix(googResp)
+ res
+.type('application/javascript')
+.send(wacCallback + '(' + googOut + ');')
+}) 
+});
 
-//app.get('/api/WLH/', (req, res) => {
-  //let wlhuserRequest = req.query.q
-  //console.log('WLH UserRequest ' + wlhuserRequest)
-  //console.log('Callback : ' + req.query.callback)
-  //const resp = axios.get('https://www.washingtonlawhelp.org/search?q=' + wlhuserRequest)
-  //.then (resp => res.jsonp(resp.data))
-//});
 
 app.listen(PORT, (err) => {
     if (err) {
