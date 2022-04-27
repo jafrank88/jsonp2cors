@@ -32,16 +32,19 @@ app.use(
   })
 );
 
-//function makeGetRequest(path) {
-  //axios.get(path).then(
-      //(response) => {
-         // let result = response.data;
-          //console.log(result);
-      //},
-      //(error) => {
-          //console.log(error);
-      //}
-  //);
+function googFix(googIn) {
+let wacresp1 = googIn.replaceAll('"totalResults"', '"total_results"')
+let wacresp2 = wacresp1.replaceAll('"count"', '"perpage"')
+let wacresp3 = wacresp2.replace('"items"', '"results"')
+let wacresp4 = wacresp3.replaceAll('"nextPage"', '"next"')
+let wacresp5 = wacresp4.replace('"type": "application/json"', '"type": "application/javascript"')
+let wacresp6 = wacresp5.replaceAll(/\"(\d+)\"/g, '$1')
+let wacresp7 = wacresp6.replaceAll('"link"', '"url"')
+let wacresp8 = wacresp7.replace(/"quer[\s\S]*?ext[\s\S]*?\{/m, '')
+let wacresp9 = wacresp8.replace(/214\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '214", "res')
+let googOut = wacresp9.replace(/"kin[\s\S]*?\"tot/m, '"tot')
+return(googOut)
+};
 
 
 app.get('/api/CL/', (req, res) => {
@@ -66,9 +69,6 @@ app.get('/api/CL/', (req, res) => {
 app.get('/api/CAP/', (req, res) => {
   let capuserrequest = req.query.q
   let capcallback = req.query.callback
-  
-  //console.log('CAP UserRequest ' + capuserrequest)
-  //console.log('Callback : ' + req.query.callback)
   axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&search=' + capuserrequest)
     .then(function (response) {
       const capresp = JSON.stringify(response.data)
@@ -77,45 +77,27 @@ app.get('/api/CAP/', (req, res) => {
       const capresp3 = capresp2.replaceAll('"url"', '"uurl"')
       const capresp4 = capresp3.replaceAll('"frontend_url"', '"url"')
       const capout = capresp4.replaceAll('"name_abbreviation"','"title"')
-      //console.log(capout)
        res
        .type('application/javascript')
        .send(capcallback + '(' + capout + ');');
        } 
-  //);
-)})
+)});
 
 
 
-app.get('/api/GOOG/', (req, res) => {
+app.get('/api/GOOGWA/', (req, res) => {
   let wacUserRequest = req.query.q
   let wacCallback = req.query.callback
-  let regex = /\"(\d+)\"/g
-  //console.log('GOOG UserRequest ' + wacUserRequest)
-  //console.log('GOOG Callback : ' + wacCallback)
-  const resp = axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest )
-  .then(function (response) {
-    const wacresp = JSON.stringify(response.data)
-    const wacresp1 = wacresp.replaceAll('"totalResults"', '"total_results"')
-    const wacresp2 = wacresp1.replaceAll('"count"', '"perpage"')
-    const wacresp3 = wacresp2.replace('"items"', '"results"')
-    //const wacresp4 = wacresp3.replaceAll('"title"', '"ttitle"')
-    //const wacresp5 = wacresp4.replaceAll('"snippet"', '"title"')
-    const wacresp4 = wacresp3.replaceAll('"nextPage"', '"next"')
-    const wacresp5 = wacresp4.replace('"type": "application/json"', '"type": "application/javascript"')
-    const wacresp6 = wacresp5.replaceAll(/\"(\d+)\"/g, '$1')
-    const wacresp7 = wacresp6.replaceAll('"link"', '"url"')
-    const wacresp8 = wacresp7.replace(/"quer[\s\S]*?ext[\s\S]*?\{/m, '')
-    const wacresp9 = wacresp8.replace(/214\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '214", "res')
-    const wacresp10 = wacresp9.replace(/"kin[\s\S]*?\"tot/m, '"tot')
-    //console.log(wacout)
-    const wacout = wacresp10
-     res
+  //let regex = /\"(\d+)\"/g
+  let resp = axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest )
+     .then (function(response) {
+      let googResp = JSON.stringify(response.data)
+      let googOut = googFix(googResp)
+      res
      .type('application/javascript')
-     .send(wacCallback + '(' + wacout + ');');
-     } 
-//);
-)})
+     .send(wacCallback + '(' + googOut + ');');
+     }) 
+    });
 
 //app.get('/api/RCW/', (req, res) => {
  // let rcwuserRequest = req.query.q
