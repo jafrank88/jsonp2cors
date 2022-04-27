@@ -44,7 +44,7 @@ let wacresp6 = wacresp5.replaceAll(/\"(\d+)\"/g, '$1')
 let wacresp7 = wacresp6.replaceAll('"link"', '"url"')
 let wacresp8 = wacresp7.replace(/"quer[\s\S]*?ext[\s\S]*?\{/m, '')
 let wacresp9 = wacresp8.replace(/"kin[\s\S]*?\"tot/m, '"tot')
-let pptest = wacresp9.IndexOf('perpage') 
+let pptest = wacresp9.indexOf('perpage') 
 if (pptest < 1) {
     let googOut = wacresp9.replace('"formattedT', '"perpage": 10 "formattedT')
   } else {
