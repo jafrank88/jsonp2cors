@@ -47,9 +47,9 @@ let wacresp9 = wacresp8.replace(/"kin[\s\S]*?\"tot/m, '"tot')
 let pptest = wacresp9.indexOf('perpage') 
 if (pptest < 1) {
     let googOut = wacresp9.replace('"formattedT', '"perpage": 10 "formattedT')
-    return(googOut);
+    return(googOut)
   } else {
-    return(wacresp9);
+    return(wacresp9)
   }
 };
 
@@ -95,44 +95,52 @@ app.get('/api/CAP/', (req, res) => {
 app.get('/api/GOOGWA/', (req, res) => {
   let waUserRequest = req.query.q
   let waCallback = req.query.callback
-  //let regex = /\"(\d+)\"/g
-  let resp = axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
+  axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
      .then (function(response) {
+       if (err) { 
+       throw err
+       } else {
       let googResp = JSON.stringify(response.data)
       let googOut = googFix(googResp)
       let googDone = googOut.replace(/214\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '214", "res')
       res
      .type('application/javascript')
      .send(waCallback + '(' + googDone + ');')
-     }) 
+     }}) 
     });
     
 app.get('/api/GOOGRCW/', (req, res) => {
    let rcwUserRequest = req.query.q
     let rcwCallback = req.query.callback
-let resp = axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e6de7f98f8313475c&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + rcwUserRequest)
+axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e6de7f98f8313475c&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + rcwUserRequest)
 .then (function(response) {
+  if (err) { 
+    throw err
+    } else {
   let googResp = JSON.stringify(response.data)
   let googOut = googFix(googResp)
   let googDone = googOut.replace(/75c\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '75c", "res')
   res
  .type('application/javascript')
  .send(rcwCallback + '(' + googDone + ');')
- }) 
+}}) 
 });
 
 app.get('/api/GOOGWAC/', (req, res) => {
   let wacUserRequest = req.query.q
    let wacCallback = req.query.callback
-let resp = axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=065d0f2474d164d55&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest)
+axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=065d0f2474d164d55&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest)
 .then (function(response) {
+  if (err) { 
+    throw err
+    } else {
  let googResp = JSON.stringify(response.data)
  let googOut = googFix(googResp)
  let googDone = googOut.replace(/d55\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, 'd55", "res')
  res
 .type('application/javascript')
 .send(wacCallback + '(' + googDone + ');')
-}) 
+}}) 
 });
 
 
