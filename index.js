@@ -41,8 +41,7 @@ let wacresp5 = wacresp4.replace('"type": "application/json"', '"type": "applicat
 let wacresp6 = wacresp5.replaceAll(/\"(\d+)\"/g, '$1')
 let wacresp7 = wacresp6.replaceAll('"link"', '"url"')
 let wacresp8 = wacresp7.replace(/"quer[\s\S]*?ext[\s\S]*?\{/m, '')
-let wacresp9 = wacresp8.replace(/214\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '214", "res')
-let googOut = wacresp9.replace(/"kin[\s\S]*?\"tot/m, '"tot')
+let googOut = wacresp8.replace(/"kin[\s\S]*?\"tot/m, '"tot')
 return(googOut)
 };
 
@@ -93,9 +92,10 @@ app.get('/api/GOOGWA/', (req, res) => {
      .then (function(response) {
       let googResp = JSON.stringify(response.data)
       let googOut = googFix(googResp)
+      let googDone = googOut.replace(/214\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '214", "res')
       res
      .type('application/javascript')
-     .send(waCallback + '(' + googOut + ');')
+     .send(waCallback + '(' + googDone + ');')
      }) 
     });
     
@@ -106,9 +106,10 @@ let resp = axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e6d
 .then (function(response) {
   let googResp = JSON.stringify(response.data)
   let googOut = googFix(googResp)
+  let googDone = googOut.replace(/75c\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '75c", "res')
   res
  .type('application/javascript')
- .send(rcwCallback + '(' + googOut + ');')
+ .send(rcwCallback + '(' + googDone + ');')
  }) 
 });
 
@@ -119,9 +120,10 @@ let resp = axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=065
 .then (function(response) {
  let googResp = JSON.stringify(response.data)
  let googOut = googFix(googResp)
+ let googDone = googOut.replace(/d55\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, 'd55", "res')
  res
 .type('application/javascript')
-.send(wacCallback + '(' + googOut + ');')
+.send(wacCallback + '(' + googDone + ');')
 }) 
 });
 
