@@ -107,8 +107,9 @@ app.get('/api/GOOG/', (req, res) => {
     const wacresp7 = wacresp6.replaceAll('"link"', '"url"')
     const wacresp8 = wacresp7.replace(/"quer[\s\S]*?ext[\s\S]*?\{/m, '')
     const wacresp9 = wacresp8.replace(/214\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '214", "res')
+    const wacresp10 = wacresp9.replace(/"kin[\s\S]*?\"tot/m, '"tot')
     //console.log(wacout)
-    const wacout = wacresp9
+    const wacout = wacresp10
      res
      .type('application/javascript')
      .send(wacCallback + '(' + wacout + ');');
