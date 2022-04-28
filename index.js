@@ -90,7 +90,19 @@ app.get('/api/CAP/', (req, res) => {
        } 
 )});
 
-
+app.get('/api/GOOGWLH/', (req, res) => {
+  let wlhUserRequest = req.query.q
+  let wlhCallback = req.query.callback
+  axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=135ef0d0998ed4a33&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wlhUserRequest )
+     .then (function(response) {
+      let googResp = JSON.stringify(response.data)
+      let googOut = googFix(googResp)
+      let googDone = googOut.replace(/a33\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, 'a33", "res')
+      res
+     .type('application/javascript')
+     .send(wlhCallback + '(' + googDone + ');')
+     }) 
+    });
 
 app.get('/api/GOOGWA/', (req, res) => {
   let waUserRequest = req.query.q
