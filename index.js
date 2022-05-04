@@ -16,7 +16,6 @@ const limiter = rateLimit({
     max: 100 // limit each IP to 100 requests per windowMs
   });
 const favicon = require('serve-favicon');
-const { json } = require('express');
 
 // Serve Favicon
 app.use(favicon('favicon.ico'))
@@ -32,8 +31,6 @@ app.use(
   })
 );
 
-
-
 function googFix(googIn) {
 let wacresp1 = googIn.replaceAll('"totalResults"', '"total_results"')
 let wacresp2 = wacresp1.replaceAll('"count"', '"perpage"')
@@ -46,7 +43,7 @@ let wacresp8 = wacresp7.replace(/"quer[\s\S]*?ext[\s\S]*?\{/m, '')
 let wacresp9 = wacresp8.replace(/"kin[\s\S]*?\"tot/m, '"tot')
 let pptest = wacresp9.indexOf('perpage') 
 console.log("pptest : " + pptest)
-if (pptest < 1) {
+if (pptest = -1) {
     let googOut = wacresp9.replace('"formattedT', '"perpage" : 10 "formattedT')
     return(googOut)
   } else {
@@ -55,26 +52,35 @@ if (pptest < 1) {
 };
 
 app.get('/api/CL/', (req, res) => {
-    const cluserrequest = req.query.q
-    const clcallback = req.query.callback
+    let clUserRequest = req.query.q
+    if (clUserRequest === "") {
+      console.log("null query")
+      res.end()
+    } else {
+    let clcallback = req.query.callback
     axios
-      .get('https://courtlistener.com/api/rest/v3/search/?court=wash washctapp&q=' + cluserrequest)
+      .get('https://courtlistener.com/api/rest/v3/search/?court=wash washctapp&q=' + clUserRequest)
       .then (function (response) {
-          const clresp = JSON.stringify(response.data)
-          const cloutput = clresp.replace('"count"', '"total_results"')
-          const cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
-          const cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
-          const cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
-          const cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
+          let clresp = JSON.stringify(response.data)
+          let cloutput = clresp.replace('"count"', '"total_results"')
+          let cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
+          let cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
+          let cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
+          let cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
           res
             .type('application/javascript')
-            .send(clcallback + '(' + cloutput5 + ');')} //cloutput5 already is just the response.data
-    )});
+            .send(clcallback + '(' + cloutput5 + ');')
+          }) //cloutput5 already is just the response.data
+      }}
+  );
 
 
 
 app.get('/api/CAP/', (req, res) => {
   let capuserrequest = req.query.q
+  if (capuserrequest === "") {
+    res.end()
+  } else {
   let capcallback = req.query.callback
   axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&search=' + capuserrequest)
     .then(function (response) {
@@ -84,14 +90,19 @@ app.get('/api/CAP/', (req, res) => {
       const capresp3 = capresp2.replaceAll('"url"', '"uurl"')
       const capresp4 = capresp3.replaceAll('"frontend_url"', '"url"')
       const capout = capresp4.replaceAll('"name_abbreviation"','"title"')
-       res
+      res
        .type('application/javascript')
        .send(capcallback + '(' + capout + ');');
-       } 
-)});
+       }) 
+      }}
+  );
+
 
 app.get('/api/GOOGWLH/', (req, res) => {
   let wlhUserRequest = req.query.q
+  if (wlhUserRequest === "") {
+    res.end()
+  } else {
   let wlhCallback = req.query.callback
   axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=135ef0d0998ed4a33&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wlhUserRequest )
      .then (function(response) {
@@ -101,11 +112,14 @@ app.get('/api/GOOGWLH/', (req, res) => {
       res
      .type('application/javascript')
      .send(wlhCallback + '(' + googDone + ');')
-     }) 
+     })}
     });
 
 app.get('/api/GOOGWA/', (req, res) => {
   let waUserRequest = req.query.q
+  if (waUserRequest === "") {
+    res.end()
+  } else {
   let waCallback = req.query.callback
   axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
      .then (function(response) {
@@ -116,10 +130,13 @@ app.get('/api/GOOGWA/', (req, res) => {
      .type('application/javascript')
      .send(waCallback + '(' + googDone + ');')
      }) 
-    });
+}});
     
 app.get('/api/GOOGRCW/', (req, res) => {
    let rcwUserRequest = req.query.q
+   if (rcwUserRequest === "") {
+    res.end()
+  } else {
     let rcwCallback = req.query.callback
 axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e6de7f98f8313475c&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + rcwUserRequest)
 .then (function(response) {
@@ -130,10 +147,13 @@ axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e6de7f98f83134
  .type('application/javascript')
  .send(rcwCallback + '(' + googDone + ');')
 }) 
-});
+}});
 
 app.get('/api/GOOGWAC/', (req, res) => {
   let wacUserRequest = req.query.q
+  if (wacUserRequest === "") {
+    res.end()
+  } else {
    let wacCallback = req.query.callback
 axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=065d0f2474d164d55&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest)
 .then (function(response) {
@@ -144,12 +164,13 @@ axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=065d0f2474d164
 .type('application/javascript')
 .send(wacCallback + '(' + googDone + ');')
 }) 
-});
+}});
+
+
 
 app.listen(PORT, (err) => {
     if (err) {
         console.error(err)
     }
-
     console.log('Listening on port ' + PORT)
 })
