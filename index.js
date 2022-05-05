@@ -42,7 +42,7 @@ let wacresp7 = wacresp6.replaceAll('"link"', '"url"')
 let wacresp8 = wacresp7.replace(/"quer[\s\S]*?ext[\s\S]*?\{/m, '')
 let wacresp9 = wacresp8.replace(/"kin[\s\S]*?\"tot/m, '"tot')
 let pptest = wacresp9.indexOf('perpage') 
-console.log("pptest : " + pptest)
+console.log("PPTEST : " + pptest)
 if (pptest = -1) {
     let googOut = wacresp9.replace('"formattedT', '"perpage" : 10 "formattedT')
     return(googOut)
@@ -53,9 +53,9 @@ if (pptest = -1) {
 
 app.get('/api/CL/', (req, res) => {
     let clUserRequest = req.query.q
-    if (clUserRequest === "") {
+    if (clUserRequest == "") {
       console.log("null query")
-      res.end()
+      res.end();
     } else {
     let clcallback = req.query.callback
     axios
@@ -78,8 +78,8 @@ app.get('/api/CL/', (req, res) => {
 
 app.get('/api/CAP/', (req, res) => {
   let capuserrequest = req.query.q
-  if (capuserrequest === "") {
-    res.end()
+  if (capuserrequest == "") {
+    res.end();
   } else {
   let capcallback = req.query.callback
   axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&search=' + capuserrequest)
@@ -100,11 +100,11 @@ app.get('/api/CAP/', (req, res) => {
 
 app.get('/api/GOOGWLH/', (req, res) => {
   let wlhUserRequest = req.query.q
-  if (wlhUserRequest === "") {
+  if (wlhUserRequest == "") {
     res.end()
   } else {
   let wlhCallback = req.query.callback
-  axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=135ef0d0998ed4a33&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wlhUserRequest )
+  axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=135ef0d0998ed4a33&key=' + wlhUserRequest )
      .then (function(response) {
       let googResp = JSON.stringify(response.data)
       let googOut = googFix(googResp)
@@ -117,7 +117,7 @@ app.get('/api/GOOGWLH/', (req, res) => {
 
 app.get('/api/GOOGWA/', (req, res) => {
   let waUserRequest = req.query.q
-  if (waUserRequest === "") {
+  if (waUserRequest == "") {
     res.end()
   } else {
   let waCallback = req.query.callback
@@ -134,7 +134,7 @@ app.get('/api/GOOGWA/', (req, res) => {
     
 app.get('/api/GOOGRCW/', (req, res) => {
    let rcwUserRequest = req.query.q
-   if (rcwUserRequest === "") {
+   if (rcwUserRequest == "") {
     res.end()
   } else {
     let rcwCallback = req.query.callback
@@ -151,7 +151,7 @@ axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e6de7f98f83134
 
 app.get('/api/GOOGWAC/', (req, res) => {
   let wacUserRequest = req.query.q
-  if (wacUserRequest === "") {
+  if (wacUserRequest == "") {
     res.end()
   } else {
    let wacCallback = req.query.callback
