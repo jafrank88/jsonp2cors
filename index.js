@@ -71,9 +71,9 @@ app.get('/api/CL/', (req, res) => {
             .type('application/javascript')
             .send(clcallback + '(' + cloutput5 + ');')
           }) //cloutput5 already is just the response.data
-         // .catch(function (error) {
-          //  resolve(error);
-         //  });
+         .catch(function (error) {
+            resolve(error);
+           });
       }}
   );
 
@@ -81,9 +81,9 @@ app.get('/api/CL/', (req, res) => {
 
 app.get('/api/CAP/', (req, res) => {
   let capuserrequest = req.query.q
-  //if (capuserrequest == "") {
-  //  res.end();
-  //} else {
+  if (capuserrequest == "") {
+    res.end();
+  } else {
   let capcallback = req.query.callback
   axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&search=' + capuserrequest)
     .then(function (response) {
@@ -101,7 +101,7 @@ app.get('/api/CAP/', (req, res) => {
         resolve(error);
        });
       }
-    //}
+    }
   );
 
 
@@ -185,8 +185,6 @@ axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=0
   resolve(error);
  });
 }});
-
-
 
 app.listen(PORT, (err) => {
     if (err) {
