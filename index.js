@@ -72,7 +72,7 @@ app.get('/api/CL/', (req, res) => {
             .send(clcallback + '(' + cloutput5 + ');')
           }) //cloutput5 already is just the response.data
          .catch(function (error) {
-            resolve(error);
+          res.end();
            });
       }}
   );
@@ -98,7 +98,7 @@ app.get('/api/CAP/', (req, res) => {
        .send(capcallback + '(' + capout + ');')
        }) 
        .catch(function (error) {
-        resolve(error);
+        res.end();
        });
       }
     }
@@ -121,7 +121,7 @@ app.get('/api/GOOGWLH/', (req, res) => {
      .send(wlhCallback + '(' + googDone + ');')
      })
      .catch(function (error) {
-      resolve(error);
+      res.end();
      });
     } 
     });
@@ -142,7 +142,7 @@ app.get('/api/GOOGWA/', (req, res) => {
      .send(waCallback + '(' + googDone + ');')
      }) 
      .catch(function (error) {
-      resolve(error);
+      res.end();
      });
 }});
     
@@ -162,7 +162,7 @@ axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=e
  .send(rcwCallback + '(' + googDone + ');')
 }) 
 .catch(function (error) {
-  resolve(error);
+  res.end();
  });
 }});
 
@@ -182,7 +182,7 @@ axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=0
 .send(wacCallback + '(' + googDone + ');')
 }) 
 .catch(function (error) {
-  resolve(error);
+  res.end();
  });
 }});
 
