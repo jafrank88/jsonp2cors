@@ -138,7 +138,7 @@ app.get('/api/GOOGRCW/', (req, res) => {
     res.end()
   } else {
     let rcwCallback = req.query.callback
-axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e6de7f98f8313475c&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + rcwUserRequest)
+axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=e6de7f98f8313475c&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + rcwUserRequest)
 .then (function(response) {
   let googResp = JSON.stringify(response.data)
   let googOut = googFix(googResp)
@@ -155,7 +155,7 @@ app.get('/api/GOOGWAC/', (req, res) => {
     res.end()
   } else {
    let wacCallback = req.query.callback
-axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=065d0f2474d164d55&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest)
+axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=065d0f2474d164d55&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest)
 .then (function(response) {
  let googResp = JSON.stringify(response.data)
  let googOut = googFix(googResp)
