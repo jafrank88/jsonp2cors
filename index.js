@@ -71,6 +71,9 @@ app.get('/api/CL/', (req, res) => {
             .type('application/javascript')
             .send(clcallback + '(' + cloutput5 + ');')
           }) //cloutput5 already is just the response.data
+          .catch(function (error) {
+            resolve(error);
+           });
       }}
   );
 
@@ -92,8 +95,11 @@ app.get('/api/CAP/', (req, res) => {
       const capout = capresp4.replaceAll('"name_abbreviation"','"title"')
       res
        .type('application/javascript')
-       .send(capcallback + '(' + capout + ');');
+       .send(capcallback + '(' + capout + ');')
        }) 
+       .catch(function (error) {
+        resolve(error);
+       });
       }}
   );
 
@@ -112,7 +118,11 @@ app.get('/api/GOOGWLH/', (req, res) => {
       res
      .type('application/javascript')
      .send(wlhCallback + '(' + googDone + ');')
-     })}
+     })
+     .catch(function (error) {
+      resolve(error);
+     });
+    }
     });
 
 app.get('/api/GOOGWA/', (req, res) => {
@@ -130,6 +140,9 @@ app.get('/api/GOOGWA/', (req, res) => {
      .type('application/javascript')
      .send(waCallback + '(' + googDone + ');')
      }) 
+     .catch(function (error) {
+      resolve(error);
+     });
 }});
     
 app.get('/api/GOOGRCW/', (req, res) => {
@@ -147,6 +160,9 @@ axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=e
  .type('application/javascript')
  .send(rcwCallback + '(' + googDone + ');')
 }) 
+.catch(function (error) {
+  resolve(error);
+ });
 }});
 
 app.get('/api/GOOGWAC/', (req, res) => {
@@ -164,6 +180,9 @@ axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=0
 .type('application/javascript')
 .send(wacCallback + '(' + googDone + ');')
 }) 
+.catch(function (error) {
+  resolve(error);
+ });
 }});
 
 
