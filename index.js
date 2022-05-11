@@ -85,12 +85,12 @@ app.get('/api/CAP/', (req, res) => {
     res.end();
   } else {
   let capcallback = req.query.callback
-  axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&search=' + capuserrequest)
+  axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&perpage=10&search=' + capuserrequest)
     .then(function (response) {
       const capresp = JSON.stringify(response.data)
       const capresp1 = capresp.replace('"count"', '"total_results"')
-      const capresp2 = capresp1.replace('"next"', '"perpage":5, "next"')
-      const capresp3 = capresp2.replaceAll('"url"', '"uurl"')
+      //const capresp2 = capresp1.replace('"next"', '"perpage":5, "next"')
+      const capresp3 = capresp1.replaceAll('"url"', '"uurl"')
       const capresp4 = capresp3.replaceAll('"frontend_url"', '"url"')
       const capout = capresp4.replaceAll('"name_abbreviation"','"title"')
       res
