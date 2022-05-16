@@ -110,8 +110,10 @@ app.get('/api/CAP/', (req, res) => {
       res.end();
     } else {
     let DCcallback = req.query.callback
-    request.setHeader('authorization', 'tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY=')
-    axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query?limit=5&q=' + DCuserrequest)
+    axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query?limit=5&q=' + DCuserrequest,{
+      headers: {
+        "authorization":"tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY="
+      }})
       .then(function (response) {
         const capresp = JSON.stringify(response.data)
         const capresp1 = capresp.replace('"total_hits"', '"total_results"')
