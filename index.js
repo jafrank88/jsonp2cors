@@ -121,7 +121,7 @@ app.get('/api/CAP/', (req, res) => {
         let capresp3 = capresp2.replaceAll('"query_meta":{', '')
         let capresp4 = capresp3.replaceAll(' "download_format"]}', ' "download_format"]')
         let capresp5 = capresp4.replaceAll('"start"','"next"')
-        let DCheader = capresp5.match(/"total[\s\S]*mat\"[\s]*\][\s]*\}[\s]*\}/)
+        let DCheader = capresp5.match(/"total[\s\S]*mat\"[\s]*\][\s]*\}/)
         let capresp6 = capresp5.replace(DCheader, '')
         let DCout = capresp6.replace('"results"', DCheader + '"results"')
         res
