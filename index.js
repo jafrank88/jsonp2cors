@@ -118,8 +118,8 @@ app.get('/api/CAP/', (req, res) => {
         const capresp = JSON.stringify(response.data)
         const capresp1 = capresp.replace('"total_hits"', '"total_results"')
         const capresp2 = capresp1.replace('"limit"', '"perpage"')
-        const capresp3 = capresp2.replaceAll('"query_meta": {', '')
-        const DCout = capresp3.replaceAll(' "download_format" ] }', ' "download_format" ]')
+        const capresp3 = capresp2.replaceAll('"query_meta":{', '')
+        const DCout = capresp3.replaceAll(' "download_format"]}', ' "download_format"]')
         //const capout = capresp4.replaceAll('"name_abbreviation"','"title"')
         res
          .type('application/javascript')
