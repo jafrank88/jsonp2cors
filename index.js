@@ -110,12 +110,12 @@ app.get('/api/CAP/', (req, res) => {
       res.end();
     } else {
     let DCcallback = req.query.callback
-    request.setHeader(authorization, tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY=);
+    request.setHeader('authorization', 'tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY=')
     axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query?limit=5&q=' + DCuserrequest)
       .then(function (response) {
         const capresp = JSON.stringify(response.data)
         const capresp1 = capresp.replace('"total_hits"', '"total_results"')
-        const capresp2 = capresp1.replace('""', '"perpage"')
+        const capresp2 = capresp1.replace('"limit"', '"perpage"')
         const capresp3 = capresp2.replaceAll('"query_meta": {', '')
         const DCout = capresp3.replaceAll(' "download_format" ] }', ' "download_format" ]')
         //const capout = capresp4.replaceAll('"name_abbreviation"','"title"')
