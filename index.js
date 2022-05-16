@@ -119,8 +119,8 @@ app.get('/api/CAP/', (req, res) => {
         const capresp1 = capresp.replace('"total_hits"', '"total_results"')
         const capresp2 = capresp1.replace('"limit"', '"perpage"')
         const capresp3 = capresp2.replaceAll('"query_meta":{', '')
-        const DCout = capresp3.replaceAll(' "download_format"]}', ' "download_format"]')
-        //const capout = capresp4.replaceAll('"name_abbreviation"','"title"')
+        const capresp4 = capresp3.replaceAll(' "download_format"]}', ' "download_format"]')
+        const DCout = capresp4.replaceAll('"start"','"next"')
         res
          .type('application/javascript')
          .send(DCcallback + '(' + DCout + ');')
@@ -132,7 +132,6 @@ app.get('/api/CAP/', (req, res) => {
       }
     );
   
-
 
 app.get('/api/GOOGWLH/', (req, res) => {
   let wlhUserRequest = req.query.q
