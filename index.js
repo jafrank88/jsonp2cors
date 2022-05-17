@@ -36,7 +36,7 @@ let wacresp1 = googIn.replaceAll('"totalResults"', '"total_results"')
 let wacresp2 = wacresp1.replaceAll('"count"', '"perpage"')
 let wacresp3 = wacresp2.replace('"items"', '"results"')
 let wacresp4 = wacresp3.replaceAll('"nextPage"', '"next"')
-let wacresp5 = wacresp4.replace('"type":"application/json"', '"type":"application/javascript"')
+let wacresp5 = wacresp4.replace('"type": "application/json"', '"type": "application/javascript"')
 let wacresp6 = wacresp5.replaceAll(/\"(\d+)\"/g, '$1')
 let wacresp7 = wacresp6.replaceAll('"link"', '"url"')
 let wacresp8 = wacresp7.replace(/"quer[\s\S]*?ext[\s\S]*?\{/m, '')
@@ -44,7 +44,7 @@ let wacresp9 = wacresp8.replace(/"kin[\s\S]*?\"tot/m, '"tot')
 let pptest = wacresp9.indexOf('perpage') 
 console.log("PPTEST : " + pptest)
 if (pptest = -1) {
-    let googOut = wacresp9.replace('"formattedT', '"perpage":10"formattedT')
+    let googOut = wacresp9.replace('"formattedT', '"perpage": 10"formattedT')
     return(googOut)
   } else {
     return(wacresp9)
@@ -63,7 +63,7 @@ app.get('/api/CL/', (req, res) => {
       .then (function (response) {
           let clresp = JSON.stringify(response.data)
           let cloutput = clresp.replace('"count"', '"total_results"')
-          let cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"')
+          let cloutput2 = cloutput.replace('"next"', '"perpage": 5, "next"')
           let cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"')
           let cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/')
           let cloutput5 = cloutput4.replaceAll('"caseName"', '"title"')
@@ -112,14 +112,14 @@ app.get('/api/CAP/', (req, res) => {
     let DCcallback = req.query.callback
     axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query?limit=5&q=' + DCuserrequest,{
       headers: {
-        "authorization":"tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY="
+        "authorization": "tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY="
       }})
       .then(function (response) {
         let capresp = JSON.stringify(response.data)
         let capresp1 = capresp.replace('"total_hits"', '"total_results"')
         let capresp2 = capresp1.replace('"limit"', '"perpage"')
-        let capresp3 = capresp2.replaceAll('"query_meta":{', '')
-      let capresp4 = capresp3.replaceAll(/"download_format"[/s]*\][/s]*\}/, ' "download_format"]')
+        let capresp3 = capresp2.replaceAll('"query_meta": {', '')
+      let capresp4 = capresp3.replaceAll(/"download_format"[/s]*\][/s]*\}/, ' "download_format" ]')
         let DCout = capresp4.replaceAll('"start"','"next"')
         //let DCheader = capresp5.match(/"total[\s\S]*mat\"[\s]*\][\s]*\}/)
         //let capresp6 = capresp5.replace(DCheader, '')
