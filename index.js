@@ -112,7 +112,7 @@ app.get('/api/CAP/', (req, res) => {
     let DCcallback = req.query.callback
     axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query?limit=5&q=' + DCuserrequest,{
       headers: {
-        "authorization": "tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY="
+        'authorization': 'tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY='
       }})
       .then(function (response) {
         let capresp = JSON.stringify(response.data)
