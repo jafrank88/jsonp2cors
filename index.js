@@ -121,7 +121,7 @@ app.get('/api/CAP/', (req, res) => {
         //let capresp3 = capresp2.replace('"query_meta":{', '')
         //let capresp4 = capresp2.replace(/"download_format"[\s]*\][\s]*\}/m, '"download_format"]}')
         let capresp5 = capresp2.replace('"start"','"next"')
-        let DCheader = capresp5.match(/"total[\s\S]*\"field[\s]*\][\s]*\}/m)
+        let DCheader = capresp5.match(/"total[\s\S]*\"field/m)
         console.log ('DCheader : ' + DCheader)
         let capresp6 = capresp5.replace(DCheader, '"field')
         let DCout = capresp6.replace('"results"', DCheader + '":0,"results"')
