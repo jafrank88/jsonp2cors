@@ -105,7 +105,7 @@ app.get('/api/UWDC/', (req, res) => {
     res.end();
   } else {
   let DCcallback = req.query.callback;
-  axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query?limit=5&q=' + DCuserrequest,{
+  axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query&q=' + DCuserrequest,{
     headers: {
       'authorization': 'tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY='
     }}).then(function (response) {
