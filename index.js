@@ -77,7 +77,7 @@ app.get('/api/CL/', (req, res) => {
 });
 
 
-
+// Washington State Case Law from the Caselaw Access Project
 app.get('/api/CAP/', (req, res) => {
   let capuserrequest = req.query.q;
   if (capuserrequest == "") {
@@ -86,6 +86,7 @@ app.get('/api/CAP/', (req, res) => {
     let capcallback = req.query.callback;
     axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&page_size=10&ordering=-decision_date&search=' + capuserrequest)
       .then(function (response) {
+        response.data.total_results = 10;
         const capresp = JSON.stringify(response.data);
         const capresp1 = capresp.replace('"count"', '"total_results"');
         const capresp2 = capresp1.replace('"page_size"', '"perpage"');
@@ -99,10 +100,7 @@ app.get('/api/CAP/', (req, res) => {
   }
 });
 
-// The problem is that the "limit=5" is what is sent to UWDC
-// However, the "total_results" field returns a number greater than what the limit is
-// Thus, LibApps expect there to be hundreds or thousands of results the user can page through
-// But the code only returns however much the limit is, so there isn't any more results to show.
+// University of Washington Law Digital Commons
 app.get('/api/UWDC/', (req, res) => {
   let DCuserrequest = req.query.q;
   if (DCuserrequest == "") {
@@ -113,7 +111,6 @@ app.get('/api/UWDC/', (req, res) => {
     headers: {
       'authorization': 'tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY='
     }}).then(function (response) {
-      console.log (response.data);
       response.data.total_hits = 5;
       response.data.total_results = 5;
       let capresp = JSON.stringify(response.data);
