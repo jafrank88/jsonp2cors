@@ -99,16 +99,22 @@ app.get('/api/CAP/', (req, res) => {
   }
 });
 
+// The problem is that the "limit=5" is what is sent to UWDC
+// However, the "total_results" field returns a number greater than what the limit is
+// Thus, LibApps expect there to be hundreds or thousands of results the user can page through
+// But the code only returns however much the limit is, so there isn't any more results to show.
 app.get('/api/UWDC/', (req, res) => {
   let DCuserrequest = req.query.q;
   if (DCuserrequest == "") {
     res.end();
   } else {
   let DCcallback = req.query.callback;
-  axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query?q=' + DCuserrequest,{
+  axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query?limit=5&q=' + DCuserrequest,{
     headers: {
       'authorization': 'tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY='
     }}).then(function (response) {
+      console.log (response.data);
+      response.data.total_hits = 5;
       let capresp = JSON.stringify(response.data);
       let capresp1 = capresp.replace('"total_hits"', '"total_results"');
       let capresp2 = capresp1.replace('"limit"', '"perpage"');
