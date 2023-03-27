@@ -61,14 +61,18 @@ app.get('/api/CL/', (req, res) => {
     let clcallback = req.query.callback
     axios.get('https://courtlistener.com/api/rest/v3/search/?court=wash&q=' + clUserRequest) // 'https://courtlistener.com/api/rest/v3/search/?court=wash washctapp&q='
       .then (function (response) {
-        // ensure that only 5 results are returned by only saving the first 5 results returned
-        response.data.count = 5;
-        response.data.total_results = 5;
-        results = [{}, {}, {}, {}, {}];
-        for (let i = 0; i < 5; i++) {
-          results[i] = response.data.results[i];
+        // ensure that only the first 5 results are returned by only saving the first 5 results returned
+        if (response.data.count > 5) {
+          response.data.count = 5;
         }
-        response.data.results = results;
+        if (response.data.total_results > 5) {
+          response.data.total_results = 5;
+          results = [{}, {}, {}, {}, {}];
+          for (let i = 0; i < 5; i++) {
+            results[i] = response.data.results[i];
+          }
+          response.data.results = results;
+        }
         let clresp = JSON.stringify(response.data);
         let cloutput = clresp.replace('"count"', '"total_results"');
         let cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"');
@@ -95,10 +99,21 @@ app.get('/api/CAP/', (req, res) => {
     let capcallback = req.query.callback;
     axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&page_size=5&ordering=-decision_date&search=' + capuserrequest)
       .then(function (response) {
-        response.data.count = 5;
-        response.data.total_results = 5;
-        response.data.page_size = 5;
-        response.data.perpage = 5;
+        if (response.data.count > 5) {
+          response.data.count = 5;
+        }
+        if (response.data.total_results > 5) {
+          response.data.total_results = 5;
+        }
+        if (response.data.page_size > 5) {
+          response.data.page_size = 5;
+        }
+        if (response.data.perpage > 5) {
+          response.data.perpage = 5;
+        }
+        //response.data.total_results = 5;
+        //response.data.page_size = 5;
+        //response.data.perpage = 5;
         const capresp = JSON.stringify(response.data);
         const capresp1 = capresp.replace('"count"', '"total_results"');
         const capresp2 = capresp1.replace('"page_size"', '"perpage"');
@@ -123,8 +138,15 @@ app.get('/api/UWDC/', (req, res) => {
     headers: {
       'authorization': 'tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY='
     }}).then(function (response) {
-      response.data.total_hits = 5;
-      response.data.total_results = 5;
+      // only want to show 5 results
+      if (response.data.total_hits > 5) {
+        response.data.total_hits = 5;
+      }
+      if (response.data.total_results > 5) {
+        response.data.total_results = 5;
+      }
+      //response.data.total_hits = 5;
+      //response.data.total_results = 5;
       let capresp = JSON.stringify(response.data);
       let capresp1 = capresp.replace('"total_hits"', '"total_results"');
       let capresp2 = capresp1.replace('"limit"', '"perpage"');
