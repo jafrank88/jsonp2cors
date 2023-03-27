@@ -59,14 +59,19 @@ app.get('/api/CL/', (req, res) => {
     res.end();
   } else {
     let clcallback = req.query.callback
-    axios.get('https://courtlistener.com/api/rest/v3/search/?court=wash washctapp&q=' + clUserRequest)
+    axios.get('https://courtlistener.com/api/rest/v3/search/?court=wash&q=' + clUserRequest) // 'https://courtlistener.com/api/rest/v3/search/?court=wash washctapp&q='
       .then (function (response) {
+        // ensure that only 5 results are returned by only saving the first 5 results returned
         response.data.count = 5;
         response.data.total_results = 5;
-        response.data.perpage = 5;
+        results = [{}, {}, {}, {}, {}];
+        for (let i = 0; i < 5; i++) {
+          results[i] = response.data.results[i];
+        }
+        response.data.results = results;
         let clresp = JSON.stringify(response.data);
         let cloutput = clresp.replace('"count"', '"total_results"');
-        let cloutput2 = cloutput.replace('"next"', '"perpage": 5, "next"');
+        let cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"');
         let cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"');
         let cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/');
         let cloutput5 = cloutput4.replaceAll('"caseName"', '"title"');
@@ -88,7 +93,7 @@ app.get('/api/CAP/', (req, res) => {
     res.end();
   } else {
     let capcallback = req.query.callback;
-    axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&page_size=10&ordering=-decision_date&search=' + capuserrequest)
+    axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&page_size=5&ordering=-decision_date&search=' + capuserrequest)
       .then(function (response) {
         response.data.count = 5;
         response.data.total_results = 5;
