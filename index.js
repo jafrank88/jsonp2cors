@@ -149,8 +149,8 @@ app.get('/api/UWDC/', (req, res) => {
       /*if (response.data.total_results > 5) {
         response.data.total_results = 5;
       }*/
-      response.data.total_hits = 5;
-      //response.data.total_results = 5;
+      //response.data.total_hits = 5;
+      response.data.total_results = 5;
       let capresp = JSON.stringify(response.data);
       let capresp1 = capresp.replace('"total_hits"', '"total_results"');
       let capresp2 = capresp1.replace('"limit"', '"perpage"');
