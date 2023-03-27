@@ -131,20 +131,21 @@ app.get('/api/UWDC/', (req, res) => {
   if (DCuserrequest == "") {
     res.end();
   } else {
-  let DCcallback = req.query.callback;
-  axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query?limit=5&q=' + DCuserrequest,{
-    headers: {
-      'authorization': 'tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY='
-    }}).then(function (response) {
-      // only want to show 5 results
-      if (response.data.total_hits > 5) {
-        response.data.total_hits = 5;
+    let DCcallback = req.query.callback;
+    axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query?limit=5&q=' + DCuserrequest,{
+      headers: {
+        'authorization': 'tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY='
       }
+    }).then(function (response) {
+      // only want to show 5 results
+      /*if (response.data.total_hits > 5) {
+        response.data.total_hits = 5;
+      }*/
       /*if (response.data.total_results > 5) {
         response.data.total_results = 5;
       }*/
       //response.data.total_hits = 5;
-      //response.data.total_results = 5;
+      response.data.total_results = 5;
       let capresp = JSON.stringify(response.data);
       let capresp1 = capresp.replace('"total_hits"', '"total_results"');
       let capresp2 = capresp1.replace('"limit"', '"perpage"');
