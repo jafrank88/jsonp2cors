@@ -64,8 +64,6 @@ app.get('/api/CL/', (req, res) => {
         // ensure that only the first 5 results are returned by only saving the first 5 results returned
         if (response.data.count > 5) {
           response.data.count = 5;
-        }
-        if (response.data.total_results > 5) {
           response.data.total_results = 5;
           results = [{}, {}, {}, {}, {}];
           for (let i = 0; i < 5; i++) {
@@ -73,9 +71,17 @@ app.get('/api/CL/', (req, res) => {
           }
           response.data.results = results;
         }
+        /*if (response.data.total_results > 5) {
+          response.data.total_results = 5;
+          results = [{}, {}, {}, {}, {}];
+          for (let i = 0; i < 5; i++) {
+            results[i] = response.data.results[i];
+          }
+          response.data.results = results;
+        }*/
         let clresp = JSON.stringify(response.data);
         let cloutput = clresp.replace('"count"', '"total_results"');
-        let cloutput2 = cloutput.replace('"next"', '"perpage":5, "next"');
+        let cloutput2 = cloutput.replace('"next"', '"perpage":5,"next"');
         let cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"');
         let cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/');
         let cloutput5 = cloutput4.replaceAll('"caseName"', '"title"');
@@ -102,18 +108,15 @@ app.get('/api/CAP/', (req, res) => {
         if (response.data.count > 5) {
           response.data.count = 5;
         }
-        if (response.data.total_results > 5) {
+        /*if (response.data.total_results > 5) {
           response.data.total_results = 5;
-        }
+        }*/
         if (response.data.page_size > 5) {
           response.data.page_size = 5;
         }
-        if (response.data.perpage > 5) {
-          response.data.perpage = 5;
-        }
         //response.data.total_results = 5;
         //response.data.page_size = 5;
-        //response.data.perpage = 5;
+        response.data.perpage = 5;
         const capresp = JSON.stringify(response.data);
         const capresp1 = capresp.replace('"count"', '"total_results"');
         const capresp2 = capresp1.replace('"page_size"', '"perpage"');
