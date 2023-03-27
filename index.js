@@ -125,7 +125,7 @@ app.get('/api/CAP/', (req, res) => {
 // University of Washington Law Digital Commons
 // For some reason, won't always display the right results. If it does display, then they are correct, but
 // it is either all 5 or none, even if there are results to view.
-// It adds a "total_results:5" to the end of the json rather than editing the total_results at the beginning
+// It adds a "total_results":5 to the end of the json rather than editing the total_results at the beginning
 app.get('/api/UWDC/', (req, res) => {
   let DCuserrequest = req.query.q;
   if (DCuserrequest == "") {
@@ -144,8 +144,8 @@ app.get('/api/UWDC/', (req, res) => {
       /*if (response.data.total_results > 5) {
         response.data.total_results = 5;
       }*/
-      //response.data.total_hits = 5;
-      response.data.total_results = 5;
+      response.data.total_hits = 5;
+      //response.data.total_results = 5;
       let capresp = JSON.stringify(response.data);
       let capresp1 = capresp.replace('"total_hits"', '"total_results"');
       let capresp2 = capresp1.replace('"limit"', '"perpage"');
