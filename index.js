@@ -51,6 +51,7 @@ function googFix(googIn) {
   }
 };
 
+// Washington State Case Law by Court Listener
 app.get('/api/CL/', (req, res) => {
   let clUserRequest = req.query.q;
   if (clUserRequest == "") {
@@ -60,15 +61,18 @@ app.get('/api/CL/', (req, res) => {
     let clcallback = req.query.callback
     axios.get('https://courtlistener.com/api/rest/v3/search/?court=wash washctapp&q=' + clUserRequest)
       .then (function (response) {
-          let clresp = JSON.stringify(response.data);
-          let cloutput = clresp.replace('"count"', '"total_results"');
-          let cloutput2 = cloutput.replace('"next"', '"perpage": 5, "next"');
-          let cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"');
-          let cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/');
-          let cloutput5 = cloutput4.replaceAll('"caseName"', '"title"');
-          res
-            .type('application/javascript')
-            .send(clcallback + '(' + cloutput5 + ');')
+        response.data.count = 5;
+        response.data.total_results = 5;
+        response.data.perpage = 5;
+        let clresp = JSON.stringify(response.data);
+        let cloutput = clresp.replace('"count"', '"total_results"');
+        let cloutput2 = cloutput.replace('"next"', '"perpage": 5, "next"');
+        let cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"');
+        let cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/');
+        let cloutput5 = cloutput4.replaceAll('"caseName"', '"title"');
+        res
+          .type('application/javascript')
+          .send(clcallback + '(' + cloutput5 + ');')
       }) //cloutput5 already is just the response.data
       .catch(function (error) {
         res.end();
@@ -86,10 +90,10 @@ app.get('/api/CAP/', (req, res) => {
     let capcallback = req.query.callback;
     axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&page_size=10&ordering=-decision_date&search=' + capuserrequest)
       .then(function (response) {
-        response.data.count = 10;
-        response.data.total_results = 10;
-        response.data.page_size = 10;
-        response.data.perpage = 10;
+        response.data.count = 5;
+        response.data.total_results = 5;
+        response.data.page_size = 5;
+        response.data.perpage = 5;
         const capresp = JSON.stringify(response.data);
         const capresp1 = capresp.replace('"count"', '"total_results"');
         const capresp2 = capresp1.replace('"page_size"', '"perpage"');
