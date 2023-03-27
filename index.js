@@ -142,14 +142,14 @@ app.get('/api/UWDC/', (req, res) => {
       'authorization': 'tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY='
     }}).then(function (response) {
       // only want to show 5 results
-      if (response.data.total_hits > 5) {
+      /*if (response.data.total_hits > 5) {
         response.data.total_hits = 5;
         response.data.total_results = 5;
-      }
+      }*/
       /*if (response.data.total_results > 5) {
         response.data.total_results = 5;
       }*/
-      //response.data.total_hits = 5;
+      response.data.total_hits = 5;
       //response.data.total_results = 5;
       let capresp = JSON.stringify(response.data);
       let capresp1 = capresp.replace('"total_hits"', '"total_results"');
