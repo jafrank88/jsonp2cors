@@ -86,7 +86,10 @@ app.get('/api/CAP/', (req, res) => {
     let capcallback = req.query.callback;
     axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&page_size=10&ordering=-decision_date&search=' + capuserrequest)
       .then(function (response) {
+        response.data.count = 10;
         response.data.total_results = 10;
+        response.data.page_size = 10;
+        response.data.perpage = 10;
         const capresp = JSON.stringify(response.data);
         const capresp1 = capresp.replace('"count"', '"total_results"');
         const capresp2 = capresp1.replace('"page_size"', '"perpage"');
