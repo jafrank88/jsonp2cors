@@ -144,10 +144,11 @@ app.get('/api/UWDC/', (req, res) => {
       // only want to show 5 results
       if (response.data.total_hits > 5) {
         response.data.total_hits = 5;
-      }
-      if (response.data.total_results > 5) {
         response.data.total_results = 5;
       }
+      /*if (response.data.total_results > 5) {
+        response.data.total_results = 5;
+      }*/
       //response.data.total_hits = 5;
       //response.data.total_results = 5;
       let capresp = JSON.stringify(response.data);
