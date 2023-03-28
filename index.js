@@ -87,7 +87,6 @@ app.get('/api/CL/', (req, res) => {
   }
 });
 
-
 // Washington State Case Law from the Caselaw Access Project
 app.get('/api/CAP/', (req, res) => {
   let capuserrequest = req.query.q;
@@ -123,10 +122,8 @@ app.get('/api/CAP/', (req, res) => {
 });
 
 // University of Washington Law Digital Commons
-// For some reason, won't always display the right results. If it does display, then they are correct, but
-// it is either all 5 or none, even if there are results to view.
-// It adds a "total_results":5 or "total_hits":5 to the end of the json rather than 
-// editing the total_results at the beginning, like how the replace does.
+// For some reason, won't always display the right results. Even if it claims that the total results are over 5,
+// it will not always display 5 results and often displays less.
 app.get('/api/UWDC/', (req, res) => {
   let DCuserrequest = req.query.q;
   if (DCuserrequest == "") {
@@ -142,16 +139,6 @@ app.get('/api/UWDC/', (req, res) => {
       if (response.data.query_meta.total_hits > 5) {
         response.data.query_meta.total_hits = 5;
       }
-      /*if (response.data.total_results > 5) {
-        response.data.total_results = 5;
-      }*/
-      //response.data.total_hits = 5;
-      //response.data.total_results = 5;
-      /*results = [{}, {}, {}, {}, {}];
-      for (let i = 0; i < 5; i++) {
-        results[i] = response.data.results[i];
-      }
-      response.data.results = results;*/
       let capresp = JSON.stringify(response.data);
       let capresp1 = capresp.replace('"total_hits"', '"total_results"');
       let capresp2 = capresp1.replace('"limit"', '"perpage"');
@@ -170,7 +157,7 @@ app.get('/api/UWDC/', (req, res) => {
   }
 });
   
-
+// Washington Law Help
 app.get('/api/GOOGWLH/', (req, res) => {
   let wlhUserRequest = req.query.q;
   if (wlhUserRequest == "") {
@@ -189,6 +176,7 @@ app.get('/api/GOOGWLH/', (req, res) => {
   } 
 });
 
+// Washington State Government Website Search
 app.get('/api/GOOGWA/', (req, res) => {
   let waUserRequest = req.query.q;
   if (waUserRequest == "") {
@@ -206,7 +194,8 @@ app.get('/api/GOOGWA/', (req, res) => {
     });
   }
 });
-    
+
+// Revised Code of Washington
 app.get('/api/GOOGRCW/', (req, res) => {
    let rcwUserRequest = req.query.q;
    if (rcwUserRequest == "") {
@@ -225,6 +214,7 @@ app.get('/api/GOOGRCW/', (req, res) => {
   }
 });
 
+// Washington Administrative Code
 app.get('/api/GOOGWAC/', (req, res) => {
   let wacUserRequest = req.query.q;
   if (wacUserRequest == "") {
