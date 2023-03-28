@@ -64,7 +64,7 @@ app.get('/api/CL/', (req, res) => {
         // ensure that only the first 5 results are returned by only saving the first 5 results returned
         if (response.data.count > 5) {
           response.data.count = 5;
-          response.data.total_results = 5;
+          //response.data.total_results = 5;
           results = [{}, {}, {}, {}, {}];
           for (let i = 0; i < 5; i++) {
             results[i] = response.data.results[i];
@@ -139,16 +139,21 @@ app.get('/api/UWDC/', (req, res) => {
       }
     }).then(function (response) {
       // only want to show 5 results
-      /*if (response.data.total_hits > 5) {
-        response.data.total_hits = 5;
-      }*/
+      if (response.data.query_meta.total_hits > 5) {
+        response.data.query_meta.total_hits = 5;
+      }
       /*if (response.data.total_results > 5) {
         response.data.total_results = 5;
       }*/
-      response.data.total_hits = 5;
+      //response.data.total_hits = 5;
       //response.data.total_results = 5;
-      let capresp1 = JSON.stringify(response.data);
-      //let capresp1 = capresp.replace('"total_hits"', '"total_results"');
+      /*results = [{}, {}, {}, {}, {}];
+      for (let i = 0; i < 5; i++) {
+        results[i] = response.data.results[i];
+      }
+      response.data.results = results;*/
+      let capresp = JSON.stringify(response.data);
+      let capresp1 = capresp.replace('"total_hits"', '"total_results"');
       let capresp2 = capresp1.replace('"limit"', '"perpage"');
       //let capresp3 = capresp2.replace('"query_meta":{', '');
       //let capresp4 = capresp2.replace(/"download_format"[\s]*\][\s]*\}/m, '"download_format"]}');
