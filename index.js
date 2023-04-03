@@ -136,7 +136,7 @@ app.get('/api/UWDC/', (req, res) => {
       }
     }).then(function (response) {
       // only want to show 5 results
-      if (response.data.query_meta.total_hits > 5) {
+      if (response.data.query_meta.total_hits > '5') {
         response.data.query_meta.total_hits = 5;
       }
       let capresp = JSON.stringify(response.data);
