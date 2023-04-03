@@ -44,7 +44,7 @@ function googFix(googIn) {
   let pptest = wacresp9.indexOf('perpage') ;
   console.log("PPTEST : " + pptest);
   if (pptest = -1) {
-      let googOut = wacresp9.replace('"formattedT', '"perpage": 5"formattedT');
+      let googOut = wacresp9.replace('"formattedT', '"perpage":5,"formattedT');
       return(googOut);
   } else {
     return(wacresp9);
@@ -171,9 +171,9 @@ app.get('/api/GOOGWLH/', (req, res) => {
         response.data.count = 5;
         results = [{}, {}, {}, {}, {}];
         for (let i = 0; i < 5; i++) {
-          results[i] = response.data.results[i];
+          results[i] = response.data.items[i];
         }
-        response.data.results = results;
+        response.data.items = results;
       }
       let googResp = JSON.stringify(response.data);
       let googOut = googFix(googResp);
