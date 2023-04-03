@@ -44,7 +44,7 @@ function googFix(googIn) {
   let pptest = wacresp9.indexOf('perpage') ;
   console.log("PPTEST : " + pptest);
   if (pptest = -1) {
-      let googOut = wacresp9.replace('"formattedT', '"perpage": 10"formattedT');
+      let googOut = wacresp9.replace('"formattedT', '"perpage": 5"formattedT');
       return(googOut);
   } else {
     return(wacresp9);
@@ -136,7 +136,7 @@ app.get('/api/UWDC/', (req, res) => {
       }
     }).then(function (response) {
       // only want to show 5 results
-      if (response.data.query_meta.total_hits > '5') {
+      if (response.data.query_meta.total_hits > 5) {
         response.data.query_meta.total_hits = 5;
       }
       let capresp = JSON.stringify(response.data);
@@ -166,6 +166,15 @@ app.get('/api/GOOGWLH/', (req, res) => {
   let wlhCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=135ef0d0998ed4a33&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wlhUserRequest )
      .then (function(response) {
+      if (response.data.totalResults > 5) {
+        response.data.totalResults = 5;
+        response.data.count = 5;
+        results = [{}, {}, {}, {}, {}];
+        for (let i = 0; i < 5; i++) {
+          results[i] = response.data.results[i];
+        }
+        response.data.results = results;
+      }
       let googResp = JSON.stringify(response.data);
       let googOut = googFix(googResp);
       let googDone = googOut.replace(/a33\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, 'a33","res');
