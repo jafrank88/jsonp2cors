@@ -39,6 +39,7 @@ function googFix(googIn) {
   let wacresp5 = wacresp4.replace('"type": "application/json"', '"type": "application/javascript"');
   let wacresp6 = wacresp5.replaceAll(/\"(\d+)\"/g, '$1');
   let wacresp7 = wacresp6.replaceAll('"link"', '"url"');
+  // m is saying the search will cross multiple lines (to ignore end of line or beginning of line marker)
   let wacresp8 = wacresp7.replace(/"quer[\s\S]*?ext[\s\S]*?\{/m, '');
   let wacresp9 = wacresp8.replace(/"kin[\s\S]*?\"tot/m, '"tot');
   let pptest = wacresp9.indexOf('perpage') ;
@@ -166,8 +167,8 @@ app.get('/api/GOOGWLH/', (req, res) => {
   let wlhCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=135ef0d0998ed4a33&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wlhUserRequest )
      .then (function(response) {
-      if (response.data.searchInformation.totalResults > 5) {
-        response.data.searchInformation.totalResults = 5;
+      if (response.data.queries.next.totalResults > "5") {
+        response.data.queries.next.totalResults = "5";
         //response.data.queries.request.count = 5;
         results = [{}, {}, {}, {}, {}];
         for (let i = 0; i < 5; i++) {
