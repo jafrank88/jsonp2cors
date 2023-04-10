@@ -167,7 +167,7 @@ app.get('/api/GOOGWLH/', (req, res) => {
   let wlhCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=135ef0d0998ed4a33&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wlhUserRequest )
      .then (function(response) {
-      if (response.data.queries.next.totalResults > 5) {
+      /*if (response.data.queries.next.totalResults > 5) {
         response.data.queries.next.totalResults = 5;
         //response.data.queries.request.count = 5;
         results = [{}, {}, {}, {}, {}];
@@ -175,7 +175,7 @@ app.get('/api/GOOGWLH/', (req, res) => {
           results[i] = response.data.items[i];
         }
         response.data.items = results;
-      }
+      }*/
       let googResp = JSON.stringify(response.data);
       let googOut = googFix(googResp);
       let googDone = googOut.replace(/a33\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, 'a33","res');
