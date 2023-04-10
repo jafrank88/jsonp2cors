@@ -124,8 +124,10 @@ app.get('/api/CAP/', (req, res) => {
 
 // University of Washington Law Digital Commons
 // For some reason, won't always display the right results. Even if it claims that the total results are over 5,
-// it will not always display 5 results and often displays less. "Law" as a search, for example displays no results, 
-// yet claims to be "Showing 1 - 5 of 6997".
+// it will not always display 5 results and often displays less. "Law" or "Washington" as a search, for example displays no results, 
+// yet claims to be "Showing 1 - 5 of 6997". Perhaps the API simply will not return results if a query is too broad 
+// or it returns too many results? That shouldn't be a problem because it limits what's returned to 5, but could be
+// an API problem, I am not sure. 
 app.get('/api/UWDC/', (req, res) => {
   let DCuserrequest = req.query.q;
   if (DCuserrequest == "") {
@@ -140,11 +142,6 @@ app.get('/api/UWDC/', (req, res) => {
       // only want to show 5 results
       if (response.data.query_meta.total_hits > 5) {
         response.data.query_meta.total_hits = 5;
-        results = [{}, {}, {}, {}, {}];
-        for (let i = 0; i < 5; i++) {
-          results[i] = response.data.results[i];
-        }
-        response.data.results = results;
       }
       let capresp = JSON.stringify(response.data);
       let capresp1 = capresp.replace('"total_hits"', '"total_results"');
@@ -201,6 +198,15 @@ app.get('/api/GOOGWA/', (req, res) => {
   let waCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
     .then (function(response) {
+      if (response.data.queries.nextPage[0].totalResults > 5) {
+        response.data.queries.nextPage[0].totalResults = 5;
+        //response.data.queries.request.count = 5;
+        results = [{}, {}, {}, {}, {}];
+        for (let i = 0; i < 5; i++) {
+          results[i] = response.data.items[i];
+        }
+        response.data.items = results;
+      }
       let googResp = JSON.stringify(response.data);
       let googOut = googFix(googResp);
       let googDone = googOut.replace(/214\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '214","res');
@@ -220,6 +226,15 @@ app.get('/api/GOOGRCW/', (req, res) => {
     let rcwCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=e6de7f98f8313475c&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + rcwUserRequest)
     .then (function(response) {
+      if (response.data.queries.nextPage[0].totalResults > 5) {
+        response.data.queries.nextPage[0].totalResults = 5;
+        //response.data.queries.request.count = 5;
+        results = [{}, {}, {}, {}, {}];
+        for (let i = 0; i < 5; i++) {
+          results[i] = response.data.items[i];
+        }
+        response.data.items = results;
+      }
       let googResp = JSON.stringify(response.data);
       let googOut = googFix(googResp);
       let googDone = googOut.replace(/75c\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '75c","res');
@@ -239,6 +254,15 @@ app.get('/api/GOOGWAC/', (req, res) => {
     let wacCallback = req.query.callback;
     axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=065d0f2474d164d55&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest)
       .then (function(response) {
+        if (response.data.queries.nextPage[0].totalResults > 5) {
+          response.data.queries.nextPage[0].totalResults = 5;
+          //response.data.queries.request.count = 5;
+          results = [{}, {}, {}, {}, {}];
+          for (let i = 0; i < 5; i++) {
+            results[i] = response.data.items[i];
+          }
+          response.data.items = results;
+        }
       let googResp = JSON.stringify(response.data);
       let googOut = googFix(googResp);
       let googDone = googOut.replace(/d55\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, 'd55","res');
