@@ -124,7 +124,8 @@ app.get('/api/CAP/', (req, res) => {
 
 // University of Washington Law Digital Commons
 // For some reason, won't always display the right results. Even if it claims that the total results are over 5,
-// it will not always display 5 results and often displays less.
+// it will not always display 5 results and often displays less. "Law" as a search, for example displays no results, 
+// yet claims to be "Showing 1 - 5 of 6997".
 app.get('/api/UWDC/', (req, res) => {
   let DCuserrequest = req.query.q;
   if (DCuserrequest == "") {
@@ -137,9 +138,14 @@ app.get('/api/UWDC/', (req, res) => {
       }
     }).then(function (response) {
       // only want to show 5 results
-      /*if (response.data.query_meta.total_hits > 5) {
+      if (response.data.query_meta.total_hits > 5) {
         response.data.query_meta.total_hits = 5;
-      }*/
+        results = [{}, {}, {}, {}, {}];
+        for (let i = 0; i < 5; i++) {
+          results[i] = response.data.results[i];
+        }
+        response.data.results = results;
+      }
       let capresp = JSON.stringify(response.data);
       let capresp1 = capresp.replace('"total_hits"', '"total_results"');
       let capresp2 = capresp1.replace('"limit"', '"perpage"');
