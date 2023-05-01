@@ -178,6 +178,27 @@ app.get('/api/GOOGWA/', (req, res) => {
       res.end();
      });
 }});
+
+
+app.get('/api/GOOGWARG/', (req, res) => {
+  let wargUserRequest = req.query.q
+  if (wargUserRequest == "") {
+    res.end()
+  } else {
+  let wargCallback = req.query.callback
+  axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=16b5f286be6f64126&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
+     .then (function(response) {
+      let googResp = JSON.stringify(response.data)
+      let googOut = googFix(googResp)
+      let googDone = googOut.replace(/214\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '214","res')
+      res
+     .type('application/javascript')
+     .send(wargCallback + '(' + googDone + ');')
+     }) 
+     .catch(function (error) {
+      res.end();
+     });
+}});
     
 app.get('/api/GOOGRCW/', (req, res) => {
    let rcwUserRequest = req.query.q
