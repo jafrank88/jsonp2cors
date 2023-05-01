@@ -162,7 +162,6 @@ app.get('/api/UWDC/', (req, res) => {
 });
 
 // Research Guides from Washington Institutions including Seattle U and Gonzaga
-// Test
 app.get('/api/GOOGWARG/', (req, res) => {
   let waUserRequest = req.query.q;
   if (waUserRequest == "") {
@@ -171,8 +170,8 @@ app.get('/api/GOOGWARG/', (req, res) => {
   let waCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=16b5f286be6f64126&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
     .then (function(response) {
-      if (response.data.queries.nextPage[0].totalResults > 5) {
-        response.data.queries.nextPage[0].totalResults = 5;
+      if (response.data.queries.nextPage[0].totalResults > '5') {
+        response.data.queries.nextPage[0].totalResults = '5';
         //response.data.queries.request.count = 5;
         results = [{}, {}, {}, {}, {}];
         for (let i = 0; i < 5; i++) {
@@ -199,8 +198,8 @@ app.get('/api/GOOGWLH/', (req, res) => {
   let wlhCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=135ef0d0998ed4a33&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wlhUserRequest )
      .then (function(response) {
-      if (response.data.queries.nextPage[0].totalResults > 5) {
-        response.data.queries.nextPage[0].totalResults = 5;
+      if (response.data.queries.nextPage[0].totalResults > '5') {
+        response.data.queries.nextPage[0].totalResults = '5';
         //response.data.queries.request.count = 5;
         results = [{}, {}, {}, {}, {}];
         for (let i = 0; i < 5; i++) {
@@ -227,8 +226,8 @@ app.get('/api/GOOGWA/', (req, res) => {
   let waCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
     .then (function(response) {
-      if (response.data.queries.nextPage[0].totalResults > 5) {
-        response.data.queries.nextPage[0].totalResults = 5;
+      if (response.data.queries.nextPage[0].totalResults > '5') {
+        response.data.queries.nextPage[0].totalResults = '5';
         //response.data.queries.request.count = 5;
         results = [{}, {}, {}, {}, {}];
         for (let i = 0; i < 5; i++) {
@@ -255,8 +254,8 @@ app.get('/api/GOOGRCW/', (req, res) => {
     let rcwCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=e6de7f98f8313475c&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + rcwUserRequest)
     .then (function(response) {
-      if (response.data.queries.nextPage[0].totalResults > 5) {
-        response.data.queries.nextPage[0].totalResults = 5;
+      if (response.data.queries.nextPage[0].totalResults > '5') {
+        response.data.queries.nextPage[0].totalResults = '5';
         //response.data.queries.request.count = 5;
         results = [{}, {}, {}, {}, {}];
         for (let i = 0; i < 5; i++) {
@@ -283,8 +282,8 @@ app.get('/api/GOOGWAC/', (req, res) => {
     let wacCallback = req.query.callback;
     axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=065d0f2474d164d55&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest)
       .then (function(response) {
-        if (response.data.queries.nextPage[0].totalResults > 5) {
-          response.data.queries.nextPage[0].totalResults = 5;
+        if (response.data.queries.nextPage[0].totalResults > '5') {
+          response.data.queries.nextPage[0].totalResults = '5';
           //response.data.queries.request.count = 5;
           results = [{}, {}, {}, {}, {}];
           for (let i = 0; i < 5; i++) {
