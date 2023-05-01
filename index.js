@@ -160,6 +160,34 @@ app.get('/api/UWDC/', (req, res) => {
     });
   }
 });
+
+// Research Guides from Washington Institutions including Seattle U and Gonzaga
+app.get('/api/GOOGWARG/', (req, res) => {
+  let waUserRequest = req.query.q;
+  if (waUserRequest == "") {
+    res.end();
+  } else {
+  let waCallback = req.query.callback;
+  axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=16b5f286be6f64126&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
+    .then (function(response) {
+      if (response.data.queries.nextPage[0].totalResults > 5) {
+        response.data.queries.nextPage[0].totalResults = 5;
+        //response.data.queries.request.count = 5;
+        results = [{}, {}, {}, {}, {}];
+        for (let i = 0; i < 5; i++) {
+          results[i] = response.data.items[i];
+        }
+        response.data.items = results;
+      }
+      let googResp = JSON.stringify(response.data);
+      let googOut = googFix(googResp);
+      let googDone = googOut.replace(/214\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '214","res');
+      res.type('application/javascript').send(waCallback + '(' + googDone + ');');
+    }).catch(function (error) {
+      res.end();
+    });
+  }
+});
   
 // Washington Law Help
 app.get('/api/GOOGWLH/', (req, res) => {
