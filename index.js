@@ -169,7 +169,7 @@ app.get('/api/GOOGWARG/', (req, res) => {
     res.end();
   } else {
   let waCallback = req.query.callback;
-  axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=16b5f286be6f64126&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
+  axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=16b5f286be6f64126&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
     .then (function(response) {
       if (response.data.queries.nextPage[0].totalResults > 5) {
         response.data.queries.nextPage[0].totalResults = 5;
@@ -197,7 +197,7 @@ app.get('/api/GOOGWLH/', (req, res) => {
     res.end();
   } else {
   let wlhCallback = req.query.callback;
-  axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=135ef0d0998ed4a33&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wlhUserRequest )
+  axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=135ef0d0998ed4a33&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wlhUserRequest )
      .then (function(response) {
       if (response.data.queries.nextPage[0].totalResults > 5) {
         response.data.queries.nextPage[0].totalResults = 5;
@@ -225,7 +225,7 @@ app.get('/api/GOOGWA/', (req, res) => {
     res.end();
   } else {
   let waCallback = req.query.callback;
-  axios.get('https://www.googleapis.com/customsearch/v1?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
+  axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
     .then (function(response) {
       if (response.data.queries.nextPage[0].totalResults > 5) {
         response.data.queries.nextPage[0].totalResults = 5;
