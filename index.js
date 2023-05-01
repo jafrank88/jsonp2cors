@@ -162,6 +162,7 @@ app.get('/api/UWDC/', (req, res) => {
 });
 
 // Research Guides from Washington Institutions including Seattle U and Gonzaga
+// Test
 app.get('/api/GOOGWARG/', (req, res) => {
   let waUserRequest = req.query.q;
   if (waUserRequest == "") {
