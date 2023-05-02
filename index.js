@@ -161,6 +161,34 @@ app.get('/api/UWDC/', (req, res) => {
   }
 });
 
+// Google Books API
+app.get('/api/GOOGB/', (req, res) => {
+  let bUserRequest = req.query.q;
+  if (bUserRequest == "") {
+    res.end();
+  } else {
+  let bCallback = req.query.callback;
+  axios.get('https://www.googleapis.com/books/v1/volumes?q=' + bUserRequest )
+    .then (function(response) {
+      if (response.data.queries.nextPage[0].totalResults > '5') {
+        response.data.queries.nextPage[0].totalResults = '5';
+        //response.data.queries.request.count = 5;
+        results = [{}, {}, {}, {}, {}];
+        for (let i = 0; i < 5; i++) {
+          results[i] = response.data.items[i];
+        }
+        response.data.items = results;
+      }
+      let googResp = JSON.stringify(response.data);
+      let googOut = googFix(googResp);
+      let googDone = googOut.replace(/126\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '126","res');
+      res.type('application/javascript').send(bCallback + '(' + googDone + ');');
+    }).catch(function (error) {
+      res.end();
+    });
+  }
+});
+
 // Research Guides from Washington Institutions including Seattle U and Gonzaga
 app.get('/api/GOOGWARG/', (req, res) => {
   let wargUserRequest = req.query.q;
