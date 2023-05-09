@@ -65,7 +65,6 @@ app.get('/api/CL/', (req, res) => {
         // ensure that only the first 5 results are returned by only saving the first 5 results returned
         if (response.data.count > 5) {
           response.data.count = 5;
-          //response.data.total_results = 5;
           results = [{}, {}, {}, {}, {}];
           for (let i = 0; i < 5; i++) {
             results[i] = response.data.results[i];
@@ -100,14 +99,9 @@ app.get('/api/CAP/', (req, res) => {
         if (response.data.count > 5) {
           response.data.count = 5;
         }
-        /*if (response.data.total_results > 5) {
-          response.data.total_results = 5;
-        }*/
         if (response.data.page_size > 5) {
           response.data.page_size = 5;
         }
-        //response.data.total_results = 5;
-        //response.data.page_size = 5;
         response.data.perpage = 5;
         const capresp = JSON.stringify(response.data);
         const capresp1 = capresp.replace('"count"', '"total_results"');
@@ -122,12 +116,14 @@ app.get('/api/CAP/', (req, res) => {
   }
 });
 
-// University of Washington Law Digital Commons
-// For some reason, won't always display the right results. Even if it claims that the total results are over 5,
-// it will not always display 5 results and often displays less. "Law" or "Washington" as a search, for example displays no results, 
-// yet claims to be "Showing 1 - 5 of 6997". Perhaps the API simply will not return results if a query is too broad 
-// or it returns too many results? That shouldn't be a problem because it limits what's returned to 5, but could be
-// an API problem, I am not sure. 
+/* 
+  University of Washington Law Digital Commons
+   For some reason, won't always display the right results. Even if it claims that the total results are over 5,
+   it will not always display 5 results and often displays less. "Law" or "Washington" as a search, for example displays no results, 
+   yet claims to be "Showing 1 - 5 of 6997". Perhaps the API simply will not return results if a query is too broad 
+   or it returns too many results? That shouldn't be a problem because it limits what's returned to 5, but could be
+   an API problem, I am not sure. 
+*/
 app.get('/api/UWDC/', (req, res) => {
   let DCuserrequest = req.query.q;
   if (DCuserrequest == "") {
@@ -146,8 +142,6 @@ app.get('/api/UWDC/', (req, res) => {
       let capresp = JSON.stringify(response.data);
       let capresp1 = capresp.replace('"total_hits"', '"total_results"');
       let capresp2 = capresp1.replace('"limit"', '"perpage"');
-      //let capresp3 = capresp2.replace('"query_meta":{', '');
-      //let capresp4 = capresp2.replace(/"download_format"[\s]*\][\s]*\}/m, '"download_format"]}');
       let capresp5 = capresp2.replace('"start"','"next"');
       let DCheader = capresp5.match(/"total[\s\S]*\"field/m);
       console.log ('DCheader : ' + DCheader);
@@ -175,7 +169,6 @@ app.get('/api/GOOGB/', (req, res) => {
         total = 5;
       }
       results = Array(total).fill(0);
-      //item = {"title": "", "url": ""};
       for (let i = 0; i < 5; i++) {
         item = {};
         item.title = response.data.items[i].volumeInfo.title;
@@ -184,18 +177,7 @@ app.get('/api/GOOGB/', (req, res) => {
         results[i] = item;
       }
       response.data.items = results;
-      /* else if (response.data.totalItems < 5) {
-        results = Array(response.data.totalItems).fill(0);
-        //item = {"title": "", "url": ""};
-        for (let i = 0; i < response.data.totalItems; i++) {
-          item = {};
-          item.title = response.data.items[i].volumeInfo.title;
-          item.url = response.data.items[i].volumeInfo.infoLink;
-          item.authors = response.data.items[i].volumeInfo.authors;
-          results[i] = item;
-        }
-        response.data.items = results;
-      } */
+
       let bookResp = JSON.stringify(response.data);
       let bookResp1 = bookResp.replaceAll('"totalItems"', '"total_results"');
       let bookResp2 = bookResp1.replaceAll('"items"', '"results"');
@@ -217,7 +199,6 @@ app.get('/api/GOOGWARG/', (req, res) => {
     .then (function(response) {
       if (response.data.queries.nextPage[0].totalResults > '5') {
         response.data.queries.nextPage[0].totalResults = '5';
-        //response.data.queries.request.count = 5;
         results = [{}, {}, {}, {}, {}];
         for (let i = 0; i < 5; i++) {
           results[i] = response.data.items[i];
@@ -245,7 +226,6 @@ app.get('/api/GOOGWLH/', (req, res) => {
      .then (function(response) {
       if (response.data.queries.nextPage[0].totalResults > '5') {
         response.data.queries.nextPage[0].totalResults = '5';
-        //response.data.queries.request.count = 5;
         results = [{}, {}, {}, {}, {}];
         for (let i = 0; i < 5; i++) {
           results[i] = response.data.items[i];
@@ -273,7 +253,6 @@ app.get('/api/GOOGWA/', (req, res) => {
     .then (function(response) {
       if (response.data.queries.nextPage[0].totalResults > '5') {
         response.data.queries.nextPage[0].totalResults = '5';
-        //response.data.queries.request.count = 5;
         results = [{}, {}, {}, {}, {}];
         for (let i = 0; i < 5; i++) {
           results[i] = response.data.items[i];
@@ -301,7 +280,6 @@ app.get('/api/GOOGRCW/', (req, res) => {
     .then (function(response) {
       if (response.data.queries.nextPage[0].totalResults > '5') {
         response.data.queries.nextPage[0].totalResults = '5';
-        //response.data.queries.request.count = 5;
         results = [{}, {}, {}, {}, {}];
         for (let i = 0; i < 5; i++) {
           results[i] = response.data.items[i];
@@ -329,7 +307,6 @@ app.get('/api/GOOGWAC/', (req, res) => {
       .then (function(response) {
         if (response.data.queries.nextPage[0].totalResults > '5') {
           response.data.queries.nextPage[0].totalResults = '5';
-          //response.data.queries.request.count = 5;
           results = [{}, {}, {}, {}, {}];
           for (let i = 0; i < 5; i++) {
             results[i] = response.data.items[i];
