@@ -195,9 +195,9 @@ app.get('/api/GOOGB/', (req, res) => {
     .then (function(response) {
       if (response.data.totalItems > 5) {
         results = Array(5).fill(0);
-        item = {};
         //item = {"title": "", "url": ""};
         for (let i = 0; i < 5; i++) {
+          item = {};
           item.title = response.data.items[i].volumeInfo.title;
           item.url = response.data.items[i].volumeInfo.infoLink;
           results[i] = item;
@@ -206,9 +206,9 @@ app.get('/api/GOOGB/', (req, res) => {
       }
       else if (response.data.totalItems < 5) {
         results = Array(response.data.totalItems).fill(0);
-        item = {};
         //item = {"title": "", "url": ""};
         for (let i = 0; i < response.data.totalItems; i++) {
+          item = {};
           item.title = response.data.items[i].volumeInfo.title;
           item.url = response.data.items[i].volumeInfo.infoLink;
           results[i] = item;
