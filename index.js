@@ -52,29 +52,6 @@ function googFix(googIn) {
   }
 };
 
-/*
-function bookFix(bookIn) {
-  let wacresp1 = bookIn.replaceAll('"totalItems"', '"total_results"');
-  let wacresp2 = wacresp1.replaceAll('"count"', '"perpage"');
-  let wacresp3 = wacresp2.replace('"items"', '"results"');
-  let wacresp4 = wacresp3.replaceAll('"nextPage"', '"next"');
-  let wacresp5 = wacresp4.replace('"type": "application/json"', '"type": "application/javascript"');
-  let wacresp6 = wacresp5.replaceAll(/\"(\d+)\"/g, '$1');
-  let wacresp7 = wacresp6.replaceAll('"link"', '"url"');
-  // m is saying the search will cross multiple lines (to ignore end of line or beginning of line marker)
-  let wacresp8 = wacresp7.replace(/"quer[\s\S]*?ext[\s\S]*?\{/m, '');
-  let wacresp9 = wacresp8.replace(/"kin[\s\S]*?\"tot/m, '"tot');
-  let pptest = wacresp9.indexOf('perpage') ;
-  console.log("PPTEST : " + pptest);
-  if (pptest = -1) {
-      let googOut = wacresp9.replace('"formattedT', '"perpage":5,"formattedT');
-      return(googOut);
-  } else {
-    return(wacresp9);
-  }
-};
-*/
-
 // Washington State Case Law by Court Listener
 app.get('/api/CL/', (req, res) => {
   let clUserRequest = req.query.q;
@@ -193,35 +170,36 @@ app.get('/api/GOOGB/', (req, res) => {
   let bCallback = req.query.callback;
   axios.get('https://www.googleapis.com/books/v1/volumes?q=' + bUserRequest )
     .then (function(response) {
+      let total = response.data.totalItems;
       if (response.data.totalItems > 5) {
-        results = Array(5).fill(0);
-        //item = {"title": "", "url": ""};
-        for (let i = 0; i < 5; i++) {
-          item = {};
-          item.title = response.data.items[i].volumeInfo.title;
-          item.url = response.data.items[i].volumeInfo.infoLink;
-          results[i] = item;
-        }
-        response.data.items = results;
+        total = 5;
       }
-      else if (response.data.totalItems < 5) {
+      results = Array(total).fill(0);
+      //item = {"title": "", "url": ""};
+      for (let i = 0; i < 5; i++) {
+        item = {};
+        item.title = response.data.items[i].volumeInfo.title;
+        item.url = response.data.items[i].volumeInfo.infoLink;
+        item.authors = response.data.items[i].volumeInfo.authors;
+        results[i] = item;
+      }
+      response.data.items = results;
+      /* else if (response.data.totalItems < 5) {
         results = Array(response.data.totalItems).fill(0);
         //item = {"title": "", "url": ""};
         for (let i = 0; i < response.data.totalItems; i++) {
           item = {};
           item.title = response.data.items[i].volumeInfo.title;
           item.url = response.data.items[i].volumeInfo.infoLink;
+          item.authors = response.data.items[i].volumeInfo.authors;
           results[i] = item;
         }
         response.data.items = results;
-      }
+      } */
       let bookResp = JSON.stringify(response.data);
       let bookResp1 = bookResp.replaceAll('"totalItems"', '"total_results"');
       let bookResp2 = bookResp1.replaceAll('"items"', '"results"');
       res.type('application/javascript').send(bCallback + '(' + bookResp2 + ');');
-      /*let bookOut = bookFix(bookResp);
-      let bookDone = bookOut.replace(/126\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, '126","res');*/
-      //res.type('application/javascript').send(bCallback + '(' + bookDone + ');');
     }).catch(function (error) {
       res.end();
     });
