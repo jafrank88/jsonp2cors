@@ -233,7 +233,7 @@ app.get('/api/GOOGWARG/', (req, res) => {
     res.end();
   } else {
   let wargCallback = req.query.callback;
-  axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=16b5f286be6f64126&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wargUserRequest )
+  axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=16b5f286be6f64126&key=' + process.env.GOOGLE_API + '&q=' + wargUserRequest )
     .then (function(response) {
       if (response.data.queries.nextPage[0].totalResults > '5') {
         response.data.queries.nextPage[0].totalResults = '5';
@@ -261,7 +261,7 @@ app.get('/api/GOOGWLH/', (req, res) => {
     res.end();
   } else {
   let wlhCallback = req.query.callback;
-  axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=135ef0d0998ed4a33&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wlhUserRequest )
+  axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=135ef0d0998ed4a33&key=' + process.env.GOOGLE_API + '&q=' + wlhUserRequest )
      .then (function(response) {
       if (response.data.queries.nextPage[0].totalResults > '5') {
         response.data.queries.nextPage[0].totalResults = '5';
@@ -289,7 +289,7 @@ app.get('/api/GOOGWA/', (req, res) => {
     res.end();
   } else {
   let waCallback = req.query.callback;
-  axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=e59140f1ca4f44214&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + waUserRequest )
+  axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=e59140f1ca4f44214&key=' + process.env.GOOGLE_API + '&q=' + waUserRequest )
     .then (function(response) {
       if (response.data.queries.nextPage[0].totalResults > '5') {
         response.data.queries.nextPage[0].totalResults = '5';
@@ -317,7 +317,7 @@ app.get('/api/GOOGRCW/', (req, res) => {
     res.end();
   } else {
     let rcwCallback = req.query.callback;
-  axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=e6de7f98f8313475c&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + rcwUserRequest)
+  axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=e6de7f98f8313475c&key=' + process.env.GOOGLE_API + '&q=' + rcwUserRequest)
     .then (function(response) {
       if (response.data.queries.nextPage[0].totalResults > '5') {
         response.data.queries.nextPage[0].totalResults = '5';
@@ -345,7 +345,7 @@ app.get('/api/GOOGWAC/', (req, res) => {
     res.end();
   } else {
     let wacCallback = req.query.callback;
-    axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=065d0f2474d164d55&key=AIzaSyAan8PHJ6Ji5S2r7S7iQiFWIwcn6K3ijL4&q=' + wacUserRequest)
+    axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=065d0f2474d164d55&key=' + process.env.GOOGLE_API + '&q=' + wacUserRequest)
       .then (function(response) {
         if (response.data.queries.nextPage[0].totalResults > '5') {
           response.data.queries.nextPage[0].totalResults = '5';
