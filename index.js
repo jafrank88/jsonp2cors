@@ -159,7 +159,7 @@ app.get('/api/UWDC/', (req, res) => {
     let DCcallback = req.query.callback;
     axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query?limit=5&q=' + DCuserrequest,{
       headers: {
-        'authorization': 'tIom76bl0l0FGyokkyAhN7GnlgjqmVBxPjF/CoMUAMY='
+        'authorization': process.env.DIGITAL_COMMONS
       }
     }).then(function (response) {
       // only want to show 5 results
@@ -195,7 +195,8 @@ app.get('/api/GOOGB/', (req, res) => {
     .then (function(response) {
       if (response.data.totalItems > 5) {
         results = Array(5).fill(0);
-        item = {"title": "", "url": ""};
+        item = {};
+        //item = {"title": "", "url": ""};
         for (let i = 0; i < 5; i++) {
           item.title = response.data.items[i].volumeInfo.title;
           item.url = response.data.items[i].volumeInfo.infoLink;
@@ -205,7 +206,8 @@ app.get('/api/GOOGB/', (req, res) => {
       }
       else if (response.data.totalItems < 5) {
         results = Array(response.data.totalItems).fill(0);
-        item = {"title": "", "url": ""};
+        item = {};
+        //item = {"title": "", "url": ""};
         for (let i = 0; i < response.data.totalItems; i++) {
           item.title = response.data.items[i].volumeInfo.title;
           item.url = response.data.items[i].volumeInfo.infoLink;
