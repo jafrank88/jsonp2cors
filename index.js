@@ -63,13 +63,13 @@ app.get('/api/CL/', (req, res) => {
     axios.get('https://courtlistener.com/api/rest/v3/search/?court=wash&q=' + clUserRequest) // 'https://courtlistener.com/api/rest/v3/search/?court=wash washctapp&q='
       .then (function (response) {
         // ensure that only the first 5 results are returned by only saving the first 5 results returned
-        if (response.data.count > 5) {
-          response.data.count = 5;
-          results = [{}, {}, {}, {}, {}];
-          for (let i = 0; i < 5; i++) {
-            results[i] = response.data.results[i];
+        if (response.data.queries.nextPage[0].totalResults > '15') {
+          response.data.queries.nextPage[0].totalResults = '15';
+          results = Array(response.data.queries.nextPage[0].totalResults).fill(0);
+          for (let i = 0; i < 15; i++) {
+            results[i] = response.data.items[i];
           }
-          response.data.results = results;
+          response.data.items = results;
         }
         let clresp = JSON.stringify(response.data);
         let cloutput = clresp.replace('"count"', '"total_results"');
@@ -102,7 +102,7 @@ app.get('/api/CAP/', (req, res) => {
         if (response.data.page_size > 15) {
           response.data.page_size = 15;
         }
-        response.data.perpage = 5;
+        response.data.perpage = 15;
         const capresp = JSON.stringify(response.data);
         const capresp1 = capresp.replace('"count"', '"total_results"');
         const capresp2 = capresp1.replace('"page_size"', '"perpage"');
