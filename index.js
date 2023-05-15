@@ -94,7 +94,7 @@ app.get('/api/CAP/', (req, res) => {
     res.end();
   } else {
     let capcallback = req.query.callback;
-    axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&page_size=5&ordering=-decision_date&search=' + capuserrequest)
+    axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&page_size=15&ordering=-decision_date&search=' + capuserrequest)
       .then(function (response) {
         if (response.data.count > 15) {
           response.data.count = 15;
@@ -130,7 +130,7 @@ app.get('/api/UWDC/', (req, res) => {
     res.end();
   } else {
     let DCcallback = req.query.callback;
-    axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query?limit=5&q=' + DCuserrequest,{
+    axios.get('https://content-out.bepress.com/v2/digitalcommons.law.uw.edu/query?limit=15&q=' + DCuserrequest,{
       headers: {
         'authorization': process.env.DIGITAL_COMMONS
       }
