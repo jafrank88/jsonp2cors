@@ -63,13 +63,13 @@ app.get('/api/CL/', (req, res) => {
     axios.get('https://courtlistener.com/api/rest/v3/search/?court=wash&q=' + clUserRequest) // 'https://courtlistener.com/api/rest/v3/search/?court=wash washctapp&q='
       .then (function (response) {
         // ensure that only the first 5 results are returned by only saving the first 5 results returned
-        if (response.data.queries.nextPage[0].totalResults > '15') {
-          response.data.queries.nextPage[0].totalResults = '15';
-          results = Array(response.data.queries.nextPage[0].totalResults).fill(0);
+        if (response.data.count > 15) {
+          response.data.count = 15;
+          results = Array(response.data.count).fill(0);
           for (let i = 0; i < 15; i++) {
-            results[i] = response.data.items[i];
+            results[i] = response.data.results[i];
           }
-          response.data.items = results;
+          response.data.results = results;
         }
         let clresp = JSON.stringify(response.data);
         let cloutput = clresp.replace('"count"', '"total_results"');
@@ -102,7 +102,7 @@ app.get('/api/CAP/', (req, res) => {
         if (response.data.page_size > 15) {
           response.data.page_size = 15;
         }
-        response.data.perpage = 15;
+        response.data.perpage = 5;
         const capresp = JSON.stringify(response.data);
         const capresp1 = capresp.replace('"count"', '"total_results"');
         const capresp2 = capresp1.replace('"page_size"', '"perpage"');
@@ -164,12 +164,11 @@ app.get('/api/GOOGB/', (req, res) => {
   let bCallback = req.query.callback;
   axios.get('https://www.googleapis.com/books/v1/volumes?q=' + bUserRequest )
     .then (function(response) {
-      let total = response.data.totalItems;
       if (response.data.totalItems > 15) {
-        total = 15;
+        response.data.totalItems = 15;
       }
-      results = Array(total).fill(0);
-      for (let i = 0; i < 15; i++) {
+      results = Array(response.data.totalItems).fill(0);
+      for (let i = 0; i < response.data.totalItems; i++) {
         item = {};
         item.title = response.data.items[i].volumeInfo.title;
         item.url = response.data.items[i].volumeInfo.infoLink;
