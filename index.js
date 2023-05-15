@@ -164,8 +164,8 @@ app.get('/api/GOOGB/', (req, res) => {
   let bCallback = req.query.callback;
   axios.get('https://www.googleapis.com/books/v1/volumes?q=' + bUserRequest )
     .then (function(response) {
-      if (response.data.totalItems > 15) {
-        response.data.totalItems = 15;
+      if (response.data.totalItems > 10) {
+        response.data.totalItems = 10;
       }
       results = Array(response.data.totalItems).fill(0);
       for (let i = 0; i < response.data.totalItems; i++) {
