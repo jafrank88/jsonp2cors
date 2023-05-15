@@ -96,11 +96,11 @@ app.get('/api/CAP/', (req, res) => {
     let capcallback = req.query.callback;
     axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&page_size=5&ordering=-decision_date&search=' + capuserrequest)
       .then(function (response) {
-        if (response.data.count > 5) {
-          response.data.count = 5;
+        if (response.data.count > 15) {
+          response.data.count = 15;
         }
-        if (response.data.page_size > 5) {
-          response.data.page_size = 5;
+        if (response.data.page_size > 15) {
+          response.data.page_size = 15;
         }
         response.data.perpage = 5;
         const capresp = JSON.stringify(response.data);
@@ -136,8 +136,8 @@ app.get('/api/UWDC/', (req, res) => {
       }
     }).then(function (response) {
       // only want to show 5 results
-      if (response.data.query_meta.total_hits > 5) {
-        response.data.query_meta.total_hits = 5;
+      if (response.data.query_meta.total_hits > 15) {
+        response.data.query_meta.total_hits = 15;
       }
       let capresp = JSON.stringify(response.data);
       let capresp1 = capresp.replace('"total_hits"', '"total_results"');
@@ -165,11 +165,11 @@ app.get('/api/GOOGB/', (req, res) => {
   axios.get('https://www.googleapis.com/books/v1/volumes?q=' + bUserRequest )
     .then (function(response) {
       let total = response.data.totalItems;
-      if (response.data.totalItems > 5) {
-        total = 5;
+      if (response.data.totalItems > 15) {
+        total = 15;
       }
       results = Array(total).fill(0);
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 15; i++) {
         item = {};
         item.title = response.data.items[i].volumeInfo.title;
         item.url = response.data.items[i].volumeInfo.infoLink;
@@ -197,10 +197,10 @@ app.get('/api/GOOGWARG/', (req, res) => {
   let wargCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=16b5f286be6f64126&key=' + process.env.GOOGLE_API + '&q=' + wargUserRequest )
     .then (function(response) {
-      if (response.data.queries.nextPage[0].totalResults > '5') {
-        response.data.queries.nextPage[0].totalResults = '5';
-        results = [{}, {}, {}, {}, {}];
-        for (let i = 0; i < 5; i++) {
+      if (response.data.queries.nextPage[0].totalResults > '15') {
+        response.data.queries.nextPage[0].totalResults = '15';
+        results = Array(response.data.queries.nextPage[0].totalResults).fill(0);
+        for (let i = 0; i < 15; i++) {
           results[i] = response.data.items[i];
         }
         response.data.items = results;
@@ -224,10 +224,10 @@ app.get('/api/GOOGWLH/', (req, res) => {
   let wlhCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=135ef0d0998ed4a33&key=' + process.env.GOOGLE_API + '&q=' + wlhUserRequest )
      .then (function(response) {
-      if (response.data.queries.nextPage[0].totalResults > '5') {
-        response.data.queries.nextPage[0].totalResults = '5';
-        results = [{}, {}, {}, {}, {}];
-        for (let i = 0; i < 5; i++) {
+      if (response.data.queries.nextPage[0].totalResults > '15') {
+        response.data.queries.nextPage[0].totalResults = '15';
+        results = Array(response.data.queries.nextPage[0].totalResults).fill(0);
+        for (let i = 0; i < 15; i++) {
           results[i] = response.data.items[i];
         }
         response.data.items = results;
@@ -251,10 +251,10 @@ app.get('/api/GOOGWA/', (req, res) => {
   let waCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=e59140f1ca4f44214&key=' + process.env.GOOGLE_API + '&q=' + waUserRequest )
     .then (function(response) {
-      if (response.data.queries.nextPage[0].totalResults > '5') {
-        response.data.queries.nextPage[0].totalResults = '5';
-        results = [{}, {}, {}, {}, {}];
-        for (let i = 0; i < 5; i++) {
+      if (response.data.queries.nextPage[0].totalResults > '15') {
+        response.data.queries.nextPage[0].totalResults = '15';
+        results = Array(response.data.queries.nextPage[0].totalResults).fill(0);
+        for (let i = 0; i < 15; i++) {
           results[i] = response.data.items[i];
         }
         response.data.items = results;
@@ -278,10 +278,10 @@ app.get('/api/GOOGRCW/', (req, res) => {
     let rcwCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=e6de7f98f8313475c&key=' + process.env.GOOGLE_API + '&q=' + rcwUserRequest)
     .then (function(response) {
-      if (response.data.queries.nextPage[0].totalResults > '5') {
-        response.data.queries.nextPage[0].totalResults = '5';
-        results = [{}, {}, {}, {}, {}];
-        for (let i = 0; i < 5; i++) {
+      if (response.data.queries.nextPage[0].totalResults > '15') {
+        response.data.queries.nextPage[0].totalResults = '15';
+        results = Array(response.data.queries.nextPage[0].totalResults).fill(0);
+        for (let i = 0; i < 15; i++) {
           results[i] = response.data.items[i];
         }
         response.data.items = results;
@@ -305,10 +305,10 @@ app.get('/api/GOOGWAC/', (req, res) => {
     let wacCallback = req.query.callback;
     axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=065d0f2474d164d55&key=' + process.env.GOOGLE_API + '&q=' + wacUserRequest)
       .then (function(response) {
-        if (response.data.queries.nextPage[0].totalResults > '5') {
-          response.data.queries.nextPage[0].totalResults = '5';
-          results = [{}, {}, {}, {}, {}];
-          for (let i = 0; i < 5; i++) {
+        if (response.data.queries.nextPage[0].totalResults > '15') {
+          response.data.queries.nextPage[0].totalResults = '15';
+          results = Array(response.data.queries.nextPage[0].totalResults).fill(0);
+          for (let i = 0; i < 15; i++) {
             results[i] = response.data.items[i];
           }
           response.data.items = results;
