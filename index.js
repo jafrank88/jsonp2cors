@@ -61,29 +61,29 @@ app.get('/api/CL/', (req, res) => {
   } else {
     let clcallback = req.query.callback
     axios.get('https://courtlistener.com/api/rest/v3/search/?court=wash&q=' + clUserRequest) // 'https://courtlistener.com/api/rest/v3/search/?court=wash washctapp&q='
-      .then (function (response) {
-        // ensure that only the first 5 results are returned by only saving the first 5 results returned
-        if (response.data.count > 15) {
-          response.data.count = 15;
-          results = Array(response.data.count).fill(0);
-          for (let i = 0; i < 15; i++) {
-            results[i] = response.data.results[i];
-          }
-          response.data.results = results;
+    .then (function (response) {
+      // ensure that only the first 5 results are returned by only saving the first 5 results returned
+      if (response.data.count > 15) {
+        response.data.count = 15;
+        results = Array(response.data.count).fill(0);
+        for (let i = 0; i < 15; i++) {
+          results[i] = response.data.results[i];
         }
-        let clresp = JSON.stringify(response.data);
-        let cloutput = clresp.replace('"count"', '"total_results"');
-        let cloutput2 = cloutput.replace('"next"', '"perpage":5,"next"');
-        let cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"');
-        let cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/');
-        let cloutput5 = cloutput4.replaceAll('"caseName"', '"title"');
-        res
-          .type('application/javascript')
-          .send(clcallback + '(' + cloutput5 + ');')
-      }) //cloutput5 already is just the response.data
-      .catch(function (error) {
-        res.end();
-      });
+        response.data.results = results;
+      }
+      let clresp = JSON.stringify(response.data);
+      let cloutput = clresp.replace('"count"', '"total_results"');
+      let cloutput2 = cloutput.replace('"next"', '"perpage":5,"next"');
+      let cloutput3 = cloutput2.replaceAll('"absolute_url"', '"url"');
+      let cloutput4 = cloutput3.replaceAll('/opinion/',  'https://www.courtlistener.com/opinion/');
+      let cloutput5 = cloutput4.replaceAll('"caseName"', '"title"');
+      res
+        .type('application/javascript')
+        .send(clcallback + '(' + cloutput5 + ');')
+    }) //cloutput5 already is just the response.data
+    .catch(function (error) {
+      res.end();
+    });
   }
 });
 
@@ -95,24 +95,24 @@ app.get('/api/CAP/', (req, res) => {
   } else {
     let capcallback = req.query.callback;
     axios.get('https://api.case.law/v1/cases/?jurisdiction=wash&page_size=15&ordering=-decision_date&search=' + capuserrequest)
-      .then(function (response) {
-        if (response.data.count > 15) {
-          response.data.count = 15;
-        }
-        if (response.data.page_size > 15) {
-          response.data.page_size = 15;
-        }
-        response.data.perpage = 5;
-        const capresp = JSON.stringify(response.data);
-        const capresp1 = capresp.replace('"count"', '"total_results"');
-        const capresp2 = capresp1.replace('"page_size"', '"perpage"');
-        const capresp3 = capresp2.replaceAll('"url"', '"uurl"');
-        const capresp4 = capresp3.replaceAll('"frontend_url"', '"url"');
-        const capout = capresp4.replaceAll('"name_abbreviation"','"title"');
-        res.type('application/javascript').send(capcallback + '(' + capout + ');');
-      }).catch(function (error) {
-        res.end();
-      });
+    .then(function (response) {
+      if (response.data.count > 15) {
+        response.data.count = 15;
+      }
+      if (response.data.page_size > 15) {
+        response.data.page_size = 15;
+      }
+      response.data.perpage = 5;
+      const capresp = JSON.stringify(response.data);
+      const capresp1 = capresp.replace('"count"', '"total_results"');
+      const capresp2 = capresp1.replace('"page_size"', '"perpage"');
+      const capresp3 = capresp2.replaceAll('"url"', '"uurl"');
+      const capresp4 = capresp3.replaceAll('"frontend_url"', '"url"');
+      const capout = capresp4.replaceAll('"name_abbreviation"','"title"');
+      res.type('application/javascript').send(capcallback + '(' + capout + ');');
+    }).catch(function (error) {
+      res.end();
+    });
   }
 });
 
@@ -222,22 +222,22 @@ app.get('/api/GOOGWLH/', (req, res) => {
   } else {
   let wlhCallback = req.query.callback;
   axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=135ef0d0998ed4a33&key=' + process.env.GOOGLE_API + '&q=' + wlhUserRequest )
-     .then (function(response) {
-      if (response.data.queries.nextPage[0].totalResults > '15') {
-        response.data.queries.nextPage[0].totalResults = '15';
-        results = Array(response.data.queries.nextPage[0].totalResults).fill(0);
-        for (let i = 0; i < 15; i++) {
-          results[i] = response.data.items[i];
-        }
-        response.data.items = results;
+    .then (function(response) {
+    if (response.data.queries.nextPage[0].totalResults > '15') {
+      response.data.queries.nextPage[0].totalResults = '15';
+      results = Array(response.data.queries.nextPage[0].totalResults).fill(0);
+      for (let i = 0; i < 15; i++) {
+        results[i] = response.data.items[i];
       }
-      let googResp = JSON.stringify(response.data);
-      let googOut = googFix(googResp);
-      let googDone = googOut.replace(/a33\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, 'a33","res');
-      res.type('application/javascript').send(wlhCallback + '(' + googDone + ');');
-     }).catch(function (error) {
-      res.end();
-     });
+      response.data.items = results;
+    }
+    let googResp = JSON.stringify(response.data);
+    let googOut = googFix(googResp);
+    let googDone = googOut.replace(/a33\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, 'a33","res');
+    res.type('application/javascript').send(wlhCallback + '(' + googDone + ');');
+    }).catch(function (error) {
+    res.end();
+    });
   } 
 });
 
@@ -264,7 +264,9 @@ app.get('/api/GOOGWA/', (req, res) => {
       res.type('application/javascript').send(waCallback + '(' + googDone + ');');
     }).catch(function (error) {
       res.end();
-
+    });
+  }
+});
     
 app.get('/api/GOOGRCW/', (req, res) => {
    let rcwUserRequest = req.query.q;
@@ -300,23 +302,23 @@ app.get('/api/GOOGWAC/', (req, res) => {
   } else {
     let wacCallback = req.query.callback;
     axios.get('https://www.googleapis.com/customsearch/v1/siterestrict?alt=json&cx=065d0f2474d164d55&key=' + process.env.GOOGLE_API + '&q=' + wacUserRequest)
-      .then (function(response) {
-        if (response.data.queries.nextPage[0].totalResults > '15') {
-          response.data.queries.nextPage[0].totalResults = '15';
-          results = Array(response.data.queries.nextPage[0].totalResults).fill(0);
-          for (let i = 0; i < 15; i++) {
-            results[i] = response.data.items[i];
-          }
-          response.data.items = results;
+    .then (function(response) {
+      if (response.data.queries.nextPage[0].totalResults > '15') {
+        response.data.queries.nextPage[0].totalResults = '15';
+        results = Array(response.data.queries.nextPage[0].totalResults).fill(0);
+        for (let i = 0; i < 15; i++) {
+          results[i] = response.data.items[i];
         }
-      let googResp = JSON.stringify(response.data);
-      let googOut = googFix(googResp);
-      let googDone = googOut.replace(/d55\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, 'd55","res');
-      res.type('application/javascript').send(wacCallback + '(' + googDone + ');');
-      }) 
-      .catch(function (error) {
-        res.end();
-      });
+        response.data.items = results;
+      }
+    let googResp = JSON.stringify(response.data);
+    let googOut = googFix(googResp);
+    let googDone = googOut.replace(/d55\"\s*?\}\s*?\]\s*?\}\,[\s\S]*?\"res/m, 'd55","res');
+    res.type('application/javascript').send(wacCallback + '(' + googDone + ');');
+    }) 
+    .catch(function (error) {
+      res.end();
+    });
   }
 });
 
