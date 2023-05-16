@@ -62,7 +62,7 @@ app.get('/api/CL/', (req, res) => {
     let clcallback = req.query.callback
     axios.get('https://courtlistener.com/api/rest/v3/search/?court=wash&q=' + clUserRequest) // 'https://courtlistener.com/api/rest/v3/search/?court=wash washctapp&q='
     .then (function (response) {
-      // ensure that only the first 5 results are returned by only saving the first 5 results returned
+      // ensure that only the first 15 results are returned by only saving the first 15 results returned
       if (response.data.count > 15) {
         response.data.count = 15;
         results = Array(response.data.count).fill(0);
@@ -135,7 +135,7 @@ app.get('/api/UWDC/', (req, res) => {
         'authorization': process.env.DIGITAL_COMMONS
       }
     }).then(function (response) {
-      // only want to show 5 results
+      // only want to show 15 results if available
       if (response.data.query_meta.total_hits > 15) {
         response.data.query_meta.total_hits = 15;
       }
@@ -321,6 +321,9 @@ app.get('/api/GOOGWAC/', (req, res) => {
     });
   }
 });
+
+// Code edited by Emilie Hoy for the University of Washington's Gallagher Law Library. Last edit: 05-15-23.
+
 
 app.listen(PORT, (err) => {
     if (err) {
